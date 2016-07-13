@@ -1,4 +1,4 @@
-﻿namespace DriversBackup
+﻿namespace DriversBackup.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
