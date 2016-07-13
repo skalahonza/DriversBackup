@@ -1,11 +1,9 @@
-<common:BootStrapper x:Class="DriversBackup.App"
-                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                     xmlns:common="using:Template10.Common"
-                     RequestedTheme="Light">
-
+﻿<Application x:Class="DriversBackup.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:DriversBackup"
+             StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <ResourceDictionary Source="Styles\Custom.xaml" />
+         
     </Application.Resources>
-
-</common:BootStrapper>
+</Application>

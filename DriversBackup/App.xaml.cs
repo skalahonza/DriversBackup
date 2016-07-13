@@ -1,28 +1,17 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.Activation;
-using Windows.UI.Xaml.Data;
+using System.Windows;
 
 namespace DriversBackup
 {
-    /// Documentation on APIs used in this page:
-    /// https://github.com/Windows-XAML/Template10/wiki
-
-    [Bindable]
-    sealed partial class App : Template10.Common.BootStrapper
+    /// <summary>
+    /// Interaction logic for App.xaml
+    /// </summary>
+    public partial class App : Application
     {
-        public App() { InitializeComponent(); }
-
-        public override async Task OnInitializeAsync(IActivatedEventArgs args)
-        {
-            await Task.CompletedTask;
-        }
-
-        public override async Task OnStartAsync(StartKind startKind, IActivatedEventArgs args)
-        {
-            NavigationService.Navigate(typeof(Views.MainPage));
-            await Task.CompletedTask;
-        }
     }
 }
-
