@@ -1,14 +1,11 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading;
 using Microsoft.Win32;
 
 namespace DriversBackup.Models
-{
-    [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
+{  
     public class DriverBackup
     {
         public string WindowsRoot;
@@ -19,41 +16,33 @@ namespace DriversBackup.Models
         /// </summary>
         public DriverBackup()
         {
-            /*
-             * URI to the System32 folder.
-             */
+            // URI to the System32 folder.             
             WindowsRoot = Environment.GetEnvironmentVariable("SystemRoot") + "\\";
             SystemRoot = WindowsRoot + "system32\\";
         }
-
         /// <summary>
         /// Returns a list of drivers registered on a system.
         /// </summary>
         /// <returns>ArrayList containing driver information</returns>
         public List<DriverInformation> ListDrivers(bool showMicrosoft)
         {
-            List<DriverInformation> driverList = new List<DriverInformation>();
+            var driverList = new List<DriverInformation>();
 
-            /*
-             * Open registry and get a list of device types.
-             */
+            // Open registry and get a list of device types.
+             
             var regDeviceGuiDs = Registry.LocalMachine.OpenSubKey("SYSTEM\\CurrentControlSet\\Control\\Class\\");
             var deviceGuiDs = regDeviceGuiDs?.GetSubKeyNames();
-
-            /*
-             * Iterate through devices.
-             */
+             // Iterate through devices.
+             
+            // ReSharper disable once PossibleNullReferenceException
             foreach (var deviceGuid in deviceGuiDs)
             {
-                /*
-                 * Get drivers assigned to each device type.
-                 */
+                // Get drivers assigned to each device type.                 
                 var regDevice = Registry.LocalMachine.OpenSubKey("SYSTEM\\CurrentControlSet\\Control\\Class\\" + deviceGuid);
                 var regDeviceSubkeys = regDevice?.GetSubKeyNames();
 
-                /*
-                 * For each driver, get the information on it (provider, type etc).
-                 */
+               // For each driver, get the information on it (provider, type etc).
+                
                 foreach (var regDriverNumber in regDeviceSubkeys)
                 {
                     string tmpProvider = "", tmpDesc = "";
@@ -63,9 +52,8 @@ namespace DriversBackup.Models
 
                         try
                         {
-                            /*
-                             * Add information to our ArrayList.
-                             */
+                            // Add information to our ArrayList.
+                             
                             tmpDesc = regDriver.GetValue("DriverDesc").ToString();
                             tmpProvider = regDriver.GetValue("ProviderName").ToString();
                         }
@@ -74,10 +62,8 @@ namespace DriversBackup.Models
                             //TODO Handle exception
                         }
 
-                        /*
-                         * If any of the information checks out as rubbish, discard this driver.
-                         * Hash, but fair.
-                         */
+                        // If any of the information checks out as rubbish, discard this driver.
+
                         if (tmpProvider.Length > 0 && tmpDesc.Length > 0)
                         {
                             if (tmpProvider != "Microsoft")
@@ -112,7 +98,6 @@ namespace DriversBackup.Models
 
             return driverList;
         }
-
         /// <summary>
         /// Creates a thread of backupDriverExec. No more, no less.
         /// </summary>
@@ -127,34 +112,29 @@ namespace DriversBackup.Models
             backupThread.Start(driverInfo);
 
         }
-
         /// <summary>
         /// Backs up the given device driver.
         /// </summary>
         private void BackupDriverExec(object driverInfoObj)
         {
-            /*
-             * Driver Info.
-             */
+            // Driver Info.
+             
             var driverInfoArray = (string[])driverInfoObj;
             var classGuid = driverInfoArray[0];
             var driverId = driverInfoArray[1];
             var backupLocation = driverInfoArray[2];
-            string infFile, infFilePath;
-            string driverDesc;
 
             var regDriverType = Registry.LocalMachine.OpenSubKey("SYSTEM\\CurrentControlSet\\Control\\Class\\" + classGuid);
             var driverType = regDriverType?.GetValue("Class").ToString();
 
             var driverInfo = Registry.LocalMachine.OpenSubKey("SYSTEM\\CurrentControlSet\\Control\\Class\\" + classGuid + "\\" + driverId);
-            driverDesc = driverInfo?.GetValue("DriverDesc").ToString();
-            infFile = driverInfo?.GetValue("InfPath").ToString();
-            infFilePath = WindowsRoot + "inf\\" + infFile;
+            var driverDesc = driverInfo?.GetValue("DriverDesc").ToString();
+            var infFile = driverInfo?.GetValue("InfPath").ToString();
+            var infFilePath = WindowsRoot + "inf\\" + infFile;
 
-            /*
-             * Create backup directory.
-             */
-            if (driverType.Length > 0)
+            //Create backup directory.
+             
+            if (!string.IsNullOrEmpty(driverType))
             {
                 Directory.CreateDirectory(backupLocation + driverType);
             }
@@ -162,20 +142,18 @@ namespace DriversBackup.Models
 
 
 
-            /*
-             * Copy over inf file.
-             */
+            // Copy over inf file.
+             
             try
             {
                 File.Copy(infFilePath, backupLocation + driverType + "\\" + driverDesc + "\\" + infFile);
             }
             catch (IOException)
             {
+                //TODO Handle exception
             }
 
-            /*
-             * Backup driver files.
-             */
+            // Backup driver files.
             var driverIniFile = new IniFiles();
             var driverFiles = driverIniFile.GetKeys(infFilePath, "SourceDisksFiles");
 
@@ -184,36 +162,32 @@ namespace DriversBackup.Models
                 try
                 {
                     /*
-                     * El-Cheapo driver companies put weird things like %SYSFILE%
-                     * in their inf files, no idea what this does. So ignore it.
+                      El-Cheapo driver companies put weird things like %SYSFILE%
+                      in their inf files, no idea what this does. So ignore it.
                      */
-                    if (driverFile.Split('.').Length > 1)
+                    if (driverFile.Split('.').Length <= 1) continue;
+                    // Copy driver files from the right place.
+                         
+                    switch (driverFile.Split('.')[1])
                     {
-                        /*
-                         * Copy driver files from the right place.
-                         */
-                        if (driverFile.Split('.')[1] == "hlp")
-                        {
+                        case "hlp":
                             File.Copy(WindowsRoot + "Help\\" + driverFile, backupLocation + driverType + "\\" + driverDesc + "\\" + driverFile);
-                        }
-                        else if (driverFile.Split('.')[1] == "sys")
-                        {
+                            break;
+                        case "sys":
                             File.Copy(SystemRoot + "drivers\\" + driverFile, backupLocation + driverType + "\\" + driverDesc + "\\" + driverFile);
-                        }
-                        else
-                        {
+                            break;
+                        default:
                             File.Copy(SystemRoot + driverFile, backupLocation + driverType + "\\" + driverDesc + "\\" + driverFile);
-                        }
+                            break;
                     }
                 }
                 catch (IOException)
                 {
+                    //TODO Handle exception
                 }
             }
 
-            /*
-             * Close registry.
-             */
+            // Close registry.             
             regDriverType?.Close();
             driverInfo?.Close();
         }

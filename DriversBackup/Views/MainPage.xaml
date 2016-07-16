@@ -1,0 +1,66 @@
+﻿<Page x:Class="DriversBackup.Views.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:DriversBackup.Views"
+      xmlns:viewModels="clr-namespace:DriversBackup.ViewModels"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      Title="MainPage">
+    <Page.DataContext>
+        <viewModels:MainPageViewModel/>
+    </Page.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Drivers" Style="{StaticResource PageHeader}"/>
+            <Button Grid.Column="1" Content="Settings" HorizontalAlignment="Right" Margin="5"/>
+        </Grid>
+        <Grid Grid.Row="1" Margin="10,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Driver ID"/>
+            <TextBlock Grid.Column="1" Text="Description" />
+            <TextBlock Grid.Column="2" Text="Backup" TextAlignment="Center"/>
+        </Grid>
+        <ListView Grid.Row="2" x:Name="ListView" ItemsSource="{Binding Drivers, Mode=TwoWay}" Padding="5" HorizontalContentAlignment="Stretch">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="38"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding DriverProvider}" TextTrimming="CharacterEllipsis"/>
+                        <TextBlock Grid.Column="1" Text="{Binding DriverDescription}" TextWrapping="WrapWithOverflow" TextAlignment="Left" />
+                        <CheckBox Grid.Column="2" IsChecked="{Binding IsSelected, Mode=TwoWay}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button Content="Save drivers" Command="{Binding SaveSelectedDrivers}"/>
+            <Button Grid.Column="1" Content="Select all" Command="{Binding SelectAll}"/>
+            <Button Grid.Column="2" Content="Save destination" />
+        </Grid>
+    </Grid>
+</Page>

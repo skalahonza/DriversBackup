@@ -1,21 +1,25 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Forms;
 using DriversBackup.Models;
+using DriversBackup.MVVM;
+using DriversBackup.Views;
 using WpfViewModelBase;
 
 namespace DriversBackup.ViewModels
 {
-    public class MainWindowViewModel:ViewModelBase
+    public class MainPageViewModel:ViewModelBase
     {
-        private List<DriverInformation> drivers = new List<DriverInformation>();
+        private ObservableCollection<DriverInformation> drivers = new ObservableCollection<DriverInformation>();
 
-        public MainWindowViewModel()
+        public MainPageViewModel()
         {
             var controlelr = new DriverBackup();
-            Drivers = controlelr.ListDrivers(false);
+            Drivers = new ObservableCollection<DriverInformation>(controlelr.ListDrivers(false));
         }
 
-        public List<DriverInformation> Drivers
+        public ObservableCollection<DriverInformation> Drivers
         {
             get { return drivers; }
             set
@@ -25,19 +29,30 @@ namespace DriversBackup.ViewModels
             }
         }
 
+        #region Commands
         public RelayCommand SaveSelectedDrivers => new RelayCommand(() =>
         {
             var folder = new FolderBrowserDialog();
-            if (folder.ShowDialog() == DialogResult.OK)
+            if (folder.ShowDialog() != DialogResult.OK) return;
+            foreach (var driver in Drivers.Where(x => x.IsSelected))
             {
-                foreach (var driver in Drivers)
-                {
-
-                    var controller = new DriverBackup();
-                    controller.BackupDriver(driver.DriverDeviceGuid, driver.DriverId, folder.SelectedPath + "\\");
-                }
-                MessageBox.Show("Drivers hopefully saved correctly");
+                var controller = new DriverBackup();
+                controller.BackupDriver(driver.DriverDeviceGuid, driver.DriverId, folder.SelectedPath + "\\");
             }
+            MessageBox.Show("Drivers saved.");
         });
+        public RelayCommand SelectAll => new RelayCommand(() =>
+        {
+            //if all are selected, de-select them
+            //if not select all
+            bool select = Drivers.Count != Drivers.Count(x => x.IsSelected);
+            foreach (var driver in Drivers)
+                driver.IsSelected = select;
+        });
+        public RelayCommand GoToSettings => new RelayCommand(() =>
+        {
+            AppContext.MainFrame.Navigate(typeof (SettingsPage));
+        });
+        #endregion
     }
 }
