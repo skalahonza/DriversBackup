@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Forms;
 using DriversBackup.Models;
-using DriversBackup.MVVM;
 using DriversBackup.Views;
 using WpfViewModelBase;
+using AppContext = DriversBackup.MVVM.AppContext;
 
 namespace DriversBackup.ViewModels
 {
@@ -30,15 +31,13 @@ namespace DriversBackup.ViewModels
         }
 
         #region Commands
-        public RelayCommand SaveSelectedDrivers => new RelayCommand(() =>
+        public RelayCommand SaveSelectedDrivers => new RelayCommand(async () =>
         {
             var folder = new FolderBrowserDialog();
             if (folder.ShowDialog() != DialogResult.OK) return;
-            foreach (var driver in Drivers.Where(x => x.IsSelected))
-            {
-                var controller = new DriverBackup();
-                controller.BackupDriver(driver.DriverDeviceGuid, driver.DriverId, folder.SelectedPath + "\\");
-            }
+            var controller = new DriverBackup();
+
+            await controller.BackupDriversAsync(Drivers.Where(x => x.IsSelected), folder.SelectedPath);
             MessageBox.Show("Drivers saved.");
         });
         public RelayCommand SelectAll => new RelayCommand(() =>
@@ -51,7 +50,7 @@ namespace DriversBackup.ViewModels
         });
         public RelayCommand GoToSettings => new RelayCommand(() =>
         {
-            AppContext.MainFrame.Navigate(typeof (SettingsPage));
+            AppContext.MainFrame.Navigate(new SettingsPage());
         });
         #endregion
     }

@@ -6,5 +6,10 @@
         xmlns:viewModels="clr-namespace:DriversBackup.ViewModels"
         mc:Ignorable="d" Loaded="MainWindow_OnLoaded"
         Title="Drivers backup" MinHeight="350" MinWidth="525">
-    <Frame x:Name="MainFrame" Source="MainPage.xaml" NavigationUIVisibility="Hidden"/>
+    <Window.Resources>
+        <ResourceDictionary Source="../Styles/General.xaml"/>
+    </Window.Resources>
+    <Grid>
+        <Frame x:Name="MainFrame" Source="MainPage.xaml" NavigationUIVisibility="Hidden"/>
+    </Grid>
 </Window>

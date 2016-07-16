@@ -6,48 +6,77 @@
       xmlns:local="clr-namespace:DriversBackup.Views"
       xmlns:viewModels="clr-namespace:DriversBackup.ViewModels"
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
+      d:DesignHeight="768" d:DesignWidth="1024"
       Title="MainPage">
     <Page.DataContext>
         <viewModels:MainPageViewModel/>
     </Page.DataContext>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition />
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Text="Drivers" Style="{StaticResource PageHeader}"/>
-            <Button Grid.Column="1" Content="Settings" HorizontalAlignment="Right" Margin="5"/>
-        </Grid>
+        <Border>
+            <Border.Background>
+                <ImageBrush ImageSource="/DriversBackup;component/Content/Images/ScratchedTexture.png"/>
+            </Border.Background>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Drivers" Style="{StaticResource PageHeader}" />
+                <Button Grid.Column="1" HorizontalAlignment="Right" Margin="5,5,15,5" Background="Transparent"
+    				FontSize="25" Command="{Binding GoToSettings}" Style="{StaticResource FancyButton}"
+    				BorderBrush="{StaticResource BlueAccent}" Foreground="White">
+                    <WrapPanel>
+                        <TextBlock Text="&#xE713;" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center"/>
+                        <TextBlock Text="Settings" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                    </WrapPanel>
+                </Button>
+            </Grid>
+        </Border>
         <Grid Grid.Row="1" Margin="10,5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Driver ID"/>
-            <TextBlock Grid.Column="1" Text="Description" />
-            <TextBlock Grid.Column="2" Text="Backup" TextAlignment="Center"/>
+            <Button>
+                <Button.Content>
+                    Driver ID
+                </Button.Content>
+            </Button>
+            <Button Grid.Column="1" Margin="5,0,0,0">
+                <Button.Content>
+                    Description
+                </Button.Content>
+            </Button>
+            <Button Grid.Column="2">
+                <Button.Content>
+                    Backup
+                </Button.Content>
+            </Button>
         </Grid>
         <ListView Grid.Row="2" x:Name="ListView" ItemsSource="{Binding Drivers, Mode=TwoWay}" Padding="5" HorizontalContentAlignment="Stretch">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="150"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="38"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="{Binding DriverProvider}" TextTrimming="CharacterEllipsis"/>
-                        <TextBlock Grid.Column="1" Text="{Binding DriverDescription}" TextWrapping="WrapWithOverflow" TextAlignment="Left" />
+                        <TextBlock Grid.Column="1" Text="{Binding DriverDescription}" TextWrapping="WrapWithOverflow" TextAlignment="Left" Margin="5,0,0,0"/>
                         <CheckBox Grid.Column="2" IsChecked="{Binding IsSelected, Mode=TwoWay}"/>
+                        <Separator Grid.Row="1" Grid.ColumnSpan="3"/>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
@@ -56,11 +85,19 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
-                <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Button Content="Save drivers" Command="{Binding SaveSelectedDrivers}"/>
-            <Button Grid.Column="1" Content="Select all" Command="{Binding SelectAll}"/>
-            <Button Grid.Column="2" Content="Save destination" />
+            <Button Command="{Binding SaveSelectedDrivers}" Style="{StaticResource FancyButton}" FontSize="15" BorderBrush="{StaticResource GreenAccent}">
+                <WrapPanel>
+                    <TextBlock Text="&#xE74E;" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center"/>
+                    <TextBlock Text="Save" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                </WrapPanel>
+            </Button>
+            <Button Grid.Column="1" Command="{Binding SelectAll}" Style="{StaticResource FancyButton}" FontSize="15" BorderBrush="{StaticResource BlueAccent}">
+                <WrapPanel>
+                    <TextBlock Text="&#xE133;" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center"/>
+                    <TextBlock Text="Select all" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                </WrapPanel>
+            </Button>
         </Grid>
     </Grid>
 </Page>

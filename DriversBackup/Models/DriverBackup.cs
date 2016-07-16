@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.Win32;
 
 namespace DriversBackup.Models
@@ -110,8 +111,23 @@ namespace DriversBackup.Models
             var backupThread = new Thread(BackupDriverExec);
 
             backupThread.Start(driverInfo);
-
         }
+        public void BackupDriver(DriverInformation driver, string saveFolder)
+        {
+            BackupDriver(driver.DriverDeviceGuid,driver.DriverId,saveFolder + "\\");
+        }
+
+        public async Task BackupDriversAsync(IEnumerable<DriverInformation> drivers, string saveFolder)
+        {
+            await Task.Run(() =>
+            {
+                foreach (var driver in drivers)
+                {
+                    BackupDriver(driver, saveFolder);
+                }
+            });
+        }
+
         /// <summary>
         /// Backs up the given device driver.
         /// </summary>
