@@ -4,9 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DriversBackup.Views"
+        xmlns:viewModels="clr-namespace:DriversBackup.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
+    <Window.DataContext>
+        <viewModels:MainWindowViewModel/>
+    </Window.DataContext>
     <Grid>
-        <TextBlock Text="Hello world"/>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <DataGrid ItemsSource="{Binding Drivers}"/>   
+        <Button Grid.Row="1" Content="Save all drivers" Command="{Binding SaveSelectedDrivers}"/>
     </Grid>
 </Window>
