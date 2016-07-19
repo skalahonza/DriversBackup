@@ -116,7 +116,6 @@ namespace DriversBackup.Models
         {
             BackupDriver(driver.DriverDeviceGuid,driver.DriverId,saveFolder + "\\");
         }
-
         public async Task BackupDriversAsync(IEnumerable<DriverInformation> drivers, string saveFolder)
         {
             await Task.Run(() =>
@@ -127,7 +126,6 @@ namespace DriversBackup.Models
                 }
             });
         }
-
         /// <summary>
         /// Backs up the given device driver.
         /// </summary>

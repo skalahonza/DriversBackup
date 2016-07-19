@@ -13,11 +13,24 @@ namespace DriversBackup.ViewModels
     public class MainPageViewModel:ViewModelBase
     {
         private ObservableCollection<DriverInformation> drivers = new ObservableCollection<DriverInformation>();
+        private SortBy previousSortType;
+        private string search = "";
+        private List<DriverInformation> allDrivers = new List<DriverInformation>();
+
+        enum SortBy
+        {
+            Undefined,
+            Search,
+            DriverId,
+            Description,
+            Backup
+        }
 
         public MainPageViewModel()
         {
-            var controlelr = new DriverBackup();
-            Drivers = new ObservableCollection<DriverInformation>(controlelr.ListDrivers(false));
+            var controller = new DriverBackup();
+            Drivers = new ObservableCollection<DriverInformation>(controller.ListDrivers(false));
+            allDrivers = new List<DriverInformation>(Drivers);
         }
 
         public ObservableCollection<DriverInformation> Drivers
@@ -29,6 +42,19 @@ namespace DriversBackup.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        public string Search
+        {
+            get { return search; }
+            set
+            {
+                search = value;
+                OnPropertyChanged();
+                OnPropertyChanged("SearchActive");
+            }
+        }
+
+        public bool SearchActive => !string.IsNullOrEmpty(Search);
 
         #region Commands
         public RelayCommand SaveSelectedDrivers => new RelayCommand(async () =>
@@ -52,6 +78,63 @@ namespace DriversBackup.ViewModels
         {
             AppContext.MainFrame.Navigate(new SettingsPage());
         });
+
+        public GenericRelayCommand<string> SortByCommand => new GenericRelayCommand<string>(s =>
+        {
+            SortBy sortType;
+            if (Enum.TryParse(s, out sortType))
+            {
+                var driversList = allDrivers;
+                //if the same sort type is used, just revers the list
+                if (sortType == previousSortType && sortType != SortBy.Search)
+                    driversList.Reverse();
+                else
+                    switch (sortType)
+                    {
+                        case SortBy.DriverId:
+                            driversList.Sort(
+                                (a, b) => string.Compare(a.DriverProvider, b.DriverProvider, StringComparison.Ordinal));
+                            break;
+                        case SortBy.Description:
+                            driversList.Sort(
+                                (a, b) =>
+                                    string.Compare(a.DriverDescription, b.DriverDescription, StringComparison.Ordinal));
+                            break;
+                        case SortBy.Backup:
+                            driversList.Sort((a, b) => a.IsSelected.CompareTo(b.IsSelected));
+                            break;
+                        case SortBy.Search:
+                            //empty drivers in GUI
+                            Drivers.Clear();
+
+                            //search in driver provider
+                            foreach (
+                                var driverInformation in
+                                    driversList.Where(x => x.DriverProvider.ToLower().Contains(Search.ToLower())))
+                                Drivers.Add(driverInformation);
+                            //search in driver description
+                            foreach (
+                                var driverInformation in
+                                    driversList.Where(x => x.DriverDescription.ToLower().Contains(Search.ToLower())))
+
+                                if (!Drivers.Contains(driverInformation))
+                                    Drivers.Add(driverInformation);
+                            return;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                //Show newly sorted rivers on the UI
+                Drivers = new ObservableCollection<DriverInformation>(driversList);
+                //save sort type
+                previousSortType = sortType;
+            }
+        });
+
+        public RelayCommand CancelSearch => new RelayCommand(() =>
+        {
+            Search = "";
+        });
+
         #endregion
     }
 }

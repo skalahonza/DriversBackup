@@ -5,16 +5,22 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:DriversBackup.Views"
       xmlns:viewModels="clr-namespace:DriversBackup.ViewModels"
+      xmlns:controls="clr-namespace:DriversBackup.Controls"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d" 
       d:DesignHeight="768" d:DesignWidth="1024"
       Title="MainPage">
+    <Page.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </Page.Resources>
     <Page.DataContext>
         <viewModels:MainPageViewModel/>
     </Page.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
             <RowDefinition />
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
@@ -38,29 +44,60 @@
                 </Button>
             </Grid>
         </Border>
-        <Grid Grid.Row="1" Margin="10,5">
+        <!--Search textbox -->
+        <Grid Grid.Row="1">
+            <controls:PlaceholderTextBox Text="{Binding Search, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" PlaceholderText="Search..." 
+                                         Padding="5,0,0,0" FontSize="20" VerticalContentAlignment="Center" BorderThickness="0,0,0,1">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="TextChanged" >
+                        <i:InvokeCommandAction Command="{Binding SortByCommand}" CommandParameter="Search"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </controls:PlaceholderTextBox>
+            <Button Content="&#xE711;" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right"  Style="{StaticResource FancyButton}" 
+            		BorderBrush="Transparent" FontSize="20" Background="Transparent"  Height="30" Margin="5" Command="{Binding CancelSearch}" 
+                    Visibility="{Binding SearchActive, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}"/>
+        </Grid>
+        <!--Sorting buttons -->
+        <Grid Grid.Row="2" Margin="10,5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
-            <Button>
+            <Grid.Resources>
+                <Style TargetType="Button" BasedOn="{StaticResource FancyButton}">
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="FontSize" Value="18"/>
+                </Style>
+            </Grid.Resources>
+            <Button ToolTip="Sort by Driver Id" Command="{Binding SortByCommand}" CommandParameter="DriverId">
                 <Button.Content>
-                    Driver ID
+                    <WrapPanel>
+                        <TextBlock Text="&#xEA37;" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center"/>
+                        <TextBlock Text="Driver ID" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                    </WrapPanel>
                 </Button.Content>
             </Button>
-            <Button Grid.Column="1" Margin="5,0,0,0">
+            <Button Grid.Column="1" Margin="5,0,0,0" ToolTip="Sort by Description" Command="{Binding SortByCommand}" CommandParameter="Description">
                 <Button.Content>
-                    Description
+                    <WrapPanel>
+                        <TextBlock Text="&#xE7C3;" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center"/>
+                        <TextBlock Text="Description" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                    </WrapPanel>
                 </Button.Content>
             </Button>
-            <Button Grid.Column="2">
+            <Button Grid.Column="2" ToolTip="Sort by Backup" Command="{Binding SortByCommand}" CommandParameter="Backup">
                 <Button.Content>
-                    Backup
+                    <WrapPanel>
+                        <TextBlock Text="&#xE896;" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center"/>
+                        <TextBlock Text="Backup" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                    </WrapPanel>
                 </Button.Content>
             </Button>
         </Grid>
-        <ListView Grid.Row="2" x:Name="ListView" ItemsSource="{Binding Drivers, Mode=TwoWay}" Padding="5" HorizontalContentAlignment="Stretch">
+        <ListView Grid.Row="3" x:Name="ListView" ItemsSource="{Binding Drivers, Mode=TwoWay}" Padding="5" HorizontalContentAlignment="Stretch">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -81,7 +118,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Grid Grid.Row="3">
+        <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />

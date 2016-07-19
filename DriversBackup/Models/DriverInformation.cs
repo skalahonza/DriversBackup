@@ -20,7 +20,6 @@ namespace DriversBackup.Models
         public string DriverDescription { get; }
         public string DriverDeviceGuid { get; }
         public string DriverId { get; }
-
         public bool IsSelected
         {
             get { return isSelected; }
