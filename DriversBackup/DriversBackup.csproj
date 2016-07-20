@@ -63,8 +63,17 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Controls\PlaceholderTextBox.cs" />
+    <Compile Include="Converters\ButtonTypeToColorConverter.cs" />
+    <Compile Include="Models\ActionButton.cs" />
+    <Compile Include="Models\EnumSettingsItem.cs" />
+    <Compile Include="Models\SettingsBase.cs" />
+    <Compile Include="Models\TriggerSettingsItem.cs" />
     <Compile Include="MVVM\AppContext.cs" />
+    <Compile Include="ViewModels\MessageDialogViewModel.cs" />
     <Compile Include="ViewModels\SettingsPageViewModel.cs" />
+    <Compile Include="Views\Controls\MessageDialog.xaml.cs">
+      <DependentUpon>MessageDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -72,6 +81,10 @@
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Page Include="Styles\General.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\MessageDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -127,7 +140,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Content\Icons\feature.settings.png" />

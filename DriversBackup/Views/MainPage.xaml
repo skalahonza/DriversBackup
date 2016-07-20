@@ -7,6 +7,7 @@
       xmlns:viewModels="clr-namespace:DriversBackup.ViewModels"
       xmlns:controls="clr-namespace:DriversBackup.Controls"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:controls1="clr-namespace:DriversBackup.Views.Controls"
       mc:Ignorable="d" 
       d:DesignHeight="768" d:DesignWidth="1024"
       Title="MainPage">
@@ -136,5 +137,14 @@
                 </WrapPanel>
             </Button>
         </Grid>
+        <!-- Message dialog content presenter -->
+        <ContentControl Grid.Row="3" Content="{Binding MessageDialog}" Visibility="{Binding ShowMessage, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}"
+                        VerticalAlignment="Center" HorizontalAlignment="Center">
+            <ContentControl.ContentTemplate>
+                <DataTemplate>
+                    <controls1:MessageDialog/>
+                </DataTemplate>
+            </ContentControl.ContentTemplate>
+        </ContentControl>
     </Grid>
 </Page>

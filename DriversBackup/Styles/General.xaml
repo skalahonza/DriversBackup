@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converters="clr-namespace:DriversBackup.Converters">
 
     <!-- Colors -->
     <SolidColorBrush x:Key="OrangeAccent" Color="#FF5325"/>
@@ -7,6 +8,7 @@
     <SolidColorBrush x:Key="BlueAccent" Color="#006AB8"/>
     
     <!-- Converters -->
+    <converters:ButtonTypeToColorConverter x:Key="ButtonTypeToColorConverter"/>
     
     <!-- Styles -->
     <Style TargetType="TextBlock" x:Key="PageHeader">
@@ -14,10 +16,18 @@
         <Setter Property="FontSize" Value="25"/>
         <Setter Property="FontWeight" Value="DemiBold"/>
         <Setter Property="Foreground" Value="White"/>
-        
     </Style>
-    
-    
+    <Style TargetType="TextBlock" x:Key="PageSubHeader">
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontWeight" Value="DemiBold"/>
+    </Style>
+    <Style TargetType="TextBlock" x:Key="PageSubLine">
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="FontWeight" Value="DemiBold"/>
+    </Style>
+
     <Style x:Key="FocusVisual">
         <Setter Property="Control.Template">
             <Setter.Value>

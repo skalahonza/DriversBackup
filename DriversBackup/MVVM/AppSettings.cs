@@ -15,7 +15,7 @@ namespace DriversBackup.MVVM
 
         public static void Set(string settingKey, object value)
         {
-            ConfigurationManager.AppSettings[settingKey] = (string) value;
+            ConfigurationManager.AppSettings[settingKey] = value.ToString();
         }
     }
 }

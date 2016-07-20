@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Forms;
 using DriversBackup.Models;
+using DriversBackup.MVVM;
 using DriversBackup.Views;
 using WpfViewModelBase;
 using AppContext = DriversBackup.MVVM.AppContext;
@@ -15,10 +16,13 @@ namespace DriversBackup.ViewModels
         private ObservableCollection<DriverInformation> drivers = new ObservableCollection<DriverInformation>();
         private SortBy previousSortType;
         private string search = "";
-        private List<DriverInformation> allDrivers = new List<DriverInformation>();
+        // ReSharper disable once MemberInitializerValueIgnored
+        private readonly List<DriverInformation> allDrivers = new List<DriverInformation>();
+        private MessageDialogViewModel messageDialog;
 
         enum SortBy
         {
+            // ReSharper disable once UnusedMember.Local
             Undefined,
             Search,
             DriverId,
@@ -29,10 +33,9 @@ namespace DriversBackup.ViewModels
         public MainPageViewModel()
         {
             var controller = new DriverBackup();
-            Drivers = new ObservableCollection<DriverInformation>(controller.ListDrivers(false));
+            Drivers = new ObservableCollection<DriverInformation>(controller.ListDrivers(AppSettings.Get<bool>("showMicrosoft")));
             allDrivers = new List<DriverInformation>(Drivers);
         }
-
         public ObservableCollection<DriverInformation> Drivers
         {
             get { return drivers; }
@@ -42,7 +45,6 @@ namespace DriversBackup.ViewModels
                 OnPropertyChanged();
             }
         }
-
         public string Search
         {
             get { return search; }
@@ -50,11 +52,24 @@ namespace DriversBackup.ViewModels
             {
                 search = value;
                 OnPropertyChanged();
+                // ReSharper disable once ExplicitCallerInfoArgument
                 OnPropertyChanged("SearchActive");
             }
         }
-
         public bool SearchActive => !string.IsNullOrEmpty(Search);
+
+        public MessageDialogViewModel MessageDialog
+        {
+            get { return messageDialog; }
+            set
+            {
+                messageDialog = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(ShowMessage));
+            }
+        }
+
+        public bool ShowMessage => MessageDialog != null;
 
         #region Commands
         public RelayCommand SaveSelectedDrivers => new RelayCommand(async () =>
@@ -64,7 +79,13 @@ namespace DriversBackup.ViewModels
             var controller = new DriverBackup();
 
             await controller.BackupDriversAsync(Drivers.Where(x => x.IsSelected), folder.SelectedPath);
-            MessageBox.Show("Drivers saved.");
+            MessageDialog =
+                new MessageDialogViewModel(
+                    new ObservableCollection<ActionButton>(new List<ActionButton>()
+                    {
+                        new ActionButton("Ok", () => MessageDialog = null, ActionButton.ButtonType.Accept)
+                    }),
+                    "Drivers saved", "Selected drivers have been successfully saved.");
         });
         public RelayCommand SelectAll => new RelayCommand(() =>
         {
@@ -84,7 +105,7 @@ namespace DriversBackup.ViewModels
             SortBy sortType;
             if (Enum.TryParse(s, out sortType))
             {
-                var driversList = allDrivers;
+                var driversList = new List<DriverInformation>(Drivers);
                 //if the same sort type is used, just revers the list
                 if (sortType == previousSortType && sortType != SortBy.Search)
                     driversList.Reverse();
@@ -105,6 +126,7 @@ namespace DriversBackup.ViewModels
                             break;
                         case SortBy.Search:
                             //empty drivers in GUI
+                            driversList = allDrivers;
                             Drivers.Clear();
 
                             //search in driver provider
@@ -116,7 +138,7 @@ namespace DriversBackup.ViewModels
                             foreach (
                                 var driverInformation in
                                     driversList.Where(x => x.DriverDescription.ToLower().Contains(Search.ToLower())))
-
+                                //preen redundant addition
                                 if (!Drivers.Contains(driverInformation))
                                     Drivers.Add(driverInformation);
                             return;
