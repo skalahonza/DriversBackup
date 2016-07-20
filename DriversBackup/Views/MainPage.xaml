@@ -137,14 +137,9 @@
                 </WrapPanel>
             </Button>
         </Grid>
-        <!-- Message dialog content presenter -->
-        <ContentControl Grid.Row="3" Content="{Binding MessageDialog}" Visibility="{Binding ShowMessage, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}"
-                        VerticalAlignment="Center" HorizontalAlignment="Center">
-            <ContentControl.ContentTemplate>
-                <DataTemplate>
-                    <controls1:MessageDialog/>
-                </DataTemplate>
-            </ContentControl.ContentTemplate>
-        </ContentControl>
+        <!-- Message dialog -->
+        <Grid Grid.Row="3" Visibility="{Binding ShowMessage, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
+            <controls1:MessageDialog VerticalAlignment="Center" HorizontalAlignment="Center" DataContext="{Binding MessageDialog}"                                 />
+        </Grid>
     </Grid>
 </Page>
