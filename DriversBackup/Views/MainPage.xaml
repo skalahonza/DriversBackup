@@ -111,8 +111,8 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="38"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Text="{Binding DriverProvider}" TextTrimming="CharacterEllipsis"/>
-                            <TextBlock Grid.Column="1" Text="{Binding DriverDescription}" TextWrapping="WrapWithOverflow" TextAlignment="Left" Margin="5,0,0,0"/>
+                            <TextBlock Text="{Binding DriverProvider}" Style="{StaticResource ListItemText}"/>
+                            <TextBlock Grid.Column="1" Text="{Binding DriverDescription}" Margin="5,0,0,0" Style="{StaticResource ListItemText}"/>
                             <CheckBox Grid.Column="2" IsChecked="{Binding IsSelected, Mode=TwoWay}"/>
                             <Separator Grid.Row="1" Grid.ColumnSpan="3"/>
                         </Grid>
@@ -138,11 +138,11 @@
                 </WrapPanel>
             </Button>
         </Grid>
-        <!-- In progress TODO Design in porgress dialog-->
+        <!-- In progress-->
         <Grid Grid.RowSpan="5" Background="Black" Opacity="0.6" Visibility="{Binding ShowInProgressDialog, Converter={StaticResource BooleanToVisibilityConverter}}">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock Text="Saving drivers..." FontSize="50"  Style="{StaticResource PageHeader}" Margin="0"/>
-                <ProgressBar IsIndeterminate="True" IsEnabled="True" Margin="0,20,0,0"/>
+                <ProgressBar Maximum="{Binding Drivers.Count}" Value="{Binding BackingUpProgress}" IsEnabled="True" Margin="0,20,0,0" Style="{DynamicResource StylishPorgressBar}"/>
             </StackPanel>
         </Grid>
         <!-- Message dialog -->

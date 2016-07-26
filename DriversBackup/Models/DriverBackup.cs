@@ -113,16 +113,19 @@ namespace DriversBackup.Models
             backupThread.Start(driverInfo);
         }
         public async Task BackupDriverAsync(DriverInformation driver, string saveFolder)
-        {
-            BackupDriver(driver.DriverDeviceGuid,driver.DriverId,saveFolder + "\\");
+        {            
+            await Task.Run(() =>
+            {
+                BackupDriver(driver.DriverDeviceGuid, driver.DriverId, saveFolder + "\\");
+            });
         }
         public async Task BackupDriversAsync(IEnumerable<DriverInformation> drivers, string saveFolder)
         {
-            await Task.Run(() =>
+            await Task.Run(async () =>
             {
                 foreach (var driver in drivers)
                 {
-                    BackupDriver(driver, saveFolder);
+                    await BackupDriverAsync(driver, saveFolder);
                 }
             });
         }

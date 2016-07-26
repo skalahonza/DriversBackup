@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Threading;
 using DriversBackup.Models;
 using DriversBackup.MVVM;
 using DriversBackup.Views;
 using WpfViewModelBase;
 using AppContext = DriversBackup.MVVM.AppContext;
+using Application = System.Windows.Application;
 
 namespace DriversBackup.ViewModels
 {
@@ -21,6 +24,7 @@ namespace DriversBackup.ViewModels
         private readonly List<DriverInformation> allDrivers = new List<DriverInformation>();
         private MessageDialogViewModel messageDialog;
         private bool showInProgressDialog;
+        private int backingUpProgress;
 
         enum SortBy
         {
@@ -84,22 +88,35 @@ namespace DriversBackup.ViewModels
             }
         }
 
+        public int BackingUpProgress
+        {
+            get { return backingUpProgress; }
+            set
+            {
+                backingUpProgress = value;
+                OnPropertyChanged();
+            }
+        }
+
         #region Commands
         public RelayCommand SaveSelectedDrivers => new RelayCommand(async () =>
         {
             var folder = new FolderBrowserDialog();
             if (folder.ShowDialog() != DialogResult.OK) return;
 
+            BackingUpProgress = 0;
             ShowInProgressDialog = true;
             await Task.Run(async () =>
             {
                 try
                 {
                     var controller = new DriverBackup();
-                    await controller.BackupDriversAsync(Drivers.Where(x => x.IsSelected), folder.SelectedPath);
-                    for (var i = 0; i < Drivers.Count; i++)
+                    //await controller.BackupDriversAsync(Drivers.Where(x => x.IsSelected), folder.SelectedPath);
+                    foreach (DriverInformation t in Drivers)
                     {
-                        await controller.BackupDriver(Drivers[i], folder.SelectedPath);
+                        await controller.BackupDriverAsync(t, folder.SelectedPath);
+                        await Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background,
+                            new Action(() => BackingUpProgress++));
                     }
                     MessageDialog =
                         new MessageDialogViewModel(

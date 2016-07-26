@@ -33,14 +33,7 @@
             <ItemsControl ItemsSource="{Binding AppSettingsItems, Mode=TwoWay}" HorizontalContentAlignment="Stretch">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Text="{Binding Text, Mode=TwoWay}" Margin="5"/>
-                            <CheckBox Grid.Column="1" IsChecked="{Binding Active, Mode=TwoWay}" Margin="5"/>
-                        </Grid>
+                        <CheckBox Content="{Binding Text}" VerticalContentAlignment="Center" IsChecked="{Binding Active, Mode=TwoWay}" Margin="5"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

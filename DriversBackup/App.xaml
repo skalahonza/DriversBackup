@@ -4,7 +4,6 @@
              xmlns:local="clr-namespace:DriversBackup"
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
-        <ResourceDictionary Source="Styles/General.xaml">
-        </ResourceDictionary>
+        <ResourceDictionary Source="Styles/General.xaml"/>
     </Application.Resources>
 </Application>
