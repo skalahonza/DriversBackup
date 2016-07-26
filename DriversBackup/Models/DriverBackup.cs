@@ -112,7 +112,7 @@ namespace DriversBackup.Models
 
             backupThread.Start(driverInfo);
         }
-        public void BackupDriver(DriverInformation driver, string saveFolder)
+        public async Task BackupDriverAsync(DriverInformation driver, string saveFolder)
         {
             BackupDriver(driver.DriverDeviceGuid,driver.DriverId,saveFolder + "\\");
         }

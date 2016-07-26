@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using DriversBackup.Models;
 using DriversBackup.MVVM;
@@ -19,6 +20,7 @@ namespace DriversBackup.ViewModels
         // ReSharper disable once MemberInitializerValueIgnored
         private readonly List<DriverInformation> allDrivers = new List<DriverInformation>();
         private MessageDialogViewModel messageDialog;
+        private bool showInProgressDialog;
 
         enum SortBy
         {
@@ -65,27 +67,63 @@ namespace DriversBackup.ViewModels
             {
                 messageDialog = value;
                 OnPropertyChanged();
+                // ReSharper disable once ExplicitCallerInfoArgument
                 OnPropertyChanged(nameof(ShowMessage));
             }
         }
 
         public bool ShowMessage => MessageDialog != null;
 
+        public bool ShowInProgressDialog
+        {
+            get { return showInProgressDialog; }
+            set
+            {
+                showInProgressDialog = value;
+                OnPropertyChanged();
+            }
+        }
+
         #region Commands
         public RelayCommand SaveSelectedDrivers => new RelayCommand(async () =>
         {
             var folder = new FolderBrowserDialog();
             if (folder.ShowDialog() != DialogResult.OK) return;
-            var controller = new DriverBackup();
 
-            await controller.BackupDriversAsync(Drivers.Where(x => x.IsSelected), folder.SelectedPath);
-            MessageDialog =
-                new MessageDialogViewModel(
-                    new ObservableCollection<ActionButton>(new List<ActionButton>()
+            ShowInProgressDialog = true;
+            await Task.Run(async () =>
+            {
+                try
+                {
+                    var controller = new DriverBackup();
+                    await controller.BackupDriversAsync(Drivers.Where(x => x.IsSelected), folder.SelectedPath);
+                    for (var i = 0; i < Drivers.Count; i++)
                     {
-                        new ActionButton("Ok", () => MessageDialog = null, ActionButton.ButtonType.Accept)
-                    }),
-                    "Drivers saved", "Selected drivers have been successfully saved.");
+                        await controller.BackupDriver(Drivers[i], folder.SelectedPath);
+                    }
+                    MessageDialog =
+                        new MessageDialogViewModel(
+                            new ObservableCollection<ActionButton>(new List<ActionButton>
+                            {
+                                new ActionButton("Ok", () => MessageDialog = null, ActionButton.ButtonType.Accept)
+                            }),
+                            "Drivers saved", "Selected drivers have been successfully saved.");
+                }
+                catch (Exception e)
+                {
+                    MessageDialog =
+                        new MessageDialogViewModel(
+                            new ObservableCollection<ActionButton>(new List<ActionButton>
+                            {
+                                new ActionButton("Ok", () => MessageDialog = null, ActionButton.ButtonType.Accept)
+                            }),
+                            "Error", e.Message);
+                }
+                finally
+                {
+                    ShowInProgressDialog = false;
+                }
+            });
         });
         public RelayCommand SelectAll => new RelayCommand(() =>
         {
@@ -109,7 +147,7 @@ namespace DriversBackup.ViewModels
                 //if the same sort type is used, just revers the list
                 if (sortType == previousSortType && sortType != SortBy.Search)
                     driversList.Reverse();
-                else
+                else  
                     switch (sortType)
                     {
                         case SortBy.DriverId:
@@ -142,6 +180,8 @@ namespace DriversBackup.ViewModels
                                 if (!Drivers.Contains(driverInformation))
                                     Drivers.Add(driverInformation);
                             return;
+                        case SortBy.Undefined:
+                            break;
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
@@ -156,7 +196,6 @@ namespace DriversBackup.ViewModels
         {
             Search = "";
         });
-
         #endregion
     }
 }

@@ -2,8 +2,7 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:DriversBackup.Views"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:viewModels="clr-namespace:DriversBackup.ViewModels"
       xmlns:controls="clr-namespace:DriversBackup.Controls"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
@@ -98,27 +97,29 @@
                 </Button.Content>
             </Button>
         </Grid>
-        <ListView Grid.Row="3" x:Name="ListView" ItemsSource="{Binding Drivers, Mode=TwoWay}" Padding="5" HorizontalContentAlignment="Stretch">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="150"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="38"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="{Binding DriverProvider}" TextTrimming="CharacterEllipsis"/>
-                        <TextBlock Grid.Column="1" Text="{Binding DriverDescription}" TextWrapping="WrapWithOverflow" TextAlignment="Left" Margin="5,0,0,0"/>
-                        <CheckBox Grid.Column="2" IsChecked="{Binding IsSelected, Mode=TwoWay}"/>
-                        <Separator Grid.Row="1" Grid.ColumnSpan="3"/>
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto">
+            <ItemsControl x:Name="ListView" ItemsSource="{Binding Drivers, Mode=TwoWay}" Padding="5" HorizontalContentAlignment="Stretch">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="38"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding DriverProvider}" TextTrimming="CharacterEllipsis"/>
+                            <TextBlock Grid.Column="1" Text="{Binding DriverDescription}" TextWrapping="WrapWithOverflow" TextAlignment="Left" Margin="5,0,0,0"/>
+                            <CheckBox Grid.Column="2" IsChecked="{Binding IsSelected, Mode=TwoWay}"/>
+                            <Separator Grid.Row="1" Grid.ColumnSpan="3"/>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
         <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
@@ -136,6 +137,13 @@
                     <TextBlock Text="Select all" VerticalAlignment="Center" Margin="5,0,0,0"/>
                 </WrapPanel>
             </Button>
+        </Grid>
+        <!-- In progress TODO Design in porgress dialog-->
+        <Grid Grid.RowSpan="5" Background="Black" Opacity="0.6" Visibility="{Binding ShowInProgressDialog, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Saving drivers..." FontSize="50"  Style="{StaticResource PageHeader}" Margin="0"/>
+                <ProgressBar IsIndeterminate="True" IsEnabled="True" Margin="0,20,0,0"/>
+            </StackPanel>
         </Grid>
         <!-- Message dialog -->
         <Grid Grid.Row="3" Visibility="{Binding ShowMessage, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">

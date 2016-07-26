@@ -30,8 +30,8 @@
             </Grid>
 
             <TextBlock Text="Application settings" Style="{StaticResource PageSubHeader}"/>
-            <ListView ItemsSource="{Binding AppSettingsItems, Mode=TwoWay}" HorizontalContentAlignment="Stretch">
-                <ListView.ItemTemplate>
+            <ItemsControl ItemsSource="{Binding AppSettingsItems, Mode=TwoWay}" HorizontalContentAlignment="Stretch">
+                <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -42,8 +42,8 @@
                             <CheckBox Grid.Column="1" IsChecked="{Binding Active, Mode=TwoWay}" Margin="5"/>
                         </Grid>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
             <TextBlock Text="Backup settings" Style="{StaticResource PageSubHeader}"/>
             <Grid Margin="5">
                 <Grid.ColumnDefinitions>
