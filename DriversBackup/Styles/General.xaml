@@ -241,7 +241,7 @@
     </Style>
     
     <Style TargetType="Button" x:Key="SocialButton">
-        <Setter Property="Margin" Value="10,0"/>
+        <Setter Property="Margin" Value="5,0,0,0"/>
         <Setter Property="Foreground" Value="WhiteSmoke"/>
         <Setter Property="Padding" Value="10"/>
         <Setter Property="BorderThickness" Value="0"/>

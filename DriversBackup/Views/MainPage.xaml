@@ -46,17 +46,17 @@
         </Border>
         <!--Search textbox -->
         <Grid Grid.Row="1">
-            <controls:PlaceholderTextBox Text="{Binding Search, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" PlaceholderText="Search..." 
-                                         Padding="5,0,0,0" FontSize="20" VerticalContentAlignment="Center" BorderThickness="0,0,0,1">
+            <controls:PlaceholderTextBox x:Name="SearchBox" Text="{Binding Search, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" PlaceholderText="Search..." 
+                                         Padding="5,0,0,0" FontSize="20" VerticalContentAlignment="Center" BorderThickness="0,0,0,1" GotFocus="PlaceholderTextBox_GotFocus" LostFocus="PlaceholderTextBox_LostFocus">
                 <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="TextChanged" >
+                    <i:EventTrigger EventName="TextChanged">
                         <i:InvokeCommandAction Command="{Binding SortByCommand}" CommandParameter="Search"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </controls:PlaceholderTextBox>
-            <Button Content="&#xE711;" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right"  Style="{StaticResource FancyButton}" 
+            <Button Content="&#xE711;" x:Name="DeleteButton" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right"  Style="{StaticResource FancyButton}" 
             		BorderBrush="Transparent" FontSize="20" Background="Transparent"  Height="30" Margin="5" Command="{Binding CancelSearch}" 
-                    Visibility="{Binding SearchActive, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}"/>
+                    Visibility="Collapsed" Click="DeleteButton_OnClick"/>
         </Grid>
         <!--Sorting buttons -->
         <Grid Grid.Row="2" Margin="10,5">
