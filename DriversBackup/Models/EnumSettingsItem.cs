@@ -25,7 +25,8 @@ namespace DriversBackup.Models
             {
                 AppSettings.Set(Key,value);
                 OnPropertyChanged();
-                OnPropertyChanged("StringValue");
+                // ReSharper disable once ExplicitCallerInfoArgument
+                OnPropertyChanged(nameof(StringValue));
             }
         }
 
