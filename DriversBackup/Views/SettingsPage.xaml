@@ -65,9 +65,9 @@
                 </i:Interaction.Triggers>
                     </TextBlock>
                     <TextBlock Text="Follow us" Style="{StaticResource PageSubHeader}"/>
-                    <WrapPanel Margin="10,0">
-                        <Button Content="Facebook" Margin="10,0"/>
-                        <Button Content="Twitter" Margin="10,0"/>
+                    <WrapPanel>
+                        <Button Content="Facebook" Command="{Binding GoToWeb}" Style="{StaticResource SocialButton}" CommandParameter="https://www.facebook.com/GoID.Dev/" Background="#3B579D" />
+                        <Button Content="Twitter" Command="{Binding GoToWeb}" Style="{StaticResource SocialButton}" CommandParameter="https://twitter.com/GoID_IT?ref_src=twsrc%5Etfw/" Background="#00C9FB" />
                     </WrapPanel>
                 </StackPanel>
             </ScrollViewer>
