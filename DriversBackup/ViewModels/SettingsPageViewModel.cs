@@ -13,7 +13,7 @@ namespace DriversBackup.ViewModels
         public SettingsPageViewModel()
         {
             //Initialize application settings 
-            AppSettingsItems.Add(new TriggerSettingsItem("Use dark theme", "darkTheme"));  
+            //AppSettingsItems.Add(new TriggerSettingsItem("Use dark theme", "darkTheme"));  
             AppSettingsItems.Add(new TriggerSettingsItem("Show Microsoft drivers", "showMicrosoft"));  
             AppSettingsItems.Add(new TriggerSettingsItem("Backup drivers periodically", "backupPeriodically"));
 
@@ -48,7 +48,6 @@ namespace DriversBackup.ViewModels
             => BackupLocationSettings.SelectedBackupLocation != EnumSettingsItem.BackupLocation.Local;
 
         #endregion
-
 
         #region Commands
         public RelayCommand GoBackCommand => new RelayCommand(() =>
