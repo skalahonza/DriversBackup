@@ -4,8 +4,10 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:viewModels="clr-namespace:DriversBackup.ViewModels"
-      mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
+      xmlns:controls="clr-namespace:DriversBackup.Controls"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      mc:Ignorable="d" Background="White"
+      d:DesignHeight="420" d:DesignWidth="300"
       Title="SettingsPage">
     <Page.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
@@ -14,6 +16,10 @@
         <viewModels:SettingsPageViewModel/>
     </Page.DataContext>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
         <StackPanel Orientation="Vertical">
             <Grid Height="50">
                 <Grid.Background>
@@ -31,29 +37,40 @@
                     </StackPanel>
                 </StackPanel>
             </Grid>
-
-            <TextBlock Text="Application settings" Style="{StaticResource PageSubHeader}"/>
-            <ItemsControl ItemsSource="{Binding AppSettingsItems, Mode=TwoWay}" HorizontalContentAlignment="Stretch">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <CheckBox Content="{Binding Text}" VerticalContentAlignment="Center" IsChecked="{Binding Active, Mode=TwoWay}" Margin="5"/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10,0">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="Application settings" Style="{StaticResource PageSubHeader}"/>
+                    <ItemsControl ItemsSource="{Binding AppSettingsItems, Mode=TwoWay}" HorizontalContentAlignment="Stretch">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <CheckBox Content="{Binding Text}" VerticalContentAlignment="Center" IsChecked="{Binding Active, Mode=TwoWay}" Margin="5"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <!--
+            <TextBlock Text="Account" Style="{StaticResource PageSubHeader}"/>
+            <TextBlock Text="Lorem@ipsum.com" Margin="5,0"/>
             <TextBlock Text="Backup settings" Style="{StaticResource PageSubHeader}"/>
-            <Grid Margin="5">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <TextBlock Text="{Binding BackupLocationSettings.Text}"/>
-                <TextBlock Grid.Column="1" Text="{Binding BackupLocationSettings.StringValue}"/>
-            </Grid>
-            <!-- Container for cloud settings -->
-            <Grid Visibility="{Binding CloudSettingsSelected, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
-                <TextBlock Text="{Binding BackupLocationSettings.StringValue}" Style="{StaticResource PageSubLine}" />
-            </Grid>
-
+            <TextBlock Text="Choose location for periodic backup" Margin="5,0"/>
+             -->
+                    <TextBlock Text="About" Style="{StaticResource PageSubHeader}"/>
+                    <TextBlock Text="Drivers Backup allows you to save your drivers locally. It was created in order to help Windows users during re-installation process. It can also be useful if you want to transfer one or more drivers from your device to another. It can be used on Windows 7 or higher on any PC or Windows tablet." 
+                       TextWrapping="WrapWithOverflow" Margin="5"/>
+                    <TextBlock Text="Web" Style="{StaticResource PageSubHeader}"/>
+                    <TextBlock Text="http://goid.azurewebsites.net/software/drivers-backup/" Style="{StaticResource HypeLink}">
+                        <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDown" >
+                        <i:InvokeCommandAction Command="{Binding GoToWeb}" CommandParameter="http://goid.azurewebsites.net/software/drivers-backup/"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                    </TextBlock>
+                    <TextBlock Text="Follow us" Style="{StaticResource PageSubHeader}"/>
+                    <WrapPanel Margin="10,0">
+                        <Button Content="Facebook" Margin="10,0"/>
+                        <Button Content="Twitter" Margin="10,0"/>
+                    </WrapPanel>
+                </StackPanel>
+            </ScrollViewer>
         </StackPanel>
     </Grid>
 </Page>

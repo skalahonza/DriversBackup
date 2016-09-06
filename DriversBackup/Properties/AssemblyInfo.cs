@@ -7,12 +7,12 @@ using System.Windows;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DriversBackup")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Drivers Backup")]
+[assembly: AssemblyDescription("Drivers Backup allows you to save your drivers locally. It was created in order to help Windows users during re-installation process. Or if you want to transfer one driver from your device to another. It can be used on Windows 7 or higher on any PC or Windows tablet.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("DriversBackup")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyCompany("GoID")]
+[assembly: AssemblyProduct("Drivers Backup")]
+[assembly: AssemblyCopyright("Copyright © Jan Skála 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -53,3 +53,5 @@ using System.Windows;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: NeutralResourcesLanguage("en-150")]
+

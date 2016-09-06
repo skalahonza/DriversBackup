@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using DriversBackup.Models;
 using DriversBackup.MVVM;
 using WpfViewModelBase;
@@ -15,7 +16,7 @@ namespace DriversBackup.ViewModels
             //Initialize application settings 
             //AppSettingsItems.Add(new TriggerSettingsItem("Use dark theme", "darkTheme"));  
             AppSettingsItems.Add(new TriggerSettingsItem("Show Microsoft drivers", "showMicrosoft"));  
-            AppSettingsItems.Add(new TriggerSettingsItem("Backup drivers periodically", "backupPeriodically"));
+            //AppSettingsItems.Add(new TriggerSettingsItem("Backup drivers periodically", "backupPeriodically"));
 
             //Initialize backup settings
             BackupLocationSettings = new EnumSettingsItem("Choose Backup location", "backupLocation");
@@ -40,6 +41,7 @@ namespace DriversBackup.ViewModels
             {
                 backupLocationSettings = value;
                 OnPropertyChanged();
+                // ReSharper disable once ExplicitCallerInfoArgument
                 OnPropertyChanged(nameof(CloudSettingsSelected));
             }
         }
@@ -55,6 +57,7 @@ namespace DriversBackup.ViewModels
             if (AppContext.MainFrame.CanGoBack)
                 AppContext.MainFrame.GoBack();
         });
+        public GenericRelayCommand<string> GoToWeb => new GenericRelayCommand<string>(url => Process.Start(url));
         #endregion
     }
 }
