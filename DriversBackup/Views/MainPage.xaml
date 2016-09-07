@@ -38,7 +38,7 @@
     				FontSize="25" Command="{Binding GoToSettings}" Style="{StaticResource FancyButton}"
     				BorderBrush="{StaticResource BlueAccent}" Foreground="White">
                     <WrapPanel>
-                        <TextBlock Text="&#xE713;" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center"/>
+                        <TextBlock Text="&#xE713;" FontFamily="{StaticResource IconFont}" VerticalAlignment="Center"/>
                         <TextBlock Text="Settings" VerticalAlignment="Center" Margin="5,0,0,0"/>
                     </WrapPanel>
                 </Button>
@@ -75,7 +75,7 @@
             <Button ToolTip="Sort by Driver Id" Command="{Binding SortByCommand}" CommandParameter="DriverId">
                 <Button.Content>
                     <WrapPanel>
-                        <TextBlock Text="&#xEA37;" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center"/>
+                        <TextBlock Text="&#xEA37;" FontFamily="{StaticResource IconFont}" VerticalAlignment="Center"/>
                         <TextBlock Text="Driver ID" VerticalAlignment="Center" Margin="5,0,0,0"/>
                     </WrapPanel>
                 </Button.Content>
@@ -83,7 +83,7 @@
             <Button Grid.Column="1" Margin="5,0,0,0" ToolTip="Sort by Description" Command="{Binding SortByCommand}" CommandParameter="Description">
                 <Button.Content>
                     <WrapPanel>
-                        <TextBlock Text="&#xE7C3;" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center"/>
+                        <TextBlock Text="&#xE7C3;" FontFamily="{StaticResource IconFont}" VerticalAlignment="Center"/>
                         <TextBlock Text="Description" VerticalAlignment="Center" Margin="5,0,0,0"/>
                     </WrapPanel>
                 </Button.Content>
@@ -91,7 +91,7 @@
             <Button Grid.Column="2" ToolTip="Sort by Backup" Command="{Binding SortByCommand}" CommandParameter="Backup">
                 <Button.Content>
                     <WrapPanel>
-                        <TextBlock Text="&#xE896;" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center"/>
+                        <TextBlock Text="&#xE896;" FontFamily="{StaticResource IconFont}" VerticalAlignment="Center"/>
                         <TextBlock Text="Backup" VerticalAlignment="Center" Margin="5,0,0,0"/>
                     </WrapPanel>
                 </Button.Content>
@@ -127,13 +127,13 @@
             </Grid.ColumnDefinitions>
             <Button Command="{Binding SaveSelectedDrivers}" Style="{StaticResource FancyButton}" FontSize="15" BorderBrush="{StaticResource GreenAccent}">
                 <WrapPanel>
-                    <TextBlock Text="&#xE74E;" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center"/>
+                    <TextBlock Text="&#xE74E;" FontFamily="{StaticResource IconFont}" VerticalAlignment="Center"/>
                     <TextBlock Text="Save" VerticalAlignment="Center" Margin="5,0,0,0"/>
                 </WrapPanel>
             </Button>
             <Button Grid.Column="1" Command="{Binding SelectAll}" Style="{StaticResource FancyButton}" FontSize="15" BorderBrush="{StaticResource BlueAccent}">
                 <WrapPanel>
-                    <TextBlock Text="&#xE133;" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center"/>
+                    <TextBlock Text="&#xE133;" FontFamily="{StaticResource IconFont}" VerticalAlignment="Center"/>
                     <TextBlock Text="Select all" VerticalAlignment="Center" Margin="5,0,0,0"/>
                 </WrapPanel>
             </Button>

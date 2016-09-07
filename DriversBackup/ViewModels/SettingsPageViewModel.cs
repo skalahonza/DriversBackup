@@ -19,7 +19,7 @@ namespace DriversBackup.ViewModels
             //AppSettingsItems.Add(new TriggerSettingsItem("Backup drivers periodically", "backupPeriodically"));
 
             //Initialize backup settings
-            BackupLocationSettings = new EnumSettingsItem("Choose Backup location", "backupLocation");
+            //BackupLocationSettings = new EnumSettingsItem("Choose Backup location", "backupLocation");
         }
 
         #region Properties
