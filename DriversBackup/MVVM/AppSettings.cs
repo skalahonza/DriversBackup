@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel;
 using System.Configuration;
+using System.Windows.Forms;
 
 namespace DriversBackup.MVVM
 {
     public static class AppSettings
-    {
+    {        
+
         public static T Get<T>(string settingKey)
         {            
             var appSetting = ConfigurationManager.AppSettings[settingKey];
@@ -15,7 +17,16 @@ namespace DriversBackup.MVVM
 
         public static void Set(string settingKey, object value)
         {
-            ConfigurationManager.AppSettings[settingKey] = value.ToString();
+            Configuration oConfig = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            oConfig.AppSettings.Settings[settingKey].Value = value.ToString();
+            oConfig.Save(ConfigurationSaveMode.Full);
+            ConfigurationManager.RefreshSection("appSettings");
+        }
+
+        public static bool ShowMicrosoftDrivers
+        {
+            get { return Get<bool>(nameof(ShowMicrosoftDrivers)); }
+            set { Set(nameof(ShowMicrosoftDrivers), value); }
         }
     }
 }

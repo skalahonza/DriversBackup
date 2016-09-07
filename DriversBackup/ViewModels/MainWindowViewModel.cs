@@ -38,7 +38,7 @@ namespace DriversBackup.ViewModels
         public MainPageViewModel()
         {
             var controller = new DriverBackup();
-            Drivers = new ObservableCollection<DriverInformation>(controller.ListDrivers(AppSettings.Get<bool>("showMicrosoft")));
+            Drivers = new ObservableCollection<DriverInformation>(controller.ListDrivers(AppSettings.ShowMicrosoftDrivers));
             allDrivers = new List<DriverInformation>(Drivers);
         }
         public ObservableCollection<DriverInformation> Drivers

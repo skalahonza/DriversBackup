@@ -4,13 +4,11 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:viewModels="clr-namespace:DriversBackup.ViewModels"
-      xmlns:controls="clr-namespace:DriversBackup.Controls"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d" Background="White"
       d:DesignHeight="420" d:DesignWidth="300"
       Title="SettingsPage">
     <Page.Resources>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </Page.Resources>
     <Page.DataContext>
         <viewModels:SettingsPageViewModel/>
@@ -40,19 +38,7 @@
             <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10,0">
                 <StackPanel Orientation="Vertical">
                     <TextBlock Text="Application settings" Style="{StaticResource PageSubHeader}"/>
-                    <ItemsControl ItemsSource="{Binding AppSettingsItems, Mode=TwoWay}" HorizontalContentAlignment="Stretch">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <CheckBox Content="{Binding Text}" VerticalContentAlignment="Center" IsChecked="{Binding Active, Mode=TwoWay}" Margin="5"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                    <!--
-            <TextBlock Text="Account" Style="{StaticResource PageSubHeader}"/>
-            <TextBlock Text="Lorem@ipsum.com" Margin="5,0"/>
-            <TextBlock Text="Backup settings" Style="{StaticResource PageSubHeader}"/>
-            <TextBlock Text="Choose location for periodic backup" Margin="5,0"/>
-             -->
+                    <CheckBox Content="Show Microsoft Drivers" VerticalContentAlignment="Center" IsChecked="{Binding ShowMicrosoftDrivers, Mode=TwoWay}" Margin="5"/>
                     <TextBlock Text="About" Style="{StaticResource PageSubHeader}"/>
                     <TextBlock Text="Drivers Backup allows you to save your drivers locally. It was created in order to help Windows users during re-installation process. It can also be useful if you want to transfer one or more drivers from your device to another. It can be used on Windows 7 or higher on any PC or Windows tablet." 
                        TextWrapping="WrapWithOverflow" Margin="5"/>
