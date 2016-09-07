@@ -11,10 +11,12 @@ namespace DriversBackup.ViewModels
         {
             Caption = "Test";
             Text = "Lorem ipsum dolor sit amet.";
-            ActionButtons = new ObservableCollection<ActionButton>();
-            ActionButtons.Add(new ActionButton("Hello",() => MessageBox.Show("Hello"),ActionButton.ButtonType.Deafult));
-            ActionButtons.Add(new ActionButton("Accept",() => MessageBox.Show("Accepted"),ActionButton.ButtonType.Accept));
-            ActionButtons.Add(new ActionButton("Reject",() => MessageBox.Show("Rejected"),ActionButton.ButtonType.Cancel));
+            ActionButtons = new ObservableCollection<ActionButton>
+            {
+                new ActionButton("Hello", () => MessageBox.Show("Hello"), ActionButton.ButtonType.Deafult),
+                new ActionButton("Accept", () => MessageBox.Show("Accepted"), ActionButton.ButtonType.Accept),
+                new ActionButton("Reject", () => MessageBox.Show("Rejected"), ActionButton.ButtonType.Cancel)
+            };
         }
         public MessageDialogViewModel(ObservableCollection<ActionButton> actionButtons, string caption, string text)
         {
