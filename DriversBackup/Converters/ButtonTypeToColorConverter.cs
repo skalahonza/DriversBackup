@@ -7,6 +7,9 @@ using DriversBackup.Models;
 
 namespace DriversBackup.Converters
 {
+    /// <summary>
+    /// Converts button type into a color. Default --> blue, Accept --> green, Cancel --> orange. Colors are loaded from resource dictionary - Styles/General
+    /// </summary>
     public class ButtonTypeToColorConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
