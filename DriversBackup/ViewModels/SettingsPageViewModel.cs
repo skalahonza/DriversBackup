@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using DriversBackup.MVVM;
 using WpfViewModelBase;
-//TODO ADD DOCUMENTATION
+
 namespace DriversBackup.ViewModels
 {
     public class SettingsPageViewModel:ViewModelBase
