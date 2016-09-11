@@ -25,6 +25,7 @@ namespace DriversBackup.ViewModels
         private bool showInProgressDialog;
         private int backingUpProgress;
 
+        //Sort type for listview of drivers
         enum SortBy
         {
             // ReSharper disable once UnusedMember.Local
@@ -37,8 +38,9 @@ namespace DriversBackup.ViewModels
 
         public MainPageViewModel()
         {
+            //Initialize collection of drivers
             var controller = new DriverBackup();
-            Drivers = new ObservableCollection<DriverInformation>(controller.ListDrivers(AppSettings.Get<bool>("showMicrosoft")));
+            Drivers = new ObservableCollection<DriverInformation>(controller.ListDrivers(AppSettings.ShowMicrosoftDrivers));
             allDrivers = new List<DriverInformation>(Drivers);
         }
         public ObservableCollection<DriverInformation> Drivers
@@ -50,6 +52,9 @@ namespace DriversBackup.ViewModels
                 OnPropertyChanged();
             }
         }
+        /// <summary>
+        /// Search query
+        /// </summary>
         public string Search
         {
             get { return search; }
@@ -61,7 +66,9 @@ namespace DriversBackup.ViewModels
                 OnPropertyChanged("SearchActive");
             }
         }
-
+        /// <summary>
+        /// ViewModel for the message dialog control
+        /// </summary>
         public MessageDialogViewModel MessageDialog
         {
             get { return messageDialog; }
@@ -74,8 +81,14 @@ namespace DriversBackup.ViewModels
             }
         }
 
+        /// <summary>
+        /// Determines the message dialog visibility
+        /// </summary>
         public bool ShowMessage => MessageDialog != null;
 
+        /// <summary>
+        /// Determines the in progress dialog visibility
+        /// </summary>
         public bool ShowInProgressDialog
         {
             get { return showInProgressDialog; }
@@ -86,6 +99,9 @@ namespace DriversBackup.ViewModels
             }
         }
 
+        /// <summary>
+        /// Represents the amount of completed operations - used for progress bar
+        /// </summary>
         public int BackingUpProgress
         {
             get { return backingUpProgress; }
@@ -109,13 +125,14 @@ namespace DriversBackup.ViewModels
                 try
                 {
                     var controller = new DriverBackup();
-                    //await controller.BackupDriversAsync(Drivers.Where(x => x.IsSelected), folder.SelectedPath);
-                    foreach (DriverInformation t in Drivers)
+                    foreach (var t in Drivers)
                     {
+                        //Backup drivers one by one on background thread and show progress to the user
                         await controller.BackupDriverAsync(t, folder.SelectedPath);
                         await Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background,
                             new Action(() => BackingUpProgress++));
                     }
+                    //Alert user when the job is done
                     MessageDialog =
                         new MessageDialogViewModel(
                             new ObservableCollection<ActionButton>(new List<ActionButton>
@@ -126,6 +143,7 @@ namespace DriversBackup.ViewModels
                 }
                 catch (Exception e)
                 {
+                    //Let user know about the error
                     MessageDialog =
                         new MessageDialogViewModel(
                             new ObservableCollection<ActionButton>(new List<ActionButton>
@@ -159,7 +177,7 @@ namespace DriversBackup.ViewModels
             if (Enum.TryParse(s, out sortType))
             {
                 var driversList = new List<DriverInformation>(Drivers);
-                //if the same sort type is used, just revers the list
+                //if the same sort type is used, just reverse the list
                 if (sortType == previousSortType && sortType != SortBy.Search)
                     driversList.Reverse();
                 else  
@@ -200,7 +218,7 @@ namespace DriversBackup.ViewModels
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
-                //Show newly sorted rivers on the UI
+                //Show newly sorted drivers on the UI
                 Drivers = new ObservableCollection<DriverInformation>(driversList);
                 //save sort type
                 previousSortType = sortType;
