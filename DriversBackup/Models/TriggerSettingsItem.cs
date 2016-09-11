@@ -2,13 +2,10 @@
 
 namespace DriversBackup.Models
 {
-    /// <summary>
-    /// Class model for binary settings item. Used in a flow. 
-    /// </summary>
     public class TriggerSettingsItem:SettingsBase
     {
         /// <summary>
-        /// Is the settings triggered. Can be true or false. When this property is changed, the property with the same Key is Changed in app.config.
+        /// Is the settings triggered
         /// </summary>
         public bool Active
         {

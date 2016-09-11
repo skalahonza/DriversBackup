@@ -100,11 +100,11 @@ namespace DriversBackup.Models
             return driverList;
         }
         /// <summary>
-        /// Starts the backup process 
+        /// Creates a thread of backupDriverExec. No more, no less.
         /// </summary>
-        /// <param name="classGuid">Driver GUID</param>
-        /// <param name="driverId">Driver ID {number}</param>
-        /// <param name="backupLocation">Driver backup location (folder), every driver should have it's folder</param>
+        /// <param name="classGuid"></param>
+        /// <param name="driverId"></param>
+        /// <param name="backupLocation"></param>
         public void BackupDriver(string classGuid, string driverId, string backupLocation)
         {
             string[] driverInfo = { classGuid, driverId, backupLocation };
@@ -112,12 +112,6 @@ namespace DriversBackup.Models
 
             backupThread.Start(driverInfo);
         }
-        /// <summary>
-        /// Starts the backup process asynchronously
-        /// </summary>
-        /// <param name="driver">Driver to be saved</param>
-        /// <param name="saveFolder">Folder for saving. Every driver creates a sub-folder for it self.</param>
-        /// <returns></returns>
         public async Task BackupDriverAsync(DriverInformation driver, string saveFolder)
         {            
             await Task.Run(() =>
@@ -125,12 +119,6 @@ namespace DriversBackup.Models
                 BackupDriver(driver.DriverDeviceGuid, driver.DriverId, saveFolder + "\\");
             });
         }
-        /// <summary>
-        /// Backs up multiple drivers asynchronously
-        /// </summary>
-        /// <param name="drivers">Drivers to be backed up</param>
-        /// <param name="saveFolder">Folder for saving. Every driver creates a sub-folder for it self.</param>
-        /// <returns></returns>
         public async Task BackupDriversAsync(IEnumerable<DriverInformation> drivers, string saveFolder)
         {
             await Task.Run(async () =>
