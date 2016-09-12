@@ -54,6 +54,7 @@
                     <WrapPanel>
                         <Button Content="Facebook" Command="{Binding GoToWeb}" Style="{StaticResource SocialButton}" CommandParameter="https://www.facebook.com/GoID.Dev/" Background="#3B579D" />
                         <Button Content="Twitter" Command="{Binding GoToWeb}" Style="{StaticResource SocialButton}" CommandParameter="https://twitter.com/GoID_IT?ref_src=twsrc%5Etfw/" Background="#00C9FB" />
+                        <Button Content="GitHub" Command="{Binding GoToWeb}" Style="{StaticResource SocialButton}" CommandParameter="https://github.com/skalahonza/DriversBackup" Background="#333" />
                     </WrapPanel>
                 </StackPanel>
             </ScrollViewer>
