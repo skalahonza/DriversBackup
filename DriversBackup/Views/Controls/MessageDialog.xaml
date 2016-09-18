@@ -24,12 +24,12 @@
             <ItemsControl Height="35" ItemsSource="{Binding ActionButtons}" VerticalAlignment="Center" HorizontalAlignment="Center" BorderBrush="Transparent" Background="Transparent">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel/>
+                        <StackPanel Orientation="Horizontal"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Button Content="{Binding Text}" Command="{Binding ButtonCommand}" HorizontalAlignment="Center" Padding="5" Background="Transparent" FontSize="15"
+                        <Button Content="{Binding Text}" Command="{Binding ButtonCommand}" HorizontalAlignment="Center" Margin="10,0" Background="Transparent" FontSize="15"
                                 Style="{StaticResource FancyButton}" OverridesDefaultStyle="True" BorderBrush="{Binding ActionButtonType, Converter={StaticResource ButtonTypeToColorConverter}}"
                                 Foreground="{Binding ActionButtonType, Converter={StaticResource ButtonTypeToColorConverter}}"/>
                     </DataTemplate>

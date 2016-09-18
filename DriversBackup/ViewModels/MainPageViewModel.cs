@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,7 +15,7 @@ using Application = System.Windows.Application;
 
 namespace DriversBackup.ViewModels
 {
-    public class MainPageViewModel:ViewModelBase
+    public class MainPageViewModel : ViewModelBase
     {
         private ObservableCollection<DriverInformation> drivers = new ObservableCollection<DriverInformation>();
         private SortBy previousSortType;
@@ -40,18 +41,21 @@ namespace DriversBackup.ViewModels
         {
             //Initialize collection of drivers
             var controller = new DriverBackup();
-            Drivers = new ObservableCollection<DriverInformation>(controller.ListDrivers(AppSettings.ShowMicrosoftDrivers));
+            Drivers =
+                new ObservableCollection<DriverInformation>(controller.ListDrivers(AppSettings.ShowMicrosoftDrivers));
             allDrivers = new List<DriverInformation>(Drivers);
         }
+
         public ObservableCollection<DriverInformation> Drivers
         {
             get { return drivers; }
             set
             {
                 drivers = value;
-                OnPropertyChanged();
+                OnPropertyChanged();                
             }
         }
+
         /// <summary>
         /// Search query
         /// </summary>
@@ -66,6 +70,7 @@ namespace DriversBackup.ViewModels
                 OnPropertyChanged("SearchActive");
             }
         }
+
         /// <summary>
         /// ViewModel for the message dialog control
         /// </summary>
@@ -112,9 +117,14 @@ namespace DriversBackup.ViewModels
             }
         }
 
+        public int DriversForBackpCount => Drivers.Count(x => x.IsSelected);
         #region Commands
+
         public RelayCommand SaveSelectedDrivers => new RelayCommand(async () =>
         {
+            //Update Drivers for backup count property
+            OnPropertyChanged(nameof(DriversForBackpCount));
+
             var folder = new FolderBrowserDialog();
             if (folder.ShowDialog() != DialogResult.OK) return;
 
@@ -125,7 +135,7 @@ namespace DriversBackup.ViewModels
                 try
                 {
                     var controller = new DriverBackup();
-                    foreach (var t in Drivers)
+                    foreach (var t in Drivers.Where(x => x.IsSelected))
                     {
                         //Backup drivers one by one on background thread and show progress to the user
                         await controller.BackupDriverAsync(t, folder.SelectedPath);
@@ -137,7 +147,8 @@ namespace DriversBackup.ViewModels
                         new MessageDialogViewModel(
                             new ObservableCollection<ActionButton>(new List<ActionButton>
                             {
-                                new ActionButton("Ok", () => MessageDialog = null, ActionButton.ButtonType.Accept)
+                                new ActionButton("Ok", () => MessageDialog = null, ActionButton.ButtonType.Accept),
+                                new ActionButton("Open folder", () => Process.Start(folder.SelectedPath), ActionButton.ButtonType.Deafult),
                             }),
                             "Drivers saved", "Selected drivers have been successfully saved.");
                 }
@@ -158,14 +169,16 @@ namespace DriversBackup.ViewModels
                 }
             });
         });
+
         public RelayCommand SelectAll => new RelayCommand(() =>
         {
             //if all are selected, de-select them
-            //if not select all
+            //if not select them all
             bool select = Drivers.Count != Drivers.Count(x => x.IsSelected);
             foreach (var driver in Drivers)
                 driver.IsSelected = select;
         });
+
         public RelayCommand GoToSettings => new RelayCommand(() =>
         {
             AppContext.MainFrame.Navigate(new SettingsPage());
@@ -180,7 +193,7 @@ namespace DriversBackup.ViewModels
                 //if the same sort type is used, just reverse the list
                 if (sortType == previousSortType && sortType != SortBy.Search)
                     driversList.Reverse();
-                else  
+                else
                     switch (sortType)
                     {
                         case SortBy.DriverId:
@@ -229,6 +242,7 @@ namespace DriversBackup.ViewModels
         {
             Search = "";
         });
+
         #endregion
     }
 }
