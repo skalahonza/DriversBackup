@@ -6,7 +6,7 @@ using System.Windows.Media;
 
 namespace DriversBackup.Controls
 {
-    public class PlaceholderTextBox:TextBox
+    public class PlaceholderTextBox : TextBox
     {
         /// <summary>
         ///   Keeps track of whether placeholder text is visible to know when to call InvalidateVisual to show or hide it.
@@ -29,7 +29,7 @@ namespace DriversBackup.Controls
         /// </summary>
         public string PlaceholderText
         {
-            get { return (string)GetValue(PlaceholderTextProperty); }
+            get { return (string) GetValue(PlaceholderTextProperty); }
             set { SetValue(PlaceholderTextProperty, value); }
         }
 
@@ -80,7 +80,8 @@ namespace DriversBackup.Controls
         /// </param>
         protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
         {
-            if ((e.Property == IsFocusedProperty || e.Property == TextProperty) && !string.IsNullOrEmpty(PlaceholderText))
+            if ((e.Property == IsFocusedProperty || e.Property == TextProperty) &&
+                !string.IsNullOrEmpty(PlaceholderText))
                 if (!IsFocused && string.IsNullOrEmpty(Text))
                 {
                     // Need to show placeholder
@@ -150,13 +151,14 @@ namespace DriversBackup.Controls
                         top = RenderSize.Height - BorderThickness.Bottom - Padding.Bottom - formattedText.Height;
                         break;
                     case VerticalAlignment.Center:
-                        top = (RenderSize.Height + BorderThickness.Top - BorderThickness.Bottom + Padding.Top - Padding.Bottom - formattedText.Height) / 2.0;
+                        top = (RenderSize.Height + BorderThickness.Top - BorderThickness.Bottom + Padding.Top -
+                               Padding.Bottom - formattedText.Height)/2.0;
                         break;
                 }
                 if (FlowDirection == FlowDirection.RightToLeft)
                 {
                     // Somehow everything got drawn reflected. Add a transform to correct.
-                    drawingContext.PushTransform(new ScaleTransform(-1.0, 1.0, RenderSize.Width / 2.0, 0.0));
+                    drawingContext.PushTransform(new ScaleTransform(-1.0, 1.0, RenderSize.Width/2.0, 0.0));
                     drawingContext.DrawText(formattedText, new Point(left, top));
                     drawingContext.Pop();
                 }
@@ -173,8 +175,11 @@ namespace DriversBackup.Controls
         /// </returns>
         private TextAlignment ComputedTextAlignment()
         {
-            if (DependencyPropertyHelper.GetValueSource(this, HorizontalContentAlignmentProperty).BaseValueSource == BaseValueSource.Local
-                && DependencyPropertyHelper.GetValueSource(this, TextAlignmentProperty).BaseValueSource != BaseValueSource.Local)
+            if (DependencyPropertyHelper.GetValueSource(this, HorizontalContentAlignmentProperty).BaseValueSource ==
+                BaseValueSource.Local
+                &&
+                DependencyPropertyHelper.GetValueSource(this, TextAlignmentProperty).BaseValueSource !=
+                BaseValueSource.Local)
             {
                 // HorizontalContentAlignment dominates
                 switch (HorizontalContentAlignment)

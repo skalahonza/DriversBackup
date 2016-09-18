@@ -4,7 +4,7 @@ using WpfViewModelBase;
 
 namespace DriversBackup.ViewModels
 {
-    public class SettingsPageViewModel:ViewModelBase
+    public class SettingsPageViewModel : ViewModelBase
     {
         #region Properties
 
@@ -14,15 +14,24 @@ namespace DriversBackup.ViewModels
             set { AppSettings.ShowMicrosoftDrivers = value; }
         }
 
+        public bool ZipRootFolder
+        {
+            get { return AppSettings.ZipRootFolder; }
+            set { AppSettings.ZipRootFolder = value; }
+        }
+
         #endregion
 
         #region Commands
+
         public RelayCommand GoBackCommand => new RelayCommand(() =>
         {
             if (AppContext.MainFrame.CanGoBack)
                 AppContext.MainFrame.GoBack();
         });
+
         public GenericRelayCommand<string> GoToWeb => new GenericRelayCommand<string>(url => Process.Start(url));
+
         #endregion
     }
 }

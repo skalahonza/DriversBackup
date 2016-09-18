@@ -11,8 +11,8 @@ namespace DriversBackup.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            
-            switch ((ActionButton.ButtonType)value)
+
+            switch ((ActionButton.ButtonType) value)
             {
                 case ActionButton.ButtonType.Deafult:
                     return Application.Current.FindResource("BlueAccent") as Brush;
