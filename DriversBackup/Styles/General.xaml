@@ -40,6 +40,7 @@
         <Setter Property="TextDecorations" Value="Underline"/>
         <Setter Property="Margin" Value="5,0"/>
         <Setter Property="FontSize" Value="18"/>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Foreground" Value="#252525"/>
