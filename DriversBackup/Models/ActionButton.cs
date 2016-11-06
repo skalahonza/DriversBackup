@@ -3,9 +3,11 @@ using WpfViewModelBase;
 
 namespace DriversBackup.Models
 {
-    public class ActionButton
+    public class ActionButton:ViewModelBase
     {
         private readonly Action action;
+        private bool isEnabled = true;
+
         public ActionButton(string text, Action action, ButtonType actionButtonType)
         {
             Text = text;
@@ -24,5 +26,15 @@ namespace DriversBackup.Models
         public string Text { get; set; }
         public ButtonType ActionButtonType { get; set; }
         public RelayCommand ButtonCommand => new RelayCommand(action);
+
+        public bool IsEnabled
+        {
+            get { return isEnabled; }
+            set
+            {
+                isEnabled = value;
+                OnPropertyChanged();
+            }
+        }
     }
 }

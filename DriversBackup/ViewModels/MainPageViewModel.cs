@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -52,7 +53,7 @@ namespace DriversBackup.ViewModels
             set
             {
                 drivers = value;
-                OnPropertyChanged();                
+                OnPropertyChanged();
             }
         }
 
@@ -118,6 +119,43 @@ namespace DriversBackup.ViewModels
         }
 
         public int DriversForBackpCount => Drivers.Count(x => x.IsSelected);
+
+        private void OpenOutputFolder(string path)
+        {
+            //TODO Handle: Folder might have been compressed to zip - check and handle
+            if (File.Exists(path))
+                Process.Start(path);
+
+            else if (File.Exists(path + ".zip"))
+            {
+                MessageDialog =
+                    new MessageDialogViewModel(
+                        new ObservableCollection<ActionButton>()
+                        {
+                            new ActionButton("OK", () => MessageDialog = null, ActionButton.ButtonType.Accept)
+                        },
+                        "Folder cannot be opened", "Folder is an archive and cannot be opened");
+
+            }
+
+            else
+            {
+                MessageDialog =
+                    new MessageDialogViewModel(
+                        new ObservableCollection<ActionButton>()
+                        {
+                            new ActionButton("OK", () => MessageDialog = null, ActionButton.ButtonType.Accept)
+                        },
+                        "Folder cannot be opened", "Folder not found.");
+
+            }
+        }
+
+        private void CompressFolderAsZip(string path)
+        {
+
+        }
+
         #region Commands
 
         public RelayCommand SaveSelectedDrivers => new RelayCommand(async () =>
@@ -127,6 +165,7 @@ namespace DriversBackup.ViewModels
 
             var folder = new FolderBrowserDialog();
             if (folder.ShowDialog() != DialogResult.OK) return;
+            string path = folder.SelectedPath;
 
             BackingUpProgress = 0;
             ShowInProgressDialog = true;
@@ -138,19 +177,38 @@ namespace DriversBackup.ViewModels
                     foreach (var t in Drivers.Where(x => x.IsSelected))
                     {
                         //Backup drivers one by one on background thread and show progress to the user
-                        await controller.BackupDriverAsync(t, folder.SelectedPath);
+                        await controller.BackupDriverAsync(t, path);
                         await Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background,
                             new Action(() => BackingUpProgress++));
                     }
+
+                    //Zip folder if user wants it automatically
+                    if (AppSettings.ZipRootFolder)
+                    {
+
+                    }
+
                     //Alert user when the job is done
                     MessageDialog =
                         new MessageDialogViewModel(
                             new ObservableCollection<ActionButton>(new List<ActionButton>
                             {
                                 new ActionButton("Ok", () => MessageDialog = null, ActionButton.ButtonType.Accept),
-                                new ActionButton("Open folder", () => Process.Start(folder.SelectedPath), ActionButton.ButtonType.Deafult),
+                                new ActionButton("Open folder", () => OpenOutputFolder(path),
+                                    ActionButton.ButtonType.Deafult),
                             }),
                             "Drivers saved", "Selected drivers have been successfully saved.");
+
+                    //Add compress folder as zip button if it is not automatic
+                    if (!AppSettings.ZipRootFolder)
+                    {
+                        MessageDialog.ActionButtons.Add(new ActionButton("Zip folder",
+                            () =>
+                            {
+                                CompressFolderAsZip(path);
+                                MessageDialog.ActionButtons.Last().IsEnabled = false;
+                            }, ActionButton.ButtonType.Deafult));
+                    }
                 }
                 catch (Exception e)
                 {
