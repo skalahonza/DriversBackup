@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -121,9 +122,9 @@ namespace DriversBackup.ViewModels
         public int DriversForBackpCount => Drivers.Count(x => x.IsSelected);
 
         private void OpenOutputFolder(string path)
-        {
+        {            
             //Handle: Folder might have been compressed to zip - check and handle
-            if (File.Exists(path))
+            if (Directory.Exists(path))
                 Process.Start(path);
 
             //older is a zip
@@ -154,7 +155,7 @@ namespace DriversBackup.ViewModels
         private void CompressFolderAsZip(string path)
         {
 
-
+            
         }
 
         #region Commands
