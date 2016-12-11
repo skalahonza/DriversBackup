@@ -122,10 +122,11 @@ namespace DriversBackup.ViewModels
 
         private void OpenOutputFolder(string path)
         {
-            //TODO Handle: Folder might have been compressed to zip - check and handle
+            //Handle: Folder might have been compressed to zip - check and handle
             if (File.Exists(path))
                 Process.Start(path);
 
+            //older is a zip
             else if (File.Exists(path + ".zip"))
             {
                 MessageDialog =
@@ -135,9 +136,9 @@ namespace DriversBackup.ViewModels
                             new ActionButton("OK", () => MessageDialog = null, ActionButton.ButtonType.Accept)
                         },
                         "Folder cannot be opened", "Folder is an archive and cannot be opened");
-
             }
 
+            //not found
             else
             {
                 MessageDialog =
@@ -147,12 +148,12 @@ namespace DriversBackup.ViewModels
                             new ActionButton("OK", () => MessageDialog = null, ActionButton.ButtonType.Accept)
                         },
                         "Folder cannot be opened", "Folder not found.");
-
             }
         }
 
         private void CompressFolderAsZip(string path)
         {
+
 
         }
 
