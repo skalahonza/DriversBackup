@@ -154,8 +154,7 @@ namespace DriversBackup.ViewModels
 
         private void CompressFolderAsZip(string path)
         {
-
-            
+            //TODO Initialize System.IO Compress stream or use NuGet instead
         }
 
         #region Commands
