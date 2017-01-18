@@ -39,6 +39,8 @@
                 <StackPanel Orientation="Vertical">
                     <TextBlock Text="Application settings" Style="{StaticResource PageSubHeader}"/>
                     <CheckBox Content="Show Microsoft Drivers" VerticalContentAlignment="Center" IsChecked="{Binding ShowMicrosoftDrivers, Mode=TwoWay}" Margin="5"/>
+                    <CheckBox Content="Automatically zip the folder with drivers" VerticalContentAlignment="Center" IsChecked="{Binding ZipRootFolder, Mode=TwoWay}" Margin="5"/>
+                    <TextBlock Text="When the drivers are saved in a selected folder. The folder will be automatically compressed as a zip file." TextWrapping="WrapWithOverflow" Margin="5"/>
                     <TextBlock Text="About" Style="{StaticResource PageSubHeader}"/>
                     <TextBlock Text="Drivers Backup allows you to save your drivers locally. It was created in order to help Windows users during re-installation process. It can also be useful if you want to transfer one or more drivers from your device to another. It can be used on Windows 7 or higher on any PC or Windows tablet." 
                        TextWrapping="WrapWithOverflow" Margin="5"/>

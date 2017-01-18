@@ -5,7 +5,6 @@ namespace DriversBackup.MVVM
 {
     public static class AppSettings
     {        
-
         public static T Get<T>(string settingKey)
         {            
             var appSetting = ConfigurationManager.AppSettings[settingKey];
@@ -13,7 +12,6 @@ namespace DriversBackup.MVVM
 
             return (T)(typeConverter.ConvertFromInvariantString(appSetting));
         }
-
         public static void Set(string settingKey, object value)
         {
             Configuration oConfig = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
@@ -21,11 +19,15 @@ namespace DriversBackup.MVVM
             oConfig.Save(ConfigurationSaveMode.Full);
             ConfigurationManager.RefreshSection("appSettings");
         }
-
         public static bool ShowMicrosoftDrivers
         {
             get { return Get<bool>(nameof(ShowMicrosoftDrivers)); }
             set { Set(nameof(ShowMicrosoftDrivers), value); }
+        }
+        public static bool ZipRootFolder
+        {
+            get { return Get<bool>(nameof(ZipRootFolder)); }
+            set { Set(nameof(ZipRootFolder), value); }
         }
     }
 }
