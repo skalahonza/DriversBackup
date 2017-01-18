@@ -34,6 +34,11 @@
         <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="TextAlignment" Value="Left"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource GreenAccent}"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
     <Style TargetType="TextBlock" x:Key="HypeLink">
         <Setter Property="Foreground" Value="{StaticResource BlueAccent}"/>
@@ -212,6 +217,7 @@
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter Property="Background" TargetName="checkBoxBorder" Value="{StaticResource OptionMark.MouseOver.Background}"/>
                             <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="{StaticResource OptionMark.MouseOver.Border}"/>
+                            <Setter Property="Foreground" Value="{StaticResource OptionMark.MouseOver.Border}"/>
                             <Setter Property="Fill" TargetName="optionMark" Value="{StaticResource OptionMark.MouseOver.Glyph}"/>
                             <Setter Property="Fill" TargetName="indeterminateMark" Value="{StaticResource OptionMark.MouseOver.Glyph}"/>
                         </Trigger>
