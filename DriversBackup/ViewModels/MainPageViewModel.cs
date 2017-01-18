@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,7 +17,7 @@ using Application = System.Windows.Application;
 
 namespace DriversBackup.ViewModels
 {
-    public class MainPageViewModel:ViewModelBase
+    public class MainPageViewModel : ViewModelBase
     {
         private ObservableCollection<DriverInformation> drivers = new ObservableCollection<DriverInformation>();
         private SortBy previousSortType;
@@ -40,9 +43,11 @@ namespace DriversBackup.ViewModels
         {
             //Initialize collection of drivers
             var controller = new DriverBackup();
-            Drivers = new ObservableCollection<DriverInformation>(controller.ListDrivers(AppSettings.ShowMicrosoftDrivers));
+            Drivers =
+                new ObservableCollection<DriverInformation>(controller.ListDrivers(AppSettings.ShowMicrosoftDrivers));
             allDrivers = new List<DriverInformation>(Drivers);
         }
+
         public ObservableCollection<DriverInformation> Drivers
         {
             get { return drivers; }
@@ -52,6 +57,7 @@ namespace DriversBackup.ViewModels
                 OnPropertyChanged();
             }
         }
+
         /// <summary>
         /// Search query
         /// </summary>
@@ -66,6 +72,7 @@ namespace DriversBackup.ViewModels
                 OnPropertyChanged("SearchActive");
             }
         }
+
         /// <summary>
         /// ViewModel for the message dialog control
         /// </summary>
@@ -112,11 +119,54 @@ namespace DriversBackup.ViewModels
             }
         }
 
+        public int DriversForBackpCount => Drivers.Count(x => x.IsSelected);
+
+        private void OpenOutputFolder(string path)
+        {            
+            //Handle: Folder might have been compressed to zip - check and handle
+            if (Directory.Exists(path))
+                Process.Start(path);
+
+            //older is a zip
+            else if (File.Exists(path + ".zip"))
+            {
+                MessageDialog =
+                    new MessageDialogViewModel(
+                        new ObservableCollection<ActionButton>()
+                        {
+                            new ActionButton("OK", () => MessageDialog = null, ActionButton.ButtonType.Accept)
+                        },
+                        "Folder cannot be opened", "Folder is an archive and cannot be opened");
+            }
+
+            //not found
+            else
+            {
+                MessageDialog =
+                    new MessageDialogViewModel(
+                        new ObservableCollection<ActionButton>()
+                        {
+                            new ActionButton("OK", () => MessageDialog = null, ActionButton.ButtonType.Accept)
+                        },
+                        "Folder cannot be opened", "Folder not found.");
+            }
+        }
+
+        private void CompressFolderAsZip(string path)
+        {
+            //TODO Initialize System.IO Compress stream or use NuGet instead
+        }
+
         #region Commands
+
         public RelayCommand SaveSelectedDrivers => new RelayCommand(async () =>
         {
+            //Update Drivers for backup count property
+            OnPropertyChanged(nameof(DriversForBackpCount));
+
             var folder = new FolderBrowserDialog();
             if (folder.ShowDialog() != DialogResult.OK) return;
+            string path = folder.SelectedPath;
 
             BackingUpProgress = 0;
             ShowInProgressDialog = true;
@@ -125,21 +175,41 @@ namespace DriversBackup.ViewModels
                 try
                 {
                     var controller = new DriverBackup();
-                    foreach (var t in Drivers)
+                    foreach (var t in Drivers.Where(x => x.IsSelected))
                     {
                         //Backup drivers one by one on background thread and show progress to the user
-                        await controller.BackupDriverAsync(t, folder.SelectedPath);
+                        await controller.BackupDriverAsync(t, path);
                         await Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background,
                             new Action(() => BackingUpProgress++));
                     }
+
+                    //Zip folder if user wants it automatically
+                    if (AppSettings.ZipRootFolder)
+                    {
+
+                    }
+
                     //Alert user when the job is done
                     MessageDialog =
                         new MessageDialogViewModel(
                             new ObservableCollection<ActionButton>(new List<ActionButton>
                             {
-                                new ActionButton("Ok", () => MessageDialog = null, ActionButton.ButtonType.Accept)
+                                new ActionButton("Ok", () => MessageDialog = null, ActionButton.ButtonType.Accept),
+                                new ActionButton("Open folder", () => OpenOutputFolder(path),
+                                    ActionButton.ButtonType.Deafult),
                             }),
                             "Drivers saved", "Selected drivers have been successfully saved.");
+
+                    //Add compress folder as zip button if it is not automatic
+                    if (!AppSettings.ZipRootFolder)
+                    {
+                        MessageDialog.ActionButtons.Add(new ActionButton("Zip folder",
+                            () =>
+                            {
+                                CompressFolderAsZip(path);
+                                MessageDialog.ActionButtons.Last().IsEnabled = false;
+                            }, ActionButton.ButtonType.Deafult));
+                    }
                 }
                 catch (Exception e)
                 {
@@ -158,14 +228,16 @@ namespace DriversBackup.ViewModels
                 }
             });
         });
+
         public RelayCommand SelectAll => new RelayCommand(() =>
         {
             //if all are selected, de-select them
-            //if not select all
+            //if not select them all
             bool select = Drivers.Count != Drivers.Count(x => x.IsSelected);
             foreach (var driver in Drivers)
                 driver.IsSelected = select;
         });
+
         public RelayCommand GoToSettings => new RelayCommand(() =>
         {
             AppContext.MainFrame.Navigate(new SettingsPage());
@@ -180,7 +252,7 @@ namespace DriversBackup.ViewModels
                 //if the same sort type is used, just reverse the list
                 if (sortType == previousSortType && sortType != SortBy.Search)
                     driversList.Reverse();
-                else  
+                else
                     switch (sortType)
                     {
                         case SortBy.DriverId:
@@ -229,6 +301,7 @@ namespace DriversBackup.ViewModels
         {
             Search = "";
         });
+
         #endregion
     }
 }
