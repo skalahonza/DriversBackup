@@ -145,7 +145,7 @@
         <Grid d:IsHidden="true" Grid.RowSpan="5" Background="Black" Opacity="0.6" Visibility="{Binding ShowInProgressDialog, Converter={StaticResource BooleanToVisibilityConverter}}">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock Text="Saving drivers..." FontSize="50"  Style="{StaticResource PageHeader}" Margin="0"/>
-                <ProgressBar Maximum="{Binding Drivers.Count}" Value="{Binding BackingUpProgress}" IsEnabled="True" Margin="0,20,0,0" Style="{DynamicResource StylishPorgressBar}"/>
+                <ProgressBar Maximum="{Binding DriversForBackpCount}" Value="{Binding BackingUpProgress}" IsEnabled="True" Margin="0,20,0,0" Style="{DynamicResource StylishPorgressBar}"/>
             </StackPanel>
         </Grid>
         <!-- Message dialog -->
