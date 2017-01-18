@@ -106,14 +106,17 @@
                                 <RowDefinition />
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="150"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="38"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Text="{Binding DriverProvider}" Style="{StaticResource ListItemText}"/>
-                            <TextBlock Grid.Column="1" Text="{Binding DriverDescription}" Margin="5,0,0,0" Style="{StaticResource ListItemText}"/>
-                            <CheckBox Grid.Column="2" IsChecked="{Binding IsSelected, Mode=TwoWay}"/>
+                            <CheckBox Style="{StaticResource LeftContentCheckBox}"
+                                      IsChecked="{Binding IsSelected, Mode=TwoWay}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="200"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{Binding DriverProvider}" Style="{StaticResource ListItemText}"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding DriverDescription}" Margin="5,0,0,0" Style="{StaticResource ListItemText}"/>
+                                </Grid>
+                            </CheckBox>
                             <Separator Grid.Row="1" Grid.ColumnSpan="3"/>
                         </Grid>
                     </DataTemplate>
