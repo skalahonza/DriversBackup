@@ -106,34 +106,16 @@
                                 <RowDefinition />
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="150"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="38"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.Style>
-                                <Style>
-                                    <Style.Triggers>
-                                        <Trigger Property="Grid.IsMouseOver" Value="True">
-                                            <Trigger.Setters>
-                                                <Setter Property="TextBlock.Foreground" Value="{StaticResource GreenAccent}"/>
-                                            </Trigger.Setters>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Grid.Style>
-                            <TextBlock Text="{Binding DriverProvider}" Style="{StaticResource ListItemText}"/>
-                            <TextBlock Grid.Column="1" Text="{Binding DriverDescription}" Margin="5,0,0,0" Style="{StaticResource ListItemText}"/>
-                            <CheckBox x:Name="Checker" Grid.Column="2" IsChecked="{Binding IsSelected, Mode=TwoWay}">
-                                <CheckBox.Style>
-                                    <Style TargetType="CheckBox" BasedOn="{StaticResource {x:Type CheckBox}}">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Grid,AncestorLevel=1}, Path=IsMouseOver}" Value="True" >
-                                                <Setter  Property="BorderBrush" Value="{StaticResource GreenAccent}" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </CheckBox.Style>
+                            <CheckBox Style="{StaticResource LeftContentCheckBox}"
+                                      IsChecked="{Binding IsSelected, Mode=TwoWay}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="200"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{Binding DriverProvider}" Style="{StaticResource ListItemText}"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding DriverDescription}" Margin="5,0,0,0" Style="{StaticResource ListItemText}"/>
+                                </Grid>
                             </CheckBox>
                             <Separator Grid.Row="1" Grid.ColumnSpan="3"/>
                         </Grid>
