@@ -163,6 +163,21 @@ namespace DriversBackup.ViewModels
         {
             //Update Drivers for backup count property
             OnPropertyChanged(nameof(DriversForBackpCount));
+            MessageDialog = null;
+            //check for empty selection
+            if (!Drivers.Any(x => x.IsSelected))
+            {
+                MessageDialog =
+                    new MessageDialogViewModel(new ObservableCollection<ActionButton>(new List<ActionButton>()
+                    {
+                        new ActionButton("OK",
+                            () =>
+                            {
+                                MessageDialog = null;
+                            }, ActionButton.ButtonType.Deafult)
+                    }), "Nothing to save", "No drivers selected for saving.");
+                return;
+            }
 
             var folder = new FolderBrowserDialog();
             if (folder.ShowDialog() != DialogResult.OK) return;
