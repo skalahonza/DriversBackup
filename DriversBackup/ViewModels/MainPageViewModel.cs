@@ -164,6 +164,13 @@ namespace DriversBackup.ViewModels
             //Update Drivers for backup count property
             OnPropertyChanged(nameof(DriversForBackpCount));
 
+            //check for empty selection
+            if (!Drivers.Any(x => x.IsSelected))
+            {
+                MessageBox.Show("No drivers selected");
+                return;
+            }
+
             var folder = new FolderBrowserDialog();
             if (folder.ShowDialog() != DialogResult.OK) return;
             string path = folder.SelectedPath;
