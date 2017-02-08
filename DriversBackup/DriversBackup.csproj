@@ -88,6 +88,7 @@
     <Compile Include="Models\SettingsBase.cs" />
     <Compile Include="Models\TriggerSettingsItem.cs" />
     <Compile Include="MVVM\AppContext.cs" />
+    <Compile Include="MVVM\AppResources.cs" />
     <Compile Include="ViewModels\MessageDialogViewModel.cs" />
     <Compile Include="ViewModels\SettingsPageViewModel.cs" />
     <Compile Include="Views\Controls\MessageDialog.xaml.cs">
