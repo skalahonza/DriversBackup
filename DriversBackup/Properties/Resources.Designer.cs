@@ -232,6 +232,33 @@ namespace DriversBackup.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sort by Backup.
+        /// </summary>
+        public static string SortByBackup {
+            get {
+                return ResourceManager.GetString("SortByBackup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sort by Description.
+        /// </summary>
+        public static string SortByDescription {
+            get {
+                return ResourceManager.GetString("SortByDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sort by Driver ID.
+        /// </summary>
+        public static string SortByDriverID {
+            get {
+                return ResourceManager.GetString("SortByDriverID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zip folder.
         /// </summary>
         public static string ZipFolder {

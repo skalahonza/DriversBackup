@@ -73,7 +73,7 @@
                     <Setter Property="FontSize" Value="18"/>
                 </Style>
             </Grid.Resources>
-            <Button ToolTip="Sort by Driver Id" Command="{Binding SortByCommand}" CommandParameter="DriverId">
+            <Button ToolTip="{x:Static p:Resources.SortByDriverID}" Command="{Binding SortByCommand}" CommandParameter="DriverId">
                 <Button.Content>
                     <WrapPanel>
                         <TextBlock Text="&#xEA37;" FontFamily="{StaticResource IconFont}" VerticalAlignment="Center"/>
@@ -81,7 +81,7 @@
                     </WrapPanel>
                 </Button.Content>
             </Button>
-            <Button Grid.Column="1" Margin="5,0,0,0" ToolTip="Sort by Description" Command="{Binding SortByCommand}" CommandParameter="Description">
+            <Button Grid.Column="1" Margin="5,0,0,0" ToolTip="{x:Static p:Resources.SortByDescription}" Command="{Binding SortByCommand}" CommandParameter="Description">
                 <Button.Content>
                     <WrapPanel>
                         <TextBlock Text="&#xE7C3;" FontFamily="{StaticResource IconFont}" VerticalAlignment="Center"/>
@@ -89,7 +89,7 @@
                     </WrapPanel>
                 </Button.Content>
             </Button>
-            <Button Grid.Column="2" ToolTip="Sort by Backup" Command="{Binding SortByCommand}" CommandParameter="Backup">
+            <Button Grid.Column="2" ToolTip="{x:Static p:Resources.SortByBackup}" Command="{Binding SortByCommand}" CommandParameter="Backup">
                 <Button.Content>
                     <WrapPanel>
                         <TextBlock Text="&#xE896;" FontFamily="{StaticResource IconFont}" VerticalAlignment="Center"/>
@@ -145,7 +145,7 @@
         <!-- In progress-->
         <Grid d:IsHidden="true" Grid.RowSpan="5" Background="Black" Opacity="0.6" Visibility="{Binding ShowInProgressDialog, Converter={StaticResource BooleanToVisibilityConverter}}">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Text="Saving drivers..." FontSize="50"  Style="{StaticResource PageHeader}" Margin="0"/>
+                <TextBlock Text="{x:Static p:Resources.SavingDriversDots}" FontSize="50"  Style="{StaticResource PageHeader}" Margin="0"/>
                 <ProgressBar Maximum="{Binding DriversForBackpCount}" Value="{Binding BackingUpProgress}" IsEnabled="True" Margin="0,20,0,0" Style="{DynamicResource StylishPorgressBar}"/>
             </StackPanel>
         </Grid>
