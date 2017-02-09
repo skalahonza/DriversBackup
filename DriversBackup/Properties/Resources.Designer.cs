@@ -59,5 +59,104 @@ namespace DriversBackup.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Drivers saved.
+        /// </summary>
+        internal static string DriversSaved {
+            get {
+                return ResourceManager.GetString("DriversSaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selected drivers have been successfully saved..
+        /// </summary>
+        internal static string DriversSavedLong {
+            get {
+                return ResourceManager.GetString("DriversSavedLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Folder cannot be opened..
+        /// </summary>
+        internal static string FolderCannotBeOpened {
+            get {
+                return ResourceManager.GetString("FolderCannotBeOpened", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Folder is an archive and cannot be opened..
+        /// </summary>
+        internal static string FolderCannotBeOpenedLong {
+            get {
+                return ResourceManager.GetString("FolderCannotBeOpenedLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Folder not found..
+        /// </summary>
+        internal static string FolderNotFound {
+            get {
+                return ResourceManager.GetString("FolderNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No drivers selected for saving..
+        /// </summary>
+        internal static string NoDriversSelected {
+            get {
+                return ResourceManager.GetString("NoDriversSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nothing to save.
+        /// </summary>
+        internal static string NothingToSave {
+            get {
+                return ResourceManager.GetString("NothingToSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        internal static string OK {
+            get {
+                return ResourceManager.GetString("OK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open folder.
+        /// </summary>
+        internal static string OpenFolder {
+            get {
+                return ResourceManager.GetString("OpenFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zip folder.
+        /// </summary>
+        internal static string ZipFolder {
+            get {
+                return ResourceManager.GetString("ZipFolder", resourceCulture);
+            }
+        }
     }
 }

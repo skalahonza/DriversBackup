@@ -14,6 +14,7 @@ using DriversBackup.Views;
 using WpfViewModelBase;
 using AppContext = DriversBackup.MVVM.AppContext;
 using Application = System.Windows.Application;
+using StringResources = DriversBackup.Properties.Resources;
 
 namespace DriversBackup.ViewModels
 {
@@ -134,9 +135,9 @@ namespace DriversBackup.ViewModels
                     new MessageDialogViewModel(
                         new ObservableCollection<ActionButton>()
                         {
-                            new ActionButton("OK", () => MessageDialog = null, ActionButton.ButtonType.Accept)
+                            new ActionButton(StringResources.OK, () => MessageDialog = null, ActionButton.ButtonType.Accept)
                         },
-                        "Folder cannot be opened", "Folder is an archive and cannot be opened");
+                        StringResources.FolderCannotBeOpened, StringResources.FolderCannotBeOpenedLong);
             }
 
             //not found
@@ -146,9 +147,9 @@ namespace DriversBackup.ViewModels
                     new MessageDialogViewModel(
                         new ObservableCollection<ActionButton>()
                         {
-                            new ActionButton("OK", () => MessageDialog = null, ActionButton.ButtonType.Accept)
+                            new ActionButton(StringResources.OK, () => MessageDialog = null, ActionButton.ButtonType.Accept)
                         },
-                        "Folder cannot be opened", "Folder not found.");
+                        StringResources.FolderCannotBeOpened, StringResources.FolderNotFound);
             }
         }
 
@@ -170,12 +171,12 @@ namespace DriversBackup.ViewModels
                 MessageDialog =
                     new MessageDialogViewModel(new ObservableCollection<ActionButton>(new List<ActionButton>()
                     {
-                        new ActionButton("OK",
+                        new ActionButton(StringResources.OK,
                             () =>
                             {
                                 MessageDialog = null;
                             }, ActionButton.ButtonType.Deafult)
-                    }), "Nothing to save", "No drivers selected for saving.");
+                    }), StringResources.NothingToSave, StringResources.NoDriversSelected);
                 return;
             }
 
@@ -209,16 +210,16 @@ namespace DriversBackup.ViewModels
                         new MessageDialogViewModel(
                             new ObservableCollection<ActionButton>(new List<ActionButton>
                             {
-                                new ActionButton("Ok", () => MessageDialog = null, ActionButton.ButtonType.Accept),
-                                new ActionButton("Open folder", () => OpenOutputFolder(path),
+                                new ActionButton(StringResources.OK, () => MessageDialog = null, ActionButton.ButtonType.Accept),
+                                new ActionButton(StringResources.OpenFolder, () => OpenOutputFolder(path),
                                     ActionButton.ButtonType.Deafult),
                             }),
-                            "Drivers saved", "Selected drivers have been successfully saved.");
+                            StringResources.DriversSaved, StringResources.DriversSavedLong);
 
                     //Add compress folder as zip button if it is not automatic
                     if (!AppSettings.ZipRootFolder)
                     {
-                        MessageDialog.ActionButtons.Add(new ActionButton("Zip folder",
+                        MessageDialog.ActionButtons.Add(new ActionButton(StringResources.ZipFolder,
                             () =>
                             {
                                 CompressFolderAsZip(path);
@@ -233,9 +234,9 @@ namespace DriversBackup.ViewModels
                         new MessageDialogViewModel(
                             new ObservableCollection<ActionButton>(new List<ActionButton>
                             {
-                                new ActionButton("Ok", () => MessageDialog = null, ActionButton.ButtonType.Accept)
+                                new ActionButton(StringResources.OK, () => MessageDialog = null, ActionButton.ButtonType.Accept)
                             }),
-                            "Error", e.Message);
+                            StringResources.Error, e.Message);
                 }
                 finally
                 {
