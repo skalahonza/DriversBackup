@@ -7,9 +7,10 @@
       xmlns:controls="clr-namespace:DriversBackup.Controls"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:controls1="clr-namespace:DriversBackup.Views.Controls"
+      xmlns:p="clr-namespace:DriversBackup.Properties"
       mc:Ignorable="d" 
       d:DesignHeight="768" d:DesignWidth="1024"
-      Title="MainPage">
+      Title="Drivers Backup">
     <Page.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </Page.Resources>
@@ -33,20 +34,20 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="Drivers" Style="{StaticResource PageHeader}" />
+                <TextBlock Text="{x:Static p:Resources.Drivers}" Style="{StaticResource PageHeader}" />
                 <Button Grid.Column="1" HorizontalAlignment="Right" Margin="5,5,15,5" Background="Transparent"
     				FontSize="25" Command="{Binding GoToSettings}" Style="{StaticResource FancyButton}"
     				BorderBrush="{StaticResource BlueAccent}" Foreground="White">
                     <WrapPanel>
                         <TextBlock Text="&#xE713;" FontFamily="{StaticResource IconFont}" VerticalAlignment="Center"/>
-                        <TextBlock Text="Settings" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                        <TextBlock Text="{x:Static p:Resources.Settings}" VerticalAlignment="Center" Margin="5,0,0,0"/>
                     </WrapPanel>
                 </Button>
             </Grid>
         </Border>
         <!--Search textbox -->
         <Grid Grid.Row="1">
-            <controls:PlaceholderTextBox x:Name="SearchBox" Text="{Binding Search, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" PlaceholderText="Search..." 
+            <controls:PlaceholderTextBox x:Name="SearchBox" Text="{Binding Search, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" PlaceholderText="{x:Static p:Resources.SearchDots}" 
                                          Padding="5,0,0,0" FontSize="20" VerticalContentAlignment="Center" BorderThickness="0,0,0,1" GotFocus="PlaceholderTextBox_GotFocus" LostFocus="PlaceholderTextBox_LostFocus">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="TextChanged">
@@ -63,7 +64,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="100"/>
+                <ColumnDefinition MinWidth="100" Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Grid.Resources>
                 <Style TargetType="Button" BasedOn="{StaticResource FancyButton}">
@@ -72,28 +73,29 @@
                     <Setter Property="FontSize" Value="18"/>
                 </Style>
             </Grid.Resources>
-            <Button ToolTip="Sort by Driver Id" Command="{Binding SortByCommand}" CommandParameter="DriverId">
+            <Button ToolTip="{x:Static p:Resources.SortByDriverID}" Command="{Binding SortByCommand}" CommandParameter="DriverId" Margin="5,0,0,0"
+                    HorizontalContentAlignment="Left">
                 <Button.Content>
                     <WrapPanel>
                         <TextBlock Text="&#xEA37;" FontFamily="{StaticResource IconFont}" VerticalAlignment="Center"/>
-                        <TextBlock Text="Driver ID" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                        <TextBlock Text="{x:Static p:Resources.DriverID}" VerticalAlignment="Center" Margin="5,0,0,0"/>
                     </WrapPanel>
                 </Button.Content>
             </Button>
-            <Button Grid.Column="1" Margin="5,0,0,0" ToolTip="Sort by Description" Command="{Binding SortByCommand}" CommandParameter="Description">
+            <Button Grid.Column="1" Margin="5,0,0,0" ToolTip="{x:Static p:Resources.SortByDescription}" Command="{Binding SortByCommand}" CommandParameter="Description">
                 <Button.Content>
                     <WrapPanel>
                         <TextBlock Text="&#xE7C3;" FontFamily="{StaticResource IconFont}" VerticalAlignment="Center"/>
-                        <TextBlock Text="Description" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                        <TextBlock Text="{x:Static p:Resources.Description}" VerticalAlignment="Center" Margin="5,0,0,0"/>
                     </WrapPanel>
                 </Button.Content>
             </Button>
-            <Button Grid.Column="2" ToolTip="Sort by Backup" Command="{Binding SortByCommand}" CommandParameter="Backup">
+            <Button Grid.Column="2" ToolTip="{x:Static p:Resources.SortByBackup}" Command="{Binding SortByCommand}" CommandParameter="Backup">
                 <Button.Content>
-                    <WrapPanel>
+                    <StackPanel Orientation="Horizontal">
                         <TextBlock Text="&#xE896;" FontFamily="{StaticResource IconFont}" VerticalAlignment="Center"/>
-                        <TextBlock Text="Backup" VerticalAlignment="Center" Margin="5,0,0,0"/>
-                    </WrapPanel>
+                        <TextBlock Text="{x:Static p:Resources.Backup}" VerticalAlignment="Center" Margin="5,0"/>
+                    </StackPanel>
                 </Button.Content>
             </Button>
         </Grid>
@@ -131,26 +133,26 @@
             <Button Command="{Binding SaveSelectedDrivers}" Style="{StaticResource FancyButton}" FontSize="15" BorderBrush="{StaticResource GreenAccent}">
                 <WrapPanel>
                     <TextBlock Text="&#xE74E;" FontFamily="{StaticResource IconFont}" VerticalAlignment="Center"/>
-                    <TextBlock Text="Save" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                    <TextBlock Text="{x:Static p:Resources.Save}" VerticalAlignment="Center" Margin="5,0,0,0"/>
                 </WrapPanel>
             </Button>
             <Button Grid.Column="1" Command="{Binding SelectAll}" Style="{StaticResource FancyButton}" FontSize="15" BorderBrush="{StaticResource BlueAccent}">
                 <WrapPanel>
                     <TextBlock Text="&#xE133;" FontFamily="{StaticResource IconFont}" VerticalAlignment="Center"/>
-                    <TextBlock Text="Select all" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                    <TextBlock Text="{x:Static p:Resources.SelectAll}" VerticalAlignment="Center" Margin="5,0,0,0"/>
                 </WrapPanel>
             </Button>
         </Grid>
         <!-- In progress-->
         <Grid d:IsHidden="true" Grid.RowSpan="5" Background="Black" Opacity="0.6" Visibility="{Binding ShowInProgressDialog, Converter={StaticResource BooleanToVisibilityConverter}}">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Text="Saving drivers..." FontSize="50"  Style="{StaticResource PageHeader}" Margin="0"/>
+                <TextBlock Text="{x:Static p:Resources.SavingDriversDots}" FontSize="50"  Style="{StaticResource PageHeader}" Margin="0"/>
                 <ProgressBar Maximum="{Binding DriversForBackpCount}" Value="{Binding BackingUpProgress}" IsEnabled="True" Margin="0,20,0,0" Style="{DynamicResource StylishPorgressBar}"/>
             </StackPanel>
         </Grid>
         <!-- Message dialog -->
         <Grid Grid.Row="3" Visibility="{Binding ShowMessage, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
-            <controls1:MessageDialog VerticalAlignment="Center" HorizontalAlignment="Center" DataContext="{Binding MessageDialog}"                                 />
+            <controls1:MessageDialog VerticalAlignment="Center" HorizontalAlignment="Center" DataContext="{Binding MessageDialog}"/>
         </Grid>
     </Grid>
 </Page>

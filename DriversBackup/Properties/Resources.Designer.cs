@@ -22,7 +22,7 @@ namespace DriversBackup.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace DriversBackup.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DriversBackup.Properties.Resources", typeof(Resources).Assembly);
@@ -51,12 +51,291 @@ namespace DriversBackup.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        public static string About {
+            get {
+                return ResourceManager.GetString("About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Drivers Backup allows you to save your drivers locally. It was created in order to help Windows users during re-installation process. It can also be useful if you want to transfer one or more drivers from your device to another. It can be used on Windows 7 or higher on any PC or Windows tablet..
+        /// </summary>
+        public static string AboutText {
+            get {
+                return ResourceManager.GetString("AboutText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Application settings.
+        /// </summary>
+        public static string ApplicationSettings {
+            get {
+                return ResourceManager.GetString("ApplicationSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatically zip the folder with drivers.
+        /// </summary>
+        public static string AutomaticallyZipFolder {
+            get {
+                return ResourceManager.GetString("AutomaticallyZipFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Backup.
+        /// </summary>
+        public static string Backup {
+            get {
+                return ResourceManager.GetString("Backup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        public static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Driver ID.
+        /// </summary>
+        public static string DriverID {
+            get {
+                return ResourceManager.GetString("DriverID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Drivers.
+        /// </summary>
+        public static string Drivers {
+            get {
+                return ResourceManager.GetString("Drivers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Drivers saved.
+        /// </summary>
+        public static string DriversSaved {
+            get {
+                return ResourceManager.GetString("DriversSaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selected drivers have been successfully saved..
+        /// </summary>
+        public static string DriversSavedLong {
+            get {
+                return ResourceManager.GetString("DriversSavedLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Folder cannot be opened..
+        /// </summary>
+        public static string FolderCannotBeOpened {
+            get {
+                return ResourceManager.GetString("FolderCannotBeOpened", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Folder is an archive and cannot be opened..
+        /// </summary>
+        public static string FolderCannotBeOpenedLong {
+            get {
+                return ResourceManager.GetString("FolderCannotBeOpenedLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Folder not found..
+        /// </summary>
+        public static string FolderNotFound {
+            get {
+                return ResourceManager.GetString("FolderNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Follow us.
+        /// </summary>
+        public static string FollowUs {
+            get {
+                return ResourceManager.GetString("FollowUs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No drivers selected for saving..
+        /// </summary>
+        public static string NoDriversSelected {
+            get {
+                return ResourceManager.GetString("NoDriversSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nothing to save.
+        /// </summary>
+        public static string NothingToSave {
+            get {
+                return ResourceManager.GetString("NothingToSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string OK {
+            get {
+                return ResourceManager.GetString("OK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open folder.
+        /// </summary>
+        public static string OpenFolder {
+            get {
+                return ResourceManager.GetString("OpenFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saving drivers....
+        /// </summary>
+        public static string SavingDriversDots {
+            get {
+                return ResourceManager.GetString("SavingDriversDots", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search....
+        /// </summary>
+        public static string SearchDots {
+            get {
+                return ResourceManager.GetString("SearchDots", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select all.
+        /// </summary>
+        public static string SelectAll {
+            get {
+                return ResourceManager.GetString("SelectAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string Settings {
+            get {
+                return ResourceManager.GetString("Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Microsoft Drivers.
+        /// </summary>
+        public static string ShowMicrosoftDrivers {
+            get {
+                return ResourceManager.GetString("ShowMicrosoftDrivers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sort by Backup.
+        /// </summary>
+        public static string SortByBackup {
+            get {
+                return ResourceManager.GetString("SortByBackup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sort by Description.
+        /// </summary>
+        public static string SortByDescription {
+            get {
+                return ResourceManager.GetString("SortByDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sort by Driver ID.
+        /// </summary>
+        public static string SortByDriverID {
+            get {
+                return ResourceManager.GetString("SortByDriverID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Web.
+        /// </summary>
+        public static string Web {
+            get {
+                return ResourceManager.GetString("Web", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zip folder.
+        /// </summary>
+        public static string ZipFolder {
+            get {
+                return ResourceManager.GetString("ZipFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to When the drivers are saved in a selected folder. The folder will be automatically compressed as a zip file..
+        /// </summary>
+        public static string ZipFolderHint {
+            get {
+                return ResourceManager.GetString("ZipFolderHint", resourceCulture);
             }
         }
     }

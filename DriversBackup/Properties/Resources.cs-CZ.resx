@@ -118,94 +118,94 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About" xml:space="preserve">
-    <value>About</value>
+    <value>O aplikaci</value>
   </data>
   <data name="AboutText" xml:space="preserve">
     <value>Drivers Backup allows you to save your drivers locally. It was created in order to help Windows users during re-installation process. It can also be useful if you want to transfer one or more drivers from your device to another. It can be used on Windows 7 or higher on any PC or Windows tablet.</value>
   </data>
   <data name="ApplicationSettings" xml:space="preserve">
-    <value>Application settings</value>
+    <value>Nastavení aplikace</value>
   </data>
   <data name="AutomaticallyZipFolder" xml:space="preserve">
-    <value>Automatically zip the folder with drivers</value>
+    <value>Automaticky zazipovat složku po uložení ovaldačů.</value>
   </data>
   <data name="Backup" xml:space="preserve">
-    <value>Backup</value>
+    <value>Zálohovat</value>
   </data>
   <data name="Description" xml:space="preserve">
-    <value>Description</value>
+    <value>Popis</value>
   </data>
   <data name="DriverID" xml:space="preserve">
-    <value>Driver ID</value>
+    <value>ID ovladače</value>
   </data>
   <data name="Drivers" xml:space="preserve">
-    <value>Drivers</value>
+    <value>Ovladače</value>
   </data>
   <data name="DriversSaved" xml:space="preserve">
-    <value>Drivers saved</value>
+    <value>Ovladače uloženy</value>
   </data>
   <data name="DriversSavedLong" xml:space="preserve">
-    <value>Selected drivers have been successfully saved.</value>
+    <value>Vybrané ovladače se úspěšně uložily.</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value>Error</value>
+    <value>Chyba</value>
   </data>
   <data name="FolderCannotBeOpened" xml:space="preserve">
-    <value>Folder cannot be opened.</value>
+    <value>Složku nelze otevřít.</value>
   </data>
   <data name="FolderCannotBeOpenedLong" xml:space="preserve">
-    <value>Folder is an archive and cannot be opened.</value>
+    <value>Vybraná složka je typu archiv, a proto ji nelze otevřit.</value>
   </data>
   <data name="FolderNotFound" xml:space="preserve">
-    <value>Folder not found.</value>
+    <value>Složka nebyla nalezena.</value>
   </data>
   <data name="FollowUs" xml:space="preserve">
-    <value>Follow us</value>
+    <value>Sledujte nás</value>
   </data>
   <data name="NoDriversSelected" xml:space="preserve">
-    <value>No drivers selected for saving.</value>
+    <value>Nebyly vybrány žádné ovladače.</value>
   </data>
   <data name="NothingToSave" xml:space="preserve">
-    <value>Nothing to save</value>
+    <value>Není co uložit</value>
   </data>
   <data name="OK" xml:space="preserve">
     <value>OK</value>
   </data>
   <data name="OpenFolder" xml:space="preserve">
-    <value>Open folder</value>
+    <value>Otevřit složku</value>
   </data>
   <data name="Save" xml:space="preserve">
-    <value>Save</value>
+    <value>Uložit</value>
   </data>
   <data name="SavingDriversDots" xml:space="preserve">
-    <value>Saving drivers...</value>
+    <value>Ukládání ovladačů...</value>
   </data>
   <data name="SearchDots" xml:space="preserve">
-    <value>Search...</value>
+    <value>Hledat...</value>
   </data>
   <data name="SelectAll" xml:space="preserve">
-    <value>Select all</value>
+    <value>Vybrat vše</value>
   </data>
   <data name="Settings" xml:space="preserve">
-    <value>Settings</value>
+    <value>Nastavení</value>
   </data>
   <data name="ShowMicrosoftDrivers" xml:space="preserve">
-    <value>Show Microsoft Drivers</value>
+    <value>Ukázat ovladače společnosti Microsoft</value>
   </data>
   <data name="SortByBackup" xml:space="preserve">
-    <value>Sort by Backup</value>
+    <value>Seřadit podle "Zálohovat"</value>
   </data>
   <data name="SortByDescription" xml:space="preserve">
-    <value>Sort by Description</value>
+    <value>Seřadit podle popisku</value>
   </data>
   <data name="SortByDriverID" xml:space="preserve">
-    <value>Sort by Driver ID</value>
+    <value>Seřadit podle ID ovladače</value>
   </data>
   <data name="Web" xml:space="preserve">
     <value>Web</value>
   </data>
   <data name="ZipFolder" xml:space="preserve">
-    <value>Zip folder</value>
+    <value>Zazipovat složku</value>
   </data>
   <data name="ZipFolderHint" xml:space="preserve">
     <value>When the drivers are saved in a selected folder. The folder will be automatically compressed as a zip file.</value>
