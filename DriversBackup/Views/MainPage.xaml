@@ -64,7 +64,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="100"/>
+                <ColumnDefinition MinWidth="100" Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Grid.Resources>
                 <Style TargetType="Button" BasedOn="{StaticResource FancyButton}">
@@ -73,7 +73,8 @@
                     <Setter Property="FontSize" Value="18"/>
                 </Style>
             </Grid.Resources>
-            <Button ToolTip="{x:Static p:Resources.SortByDriverID}" Command="{Binding SortByCommand}" CommandParameter="DriverId">
+            <Button ToolTip="{x:Static p:Resources.SortByDriverID}" Command="{Binding SortByCommand}" CommandParameter="DriverId" Margin="5,0,0,0"
+                    HorizontalContentAlignment="Left">
                 <Button.Content>
                     <WrapPanel>
                         <TextBlock Text="&#xEA37;" FontFamily="{StaticResource IconFont}" VerticalAlignment="Center"/>
@@ -91,10 +92,10 @@
             </Button>
             <Button Grid.Column="2" ToolTip="{x:Static p:Resources.SortByBackup}" Command="{Binding SortByCommand}" CommandParameter="Backup">
                 <Button.Content>
-                    <WrapPanel>
+                    <StackPanel Orientation="Horizontal">
                         <TextBlock Text="&#xE896;" FontFamily="{StaticResource IconFont}" VerticalAlignment="Center"/>
-                        <TextBlock Text="{x:Static p:Resources.Backup}" VerticalAlignment="Center" Margin="5,0,0,0"/>
-                    </WrapPanel>
+                        <TextBlock Text="{x:Static p:Resources.Backup}" VerticalAlignment="Center" Margin="5,0"/>
+                    </StackPanel>
                 </Button.Content>
             </Button>
         </Grid>

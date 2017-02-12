@@ -46,7 +46,7 @@
     
     mimetype: application/x-microsoft.net.object.binary.base64
     value   : The object must be serialized with 
-            : System.Serialization.Formatters.Binary.BinaryFormatter
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
     
     mimetype: application/x-microsoft.net.object.soap.base64
@@ -60,6 +60,7 @@
             : and then encoded with base64 encoding.
     -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
@@ -68,9 +69,10 @@
               <xsd:sequence>
                 <xsd:element name="value" type="xsd:string" minOccurs="0" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="name" use="required" type="xsd:string" />
               <xsd:attribute name="type" type="xsd:string" />
               <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
@@ -85,9 +87,10 @@
                 <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
                 <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
               <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
               <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
@@ -109,9 +112,102 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About" xml:space="preserve">
+    <value>O aplikaci</value>
+  </data>
+  <data name="AboutText" xml:space="preserve">
+    <value>Drivers Backup allows you to save your drivers locally. It was created in order to help Windows users during re-installation process. It can also be useful if you want to transfer one or more drivers from your device to another. It can be used on Windows 7 or higher on any PC or Windows tablet.</value>
+  </data>
+  <data name="ApplicationSettings" xml:space="preserve">
+    <value>Nastavení aplikace</value>
+  </data>
+  <data name="AutomaticallyZipFolder" xml:space="preserve">
+    <value>Automaticky zazipovat složku po uložení ovaldačů.</value>
+  </data>
+  <data name="Backup" xml:space="preserve">
+    <value>Zálohovat</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Popis</value>
+  </data>
+  <data name="DriverID" xml:space="preserve">
+    <value>ID ovladače</value>
+  </data>
+  <data name="Drivers" xml:space="preserve">
+    <value>Ovladače</value>
+  </data>
+  <data name="DriversSaved" xml:space="preserve">
+    <value>Ovladače uloženy</value>
+  </data>
+  <data name="DriversSavedLong" xml:space="preserve">
+    <value>Vybrané ovladače se úspěšně uložily.</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Chyba</value>
+  </data>
+  <data name="FolderCannotBeOpened" xml:space="preserve">
+    <value>Složku nelze otevřít.</value>
+  </data>
+  <data name="FolderCannotBeOpenedLong" xml:space="preserve">
+    <value>Vybraná složka je typu archiv, a proto ji nelze otevřit.</value>
+  </data>
+  <data name="FolderNotFound" xml:space="preserve">
+    <value>Složka nebyla nalezena.</value>
+  </data>
+  <data name="FollowUs" xml:space="preserve">
+    <value>Sledujte nás</value>
+  </data>
+  <data name="NoDriversSelected" xml:space="preserve">
+    <value>Nebyly vybrány žádné ovladače.</value>
+  </data>
+  <data name="NothingToSave" xml:space="preserve">
+    <value>Není co uložit</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="OpenFolder" xml:space="preserve">
+    <value>Otevřit složku</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Uložit</value>
+  </data>
+  <data name="SavingDriversDots" xml:space="preserve">
+    <value>Ukládání ovladačů...</value>
+  </data>
+  <data name="SearchDots" xml:space="preserve">
+    <value>Hledat...</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Vybrat vše</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Nastavení</value>
+  </data>
+  <data name="ShowMicrosoftDrivers" xml:space="preserve">
+    <value>Ukázat ovladače společnosti Microsoft</value>
+  </data>
+  <data name="SortByBackup" xml:space="preserve">
+    <value>Seřadit podle "Zálohovat"</value>
+  </data>
+  <data name="SortByDescription" xml:space="preserve">
+    <value>Seřadit podle popisku</value>
+  </data>
+  <data name="SortByDriverID" xml:space="preserve">
+    <value>Seřadit podle ID ovladače</value>
+  </data>
+  <data name="Web" xml:space="preserve">
+    <value>Web</value>
+  </data>
+  <data name="ZipFolder" xml:space="preserve">
+    <value>Zazipovat složku</value>
+  </data>
+  <data name="ZipFolderHint" xml:space="preserve">
+    <value>When the drivers are saved in a selected folder. The folder will be automatically compressed as a zip file.</value>
+  </data>
 </root>
