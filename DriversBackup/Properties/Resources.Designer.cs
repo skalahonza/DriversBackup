@@ -61,6 +61,42 @@ namespace DriversBackup.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        public static string About {
+            get {
+                return ResourceManager.GetString("About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Drivers Backup allows you to save your drivers locally. It was created in order to help Windows users during re-installation process. It can also be useful if you want to transfer one or more drivers from your device to another. It can be used on Windows 7 or higher on any PC or Windows tablet..
+        /// </summary>
+        public static string AboutText {
+            get {
+                return ResourceManager.GetString("AboutText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Application settings.
+        /// </summary>
+        public static string ApplicationSettings {
+            get {
+                return ResourceManager.GetString("ApplicationSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatically zip the folder with drivers.
+        /// </summary>
+        public static string AutomaticallyZipFolder {
+            get {
+                return ResourceManager.GetString("AutomaticallyZipFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Backup.
         /// </summary>
         public static string Backup {
@@ -151,6 +187,15 @@ namespace DriversBackup.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Follow us.
+        /// </summary>
+        public static string FollowUs {
+            get {
+                return ResourceManager.GetString("FollowUs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No drivers selected for saving..
         /// </summary>
         public static string NoDriversSelected {
@@ -232,6 +277,15 @@ namespace DriversBackup.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show Microsoft Drivers.
+        /// </summary>
+        public static string ShowMicrosoftDrivers {
+            get {
+                return ResourceManager.GetString("ShowMicrosoftDrivers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sort by Backup.
         /// </summary>
         public static string SortByBackup {
@@ -259,11 +313,29 @@ namespace DriversBackup.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Web.
+        /// </summary>
+        public static string Web {
+            get {
+                return ResourceManager.GetString("Web", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zip folder.
         /// </summary>
         public static string ZipFolder {
             get {
                 return ResourceManager.GetString("ZipFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to When the drivers are saved in a selected folder. The folder will be automatically compressed as a zip file..
+        /// </summary>
+        public static string ZipFolderHint {
+            get {
+                return ResourceManager.GetString("ZipFolderHint", resourceCulture);
             }
         }
     }

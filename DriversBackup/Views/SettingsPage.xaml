@@ -5,8 +5,9 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:viewModels="clr-namespace:DriversBackup.ViewModels"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:p="clr-namespace:DriversBackup.Properties"
       mc:Ignorable="d" Background="White"
-      d:DesignHeight="420" d:DesignWidth="300"
+      d:DesignHeight="520" d:DesignWidth="300"
       Title="SettingsPage">
     <Page.Resources>
     </Page.Resources>
@@ -31,20 +32,20 @@
                     </Button>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="5">
                         <TextBlock Text="&#xE713;" FontFamily="{StaticResource IconFont}" VerticalAlignment="Center" Style="{StaticResource PageHeader}"/>
-                        <TextBlock Text="Settings" VerticalAlignment="Center" Margin="5,0,0,0" Style="{StaticResource PageHeader}"/>
+                        <TextBlock Text="{x:Static p:Resources.Settings}" VerticalAlignment="Center" Margin="5,0,0,0" Style="{StaticResource PageHeader}"/>
                     </StackPanel>
                 </StackPanel>
             </Grid>
             <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10,0">
                 <StackPanel Orientation="Vertical">
-                    <TextBlock Text="Application settings" Style="{StaticResource PageSubHeader}"/>
-                    <CheckBox Content="Show Microsoft Drivers" VerticalContentAlignment="Center" IsChecked="{Binding ShowMicrosoftDrivers, Mode=TwoWay}" Margin="5"/>
-                    <CheckBox Content="Automatically zip the folder with drivers" VerticalContentAlignment="Center" IsChecked="{Binding ZipRootFolder, Mode=TwoWay}" Margin="5"/>
-                    <TextBlock Text="When the drivers are saved in a selected folder. The folder will be automatically compressed as a zip file." TextWrapping="WrapWithOverflow" Margin="5"/>
-                    <TextBlock Text="About" Style="{StaticResource PageSubHeader}"/>
-                    <TextBlock Text="Drivers Backup allows you to save your drivers locally. It was created in order to help Windows users during re-installation process. It can also be useful if you want to transfer one or more drivers from your device to another. It can be used on Windows 7 or higher on any PC or Windows tablet." 
+                    <TextBlock Text="{x:Static p:Resources.ApplicationSettings}" Style="{StaticResource PageSubHeader}"/>
+                    <CheckBox Content="{x:Static p:Resources.ShowMicrosoftDrivers}" VerticalContentAlignment="Center" IsChecked="{Binding ShowMicrosoftDrivers, Mode=TwoWay}" Margin="5"/>
+                    <CheckBox Content="{x:Static p:Resources.AutomaticallyZipFolder}" VerticalContentAlignment="Center" IsChecked="{Binding ZipRootFolder, Mode=TwoWay}" Margin="5"/>
+                    <TextBlock Text="{x:Static p:Resources.ZipFolderHint}" TextWrapping="WrapWithOverflow" Margin="5"/>
+                    <TextBlock Text="{x:Static p:Resources.About}" Style="{StaticResource PageSubHeader}"/>
+                    <TextBlock Text="{x:Static p:Resources.AboutText}" 
                        TextWrapping="WrapWithOverflow" Margin="5"/>
-                    <TextBlock Text="Web" Style="{StaticResource PageSubHeader}"/>
+                    <TextBlock Text="{x:Static p:Resources.Web}" Style="{StaticResource PageSubHeader}"/>
                     <TextBlock Text="http://goid.azurewebsites.net/software/drivers-backup/" Style="{StaticResource HypeLink}">
                         <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDown" >
@@ -52,7 +53,7 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                     </TextBlock>
-                    <TextBlock Text="Follow us" Style="{StaticResource PageSubHeader}"/>
+                    <TextBlock Text="{x:Static p:Resources.FollowUs}" Style="{StaticResource PageSubHeader}"/>
                     <WrapPanel>
                         <Button Content="Facebook" Command="{Binding GoToWeb}" Style="{StaticResource SocialButton}" CommandParameter="https://www.facebook.com/GoID.Dev/" Background="#3B579D" />
                         <Button Content="Twitter" Command="{Binding GoToWeb}" Style="{StaticResource SocialButton}" CommandParameter="https://twitter.com/GoID_IT?ref_src=twsrc%5Etfw/" Background="#00C9FB" />

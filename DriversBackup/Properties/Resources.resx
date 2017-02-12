@@ -117,6 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="AboutText" xml:space="preserve">
+    <value>Drivers Backup allows you to save your drivers locally. It was created in order to help Windows users during re-installation process. It can also be useful if you want to transfer one or more drivers from your device to another. It can be used on Windows 7 or higher on any PC or Windows tablet.</value>
+  </data>
+  <data name="ApplicationSettings" xml:space="preserve">
+    <value>Application settings</value>
+  </data>
+  <data name="AutomaticallyZipFolder" xml:space="preserve">
+    <value>Automatically zip the folder with drivers</value>
+  </data>
   <data name="Backup" xml:space="preserve">
     <value>Backup</value>
   </data>
@@ -147,6 +159,9 @@
   <data name="FolderNotFound" xml:space="preserve">
     <value>Folder not found.</value>
   </data>
+  <data name="FollowUs" xml:space="preserve">
+    <value>Follow us</value>
+  </data>
   <data name="NoDriversSelected" xml:space="preserve">
     <value>No drivers selected for saving.</value>
   </data>
@@ -174,6 +189,9 @@
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="ShowMicrosoftDrivers" xml:space="preserve">
+    <value>Show Microsoft Drivers</value>
+  </data>
   <data name="SortByBackup" xml:space="preserve">
     <value>Sort by Backup</value>
   </data>
@@ -183,7 +201,13 @@
   <data name="SortByDriverID" xml:space="preserve">
     <value>Sort by Driver ID</value>
   </data>
+  <data name="Web" xml:space="preserve">
+    <value>Web</value>
+  </data>
   <data name="ZipFolder" xml:space="preserve">
     <value>Zip folder</value>
+  </data>
+  <data name="ZipFolderHint" xml:space="preserve">
+    <value>When the drivers are saved in a selected folder. The folder will be automatically compressed as a zip file.</value>
   </data>
 </root>
