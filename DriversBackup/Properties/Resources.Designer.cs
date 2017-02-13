@@ -196,6 +196,24 @@ namespace DriversBackup.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Install Driver.
+        /// </summary>
+        public static string InstallDriver {
+            get {
+                return ResourceManager.GetString("InstallDriver", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Install Drivers.
+        /// </summary>
+        public static string InstallDrivers {
+            get {
+                return ResourceManager.GetString("InstallDrivers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No drivers selected for saving..
         /// </summary>
         public static string NoDriversSelected {
@@ -264,6 +282,15 @@ namespace DriversBackup.Properties {
         public static string SelectAll {
             get {
                 return ResourceManager.GetString("SelectAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select folder.
+        /// </summary>
+        public static string SelectFolder {
+            get {
+                return ResourceManager.GetString("SelectFolder", resourceCulture);
             }
         }
         

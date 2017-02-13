@@ -1,0 +1,85 @@
+﻿<Page x:Class="DriversBackup.Views.InstallPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:viewModels="clr-namespace:DriversBackup.ViewModels"
+      xmlns:p="clr-namespace:DriversBackup.Properties"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      Title="InstallPage">
+    <Page.Resources>
+    </Page.Resources>
+    <Page.DataContext>
+        <viewModels:InstallPageViewModel/>
+    </Page.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid Height="50" VerticalAlignment="Top">
+                <Grid.Background>
+                    <ImageBrush ImageSource="/DriversBackup;component/Content/Images/ScratchedTexture.png"/>
+                </Grid.Background>
+
+                <StackPanel Orientation="Horizontal">
+                    <Button HorizontalAlignment="Left" VerticalAlignment="Center"
+                        Style="{StaticResource FancyButton}" BorderBrush="Transparent" Background="Transparent" Command="{Binding GoBackCommand}">
+                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE830;" Margin="10,0,0,0" Style="{StaticResource PageHeader}"/>
+                    </Button>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="5">
+                        <TextBlock Text="&#xE713;" FontFamily="{StaticResource IconFont}" VerticalAlignment="Center" Style="{StaticResource PageHeader}"/>
+                        <TextBlock Text="{x:Static p:Resources.InstallDrivers}" VerticalAlignment="Center" Margin="5,0,0,0" Style="{StaticResource PageHeader}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        <!-- Drivers List -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <ItemsControl x:Name="ListView" ItemsSource="{Binding Drivers, Mode=TwoWay}" Padding="5" HorizontalContentAlignment="Stretch">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <CheckBox Style="{StaticResource LeftContentCheckBox}"
+                                      IsChecked="{Binding IsSelected, Mode=TwoWay}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="200"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{Binding DriverProvider}" Style="{StaticResource ListItemText}"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding DriverDescription}" Margin="5,0,0,0" Style="{StaticResource ListItemText}"/>
+                                </Grid>
+                            </CheckBox>
+                            <Separator Grid.Row="1" Grid.ColumnSpan="3"/>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        <!-- Select folder button -->
+        <Button Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding ExploreFolder}"
+                Style="{StaticResource FancyButton}" BorderBrush="{StaticResource GreenAccent}" Width="150" Height="75">
+            <Button.Content>
+                <StackPanel>
+                    <TextBlock Text="&#xE8B7;" FontFamily="{StaticResource IconFont}" HorizontalAlignment="Center" FontSize="25"/>
+                    <TextBlock Text="{x:Static p:Resources.SelectFolder}" FontSize="25"/>
+                </StackPanel>
+            </Button.Content>
+        </Button>
+        <!-- Bottom button panel -->
+        <Grid Grid.Row="2">
+            <Button Command="{Binding InstallSelectedDrivers}" Style="{StaticResource FancyButton}" FontSize="15" BorderBrush="{StaticResource GreenAccent}">
+                <WrapPanel>
+                    <TextBlock Text="&#xE74E;" FontFamily="{StaticResource IconFont}" VerticalAlignment="Center"/>
+                    <TextBlock Text="{x:Static p:Resources.InstallDrivers}" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                </WrapPanel>
+            </Button>
+        </Grid>
+    </Grid>
+</Page>

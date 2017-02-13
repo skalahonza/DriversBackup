@@ -8,6 +8,7 @@ namespace DriversBackup.Models
     public class DriverInformation:ViewModelBase
     {
         private bool isSelected;
+        private string infPath;
 
         public DriverInformation(string driverProvider, string driverDescription, string driverDeviceGuid, string driverId)
         {
@@ -15,6 +16,11 @@ namespace DriversBackup.Models
             DriverDescription = driverDescription;
             DriverDeviceGuid = driverDeviceGuid;
             DriverId = driverId;
+        }
+
+        public DriverInformation(string infPath)
+        {
+            InfPath = infPath;
         }
         public string DriverProvider { get; }    
         public string DriverDescription { get; }
@@ -26,6 +32,18 @@ namespace DriversBackup.Models
             set
             {
                 isSelected = value;
+                OnPropertyChanged();
+            }
+        }
+        /// <summary>
+        /// Path to the INF file of the driver
+        /// </summary>
+        public string InfPath
+        {
+            get { return infPath; }
+            set
+            {
+                infPath = value;
                 OnPropertyChanged();
             }
         }

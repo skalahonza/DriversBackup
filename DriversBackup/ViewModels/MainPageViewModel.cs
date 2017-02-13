@@ -254,6 +254,11 @@ namespace DriversBackup.ViewModels
                 driver.IsSelected = select;
         });
 
+        public RelayCommand GoToDriverInstallation => new RelayCommand(() =>
+        {
+            AppContext.MainFrame.Navigate(new InstallPage());
+        });
+
         public RelayCommand GoToSettings => new RelayCommand(() =>
         {
             AppContext.MainFrame.Navigate(new SettingsPage());

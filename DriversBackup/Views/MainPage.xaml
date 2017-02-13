@@ -129,6 +129,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Button Command="{Binding SaveSelectedDrivers}" Style="{StaticResource FancyButton}" FontSize="15" BorderBrush="{StaticResource GreenAccent}">
                 <WrapPanel>
@@ -136,7 +137,13 @@
                     <TextBlock Text="{x:Static p:Resources.Save}" VerticalAlignment="Center" Margin="5,0,0,0"/>
                 </WrapPanel>
             </Button>
-            <Button Grid.Column="1" Command="{Binding SelectAll}" Style="{StaticResource FancyButton}" FontSize="15" BorderBrush="{StaticResource BlueAccent}">
+            <Button Grid.Column="1" Command="{Binding GoToDriverInstallation}" Style="{StaticResource FancyButton}" FontSize="15" BorderBrush="{StaticResource BlueAccent}">
+                <WrapPanel>
+                    <TextBlock Text="&#xE133;" FontFamily="{StaticResource IconFont}" VerticalAlignment="Center"/>
+                    <TextBlock Text="{x:Static p:Resources.InstallDriver}" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                </WrapPanel>
+            </Button>
+            <Button Grid.Column="2" Command="{Binding SelectAll}" Style="{StaticResource FancyButton}" FontSize="15" BorderBrush="{StaticResource BlueAccent}">
                 <WrapPanel>
                     <TextBlock Text="&#xE133;" FontFamily="{StaticResource IconFont}" VerticalAlignment="Center"/>
                     <TextBlock Text="{x:Static p:Resources.SelectAll}" VerticalAlignment="Center" Margin="5,0,0,0"/>

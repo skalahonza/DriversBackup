@@ -162,6 +162,12 @@
   <data name="FollowUs" xml:space="preserve">
     <value>Follow us</value>
   </data>
+  <data name="InstallDriver" xml:space="preserve">
+    <value>Install Driver</value>
+  </data>
+  <data name="InstallDrivers" xml:space="preserve">
+    <value>Install Drivers</value>
+  </data>
   <data name="NoDriversSelected" xml:space="preserve">
     <value>No drivers selected for saving.</value>
   </data>
@@ -185,6 +191,9 @@
   </data>
   <data name="SelectAll" xml:space="preserve">
     <value>Select all</value>
+  </data>
+  <data name="SelectFolder" xml:space="preserve">
+    <value>Select folder</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
