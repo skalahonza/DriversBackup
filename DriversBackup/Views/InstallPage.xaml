@@ -17,7 +17,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition />
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
         <Grid Height="50" VerticalAlignment="Top">
                 <Grid.Background>
@@ -52,8 +52,8 @@
                                         <ColumnDefinition Width="200"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Text="{Binding DriverProvider}" Style="{StaticResource ListItemText}"/>
-                                    <TextBlock Grid.Column="1" Text="{Binding DriverDescription}" Margin="5,0,0,0" Style="{StaticResource ListItemText}"/>
+                                    <TextBlock Text="{Binding InfPath}" Style="{StaticResource ListItemText}"/>
+                                    <TextBlock Grid.Column="1" Text="Lorem Ipsum" Margin="5,0,0,0" Style="{StaticResource ListItemText}"/>
                                 </Grid>
                             </CheckBox>
                             <Separator Grid.Row="1" Grid.ColumnSpan="3"/>
@@ -62,22 +62,28 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
-        <!-- Select folder button -->
-        <Button Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding ExploreFolder}"
-                Style="{StaticResource FancyButton}" BorderBrush="{StaticResource GreenAccent}" Width="150" Height="75">
-            <Button.Content>
-                <StackPanel>
-                    <TextBlock Text="&#xE8B7;" FontFamily="{StaticResource IconFont}" HorizontalAlignment="Center" FontSize="25"/>
-                    <TextBlock Text="{x:Static p:Resources.SelectFolder}" FontSize="25"/>
-                </StackPanel>
-            </Button.Content>
-        </Button>
+        <!-- No drivers Found -->
+        <Grid Grid.Row="1">
+            
+        </Grid>
         <!-- Bottom button panel -->
         <Grid Grid.Row="2">
-            <Button Command="{Binding InstallSelectedDrivers}" Style="{StaticResource FancyButton}" FontSize="15" BorderBrush="{StaticResource GreenAccent}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button Command="{Binding InstallSelectedDrivers}"
+                    Style="{StaticResource FancyButton}" FontSize="15" BorderBrush="{StaticResource GreenAccent}">
                 <WrapPanel>
                     <TextBlock Text="&#xE74E;" FontFamily="{StaticResource IconFont}" VerticalAlignment="Center"/>
                     <TextBlock Text="{x:Static p:Resources.InstallDrivers}" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                </WrapPanel>
+            </Button>
+            <Button Command="{Binding SelectFolder}" Grid.Column="1"
+                    Style="{StaticResource FancyButton}" FontSize="15" BorderBrush="{StaticResource BlueAccent}">
+                <WrapPanel>
+                    <TextBlock Text="&#xE8B7;" FontFamily="{StaticResource IconFont}" VerticalAlignment="Center"/>
+                    <TextBlock Text="{x:Static p:Resources.SelectFolder}" VerticalAlignment="Center" Margin="5,0,0,0"/>
                 </WrapPanel>
             </Button>
         </Grid>

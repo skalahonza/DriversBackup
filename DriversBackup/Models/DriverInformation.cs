@@ -21,6 +21,7 @@ namespace DriversBackup.Models
         public DriverInformation(string infPath)
         {
             InfPath = infPath;
+            //TODO extract driver info from the inf file
         }
         public string DriverProvider { get; }    
         public string DriverDescription { get; }

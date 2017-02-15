@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using DriversBackup.Models;
 using DriversBackup.MVVM;
@@ -10,11 +11,6 @@ namespace DriversBackup.ViewModels
     {
         private List<DriverInformation> drivers;
 
-        public InstallPageViewModel()
-        {
-            
-        }
-
         public List<DriverInformation> Drivers
         {
             get { return drivers; }
@@ -22,8 +18,11 @@ namespace DriversBackup.ViewModels
             {
                 drivers = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(NoDriversFound));
             }
         }
+
+        public bool NoDriversFound => !Drivers.Any();
 
         #region Commands
 
@@ -35,15 +34,21 @@ namespace DriversBackup.ViewModels
 
         public RelayCommand InstallSelectedDrivers => new RelayCommand(() =>
         {
-            
+            var controller = new DriverBackup();
+            var selectedDrivers = Drivers.Where(x => x.IsSelected);
+            foreach (var driver in selectedDrivers)
+            {
+                controller.InstallDriver(driver);
+            }
         });
 
-        public RelayCommand ExploreFolder => new RelayCommand(() =>
+        public RelayCommand SelectFolder => new RelayCommand(async () =>
         {
             var dialog = new FolderBrowserDialog();
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                
+                var controller = new DriverBackup();
+                Drivers = await controller.FindDriversInFolderAsync(dialog.SelectedPath);
             }
         });        
 
