@@ -81,6 +81,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\DriversBox.xaml.cs">
+      <DependentUpon>DriversBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\PlaceholderTextBox.cs" />
     <Compile Include="Converters\ButtonTypeToColorConverter.cs" />
     <Compile Include="Models\ActionButton.cs" />
@@ -98,6 +101,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="ViewModels\DriversBoxViewModel.cs" />
     <Compile Include="ViewModels\MessageDialogViewModel.cs" />
     <Compile Include="ViewModels\SettingsPageViewModel.cs" />
     <Compile Include="Views\Controls\MessageDialog.xaml.cs">
@@ -109,6 +113,10 @@
     <Compile Include="Views\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
+    <Page Include="Controls\DriversBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\General.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
