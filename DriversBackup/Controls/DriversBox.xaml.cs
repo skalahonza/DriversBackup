@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace DriversBackup.Controls
 {
@@ -23,6 +11,32 @@ namespace DriversBackup.Controls
         public DriversBox()
         {
             InitializeComponent();
+            DataContext = this;
+        }
+
+        public static readonly DependencyProperty TestDp = DependencyProperty.Register(nameof(Test), typeof(string),
+            typeof(DriversBox));
+
+        public string Test
+        {
+            get { return (string) GetValue(TestDp); }
+            set { SetValue(TestDp, value); }
+        }
+
+        private void PlaceholderTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            DeleteButton.Visibility = Visibility.Visible;
+        }
+
+        private void PlaceholderTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (SearchBox.Text.Length == 0)
+                DeleteButton.Visibility = Visibility.Collapsed;
+        }
+
+        private void DeleteButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            DeleteButton.Visibility = Visibility.Collapsed;
         }
     }
 }

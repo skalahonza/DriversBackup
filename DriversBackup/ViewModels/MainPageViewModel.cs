@@ -30,15 +30,6 @@ namespace DriversBackup.ViewModels
         private int backingUpProgress;
 
         //Sort type for listview of drivers
-        enum SortBy
-        {
-            // ReSharper disable once UnusedMember.Local
-            Undefined,
-            Search,
-            DriverId,
-            Description,
-            Backup
-        }
 
         public MainPageViewModel()
         {
