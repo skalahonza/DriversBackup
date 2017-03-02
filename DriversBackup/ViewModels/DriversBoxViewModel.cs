@@ -2,23 +2,19 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Windows.Threading;
 using DriversBackup.Models;
 using DriversBackup.MVVM;
-using DriversBackup.Properties;
 using DriversBackup.Views;
 using WpfViewModelBase;
-using Application = System.Windows.Application;
 
 namespace DriversBackup.ViewModels
 {
     public class DriversBoxViewModel:ViewModelBase
     {
-        private ObservableCollection<DriverInformation> drivers;
+        private ObservableCollection<DriverInformation> drivers = new ObservableCollection<DriverInformation>();
         private string search = "";
         private SortBy previousSortType;
+        private readonly List<DriverInformation> allDrivers;
 
         //Sort type for listview of drivers
         enum SortBy
@@ -29,6 +25,17 @@ namespace DriversBackup.ViewModels
             DriverId,
             Description,
             Backup
+        }
+
+        public DriversBoxViewModel(List<DriverInformation> drivers)
+        {
+            allDrivers = drivers;
+            Drivers = new ObservableCollection<DriverInformation>(drivers);
+        }
+
+        public DriversBoxViewModel()
+        {
+
         }
 
         public ObservableCollection<DriverInformation> Drivers
@@ -70,55 +77,53 @@ namespace DriversBackup.ViewModels
         public GenericRelayCommand<string> SortByCommand => new GenericRelayCommand<string>(s =>
         {
             SortBy sortType;
-            if (Enum.TryParse(s, out sortType))
-            {
-                var driversList = new List<DriverInformation>(Drivers);
-                //if the same sort type is used, just reverse the list
-                if (sortType == previousSortType && sortType != MainPageViewModel.SortBy.Search)
-                    driversList.Reverse();
-                else
-                    switch (sortType)
-                    {
-                        case MainPageViewModel.SortBy.DriverId:
-                            driversList.Sort(
-                                (a, b) => string.Compare(a.DriverProvider, b.DriverProvider, StringComparison.Ordinal));
-                            break;
-                        case MainPageViewModel.SortBy.Description:
-                            driversList.Sort(
-                                (a, b) =>
-                                    string.Compare(a.DriverDescription, b.DriverDescription, StringComparison.Ordinal));
-                            break;
-                        case MainPageViewModel.SortBy.Backup:
-                            driversList.Sort((a, b) => a.IsSelected.CompareTo(b.IsSelected));
-                            break;
-                        case MainPageViewModel.SortBy.Search:
-                            //empty drivers in GUI
-                            driversList = allDrivers;
-                            Drivers.Clear();
+            if (!Enum.TryParse(s, out sortType)) return;
+            var driversList = new List<DriverInformation>(Drivers);
+            //if the same sort type is used, just reverse the list
+            if (sortType == previousSortType && sortType != SortBy.Search)
+                driversList.Reverse();
+            else
+                switch (sortType)
+                {
+                    case SortBy.DriverId:
+                        driversList.Sort(
+                            (a, b) => string.Compare(a.DriverProvider, b.DriverProvider, StringComparison.Ordinal));
+                        break;
+                    case SortBy.Description:
+                        driversList.Sort(
+                            (a, b) =>
+                                string.Compare(a.DriverDescription, b.DriverDescription, StringComparison.Ordinal));
+                        break;
+                    case SortBy.Backup:
+                        driversList.Sort((a, b) => a.IsSelected.CompareTo(b.IsSelected));
+                        break;
+                    case SortBy.Search:
+                        //empty drivers in GUI
+                        driversList = allDrivers;
+                        Drivers.Clear();
 
-                            //search in driver provider
-                            foreach (
-                                var driverInformation in
-                                    driversList.Where(x => x.DriverProvider.ToLower().Contains(Search.ToLower())))
+                        //search in driver provider
+                        foreach (
+                            var driverInformation in
+                                driversList.Where(x => x.DriverProvider.ToLower().Contains(Search.ToLower())))
+                            Drivers.Add(driverInformation);
+                        //search in driver description
+                        foreach (
+                            var driverInformation in
+                                driversList.Where(x => x.DriverDescription.ToLower().Contains(Search.ToLower())))
+                            //preen redundant addition
+                            if (!Drivers.Contains(driverInformation))
                                 Drivers.Add(driverInformation);
-                            //search in driver description
-                            foreach (
-                                var driverInformation in
-                                    driversList.Where(x => x.DriverDescription.ToLower().Contains(Search.ToLower())))
-                                //preen redundant addition
-                                if (!Drivers.Contains(driverInformation))
-                                    Drivers.Add(driverInformation);
-                            return;
-                        case MainPageViewModel.SortBy.Undefined:
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException();
-                    }
-                //Show newly sorted drivers on the UI
-                Drivers = new ObservableCollection<DriverInformation>(driversList);
-                //save sort type
-                previousSortType = sortType;
-            }
+                        return;
+                    case SortBy.Undefined:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            //Show newly sorted drivers on the UI
+            Drivers = new ObservableCollection<DriverInformation>(driversList);
+            //save sort type
+            previousSortType = sortType;
         });
 
         public RelayCommand CancelSearch => new RelayCommand(() =>

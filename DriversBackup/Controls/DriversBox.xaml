@@ -9,6 +9,9 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" Background="White"
              d:DesignHeight="300" d:DesignWidth="550">
+    <UserControl.DataContext>
+        <vm:DriversBoxViewModel/>
+    </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
@@ -107,6 +110,5 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
-        <TextBlock Grid.RowSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Test}"/>
     </Grid>
 </UserControl>
