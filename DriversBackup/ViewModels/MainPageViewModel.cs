@@ -56,6 +56,7 @@ namespace DriversBackup.ViewModels
             {
                 drivers = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(NoDriversFound));
             }
         }
 
@@ -121,6 +122,7 @@ namespace DriversBackup.ViewModels
         }
 
         public int DriversForBackpCount => Drivers.Count(x => x.IsSelected);
+        public bool NoDriversFound => !Drivers.Any();
 
         private void OpenOutputFolder(string path)
         {            

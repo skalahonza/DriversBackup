@@ -24,5 +24,20 @@ namespace DriversBackup.Views
         {
             InitializeComponent();
         }
+
+        private void DeleteButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void PlaceholderTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void PlaceholderTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

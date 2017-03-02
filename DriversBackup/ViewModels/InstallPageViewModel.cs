@@ -9,7 +9,7 @@ namespace DriversBackup.ViewModels
 {
     public class InstallPageViewModel : ViewModelBase
     {
-        private List<DriverInformation> drivers;
+        private List<DriverInformation> drivers = new List<DriverInformation>();
 
         public List<DriverInformation> Drivers
         {
@@ -19,10 +19,13 @@ namespace DriversBackup.ViewModels
                 drivers = value;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(NoDriversFound));
+                OnPropertyChanged(nameof(AnyDrivers));
             }
         }
 
         public bool NoDriversFound => !Drivers.Any();
+        public bool AnyDrivers => Drivers.Any();
+        public int SelectedDriversCount => Drivers.Count(x => x.IsSelected);
 
         #region Commands
 
@@ -50,7 +53,16 @@ namespace DriversBackup.ViewModels
                 var controller = new DriverBackup();
                 Drivers = await controller.FindDriversInFolderAsync(dialog.SelectedPath);
             }
-        });        
+        });
+
+        public RelayCommand SelectAll => new RelayCommand(() =>
+        {
+            //if all are selected, de-select them
+            //if not select them all
+            bool select = Drivers.Count != Drivers.Count(x => x.IsSelected);
+            foreach (var driver in Drivers)
+                driver.IsSelected = select;
+        });
 
         #endregion
     }
