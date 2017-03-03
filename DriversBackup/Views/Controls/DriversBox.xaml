@@ -6,22 +6,27 @@
              xmlns:p="clr-namespace:DriversBackup.Properties"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:controls="clr-namespace:DriversBackup.Controls"
+             xmlns:viewModels="clr-namespace:DriversBackup.ViewModels"
              mc:Ignorable="d" Background="White"
              d:DesignHeight="300" d:DesignWidth="550">
+    <UserControl.DataContext>
+        <viewModels:DriversBoxViewModel x:Name="ViewModel" />
+    </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
             <RowDefinition Height="40" />
             <RowDefinition />
+            <RowDefinition Height="40" />
         </Grid.RowDefinitions>
         <!--Search textbox -->
         <Grid>
             <controls:PlaceholderTextBox x:Name="SearchBox"
-                                      Text="{Binding Search, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      PlaceholderText="{x:Static p:Resources.SearchDots}"
-                                      Padding="5,0,0,0" FontSize="20" VerticalContentAlignment="Center"
-                                      BorderThickness="0,0,0,1" GotFocus="PlaceholderTextBox_GotFocus"
-                                      LostFocus="PlaceholderTextBox_LostFocus">
+                                         Text="{Binding Search, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         PlaceholderText="{x:Static p:Resources.SearchDots}"
+                                         Padding="5,0,0,0" FontSize="20" VerticalContentAlignment="Center"
+                                         BorderThickness="0,0,0,1" GotFocus="PlaceholderTextBox_GotFocus"
+                                         LostFocus="PlaceholderTextBox_LostFocus">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="TextChanged">
                         <i:InvokeCommandAction Command="{Binding SortByCommand}" CommandParameter="Search" />
@@ -34,49 +39,35 @@
                     Command="{Binding CancelSearch}"
                     Visibility="Collapsed" Click="DeleteButton_OnClick" />
         </Grid>
-        <!--Sorting buttons -->
+        <!--Sorting buttons(top bar) -->
         <Grid Grid.Row="1" Margin="10,5">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition MinWidth="100" Width="Auto" />
-            </Grid.ColumnDefinitions>
-            <Grid.Resources>
-                <Style TargetType="Button" BasedOn="{StaticResource FancyButton}">
-                    <Setter Property="BorderBrush" Value="Transparent" />
-                    <Setter Property="Background" Value="Transparent" />
-                    <Setter Property="FontSize" Value="18" />
-                </Style>
-            </Grid.Resources>
-            <Button ToolTip="{x:Static p:Resources.SortByDriverID}" Command="{Binding SortByCommand}"
-                    CommandParameter="DriverId" Margin="5,0,0,0"
-                    HorizontalContentAlignment="Left">
-                <Button.Content>
-                    <WrapPanel>
-                        <TextBlock Text="&#xEA37;" FontFamily="{StaticResource IconFont}" VerticalAlignment="Center" />
-                        <TextBlock Text="{x:Static p:Resources.DriverID}" VerticalAlignment="Center" Margin="5,0,0,0" />
-                    </WrapPanel>
-                </Button.Content>
-            </Button>
-            <Button Grid.Column="1" Margin="5,0,0,0" ToolTip="{x:Static p:Resources.SortByDescription}"
-                    Command="{Binding SortByCommand}" CommandParameter="Description">
-                <Button.Content>
-                    <WrapPanel>
-                        <TextBlock Text="&#xE7C3;" FontFamily="{StaticResource IconFont}" VerticalAlignment="Center" />
-                        <TextBlock Text="{x:Static p:Resources.Description}" VerticalAlignment="Center"
-                                   Margin="5,0,0,0" />
-                    </WrapPanel>
-                </Button.Content>
-            </Button>
-            <Button Grid.Column="2" ToolTip="{x:Static p:Resources.SortByBackup}" Command="{Binding SortByCommand}"
-                    CommandParameter="Backup">
-                <Button.Content>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#xE896;" FontFamily="{StaticResource IconFont}" VerticalAlignment="Center" />
-                        <TextBlock Text="{x:Static p:Resources.Backup}" VerticalAlignment="Center" Margin="5,0" />
-                    </StackPanel>
-                </Button.Content>
-            </Button>
+            <ItemsControl x:Name="TopButtonBar" ItemsSource="{Binding BotButtons}">
+                <ItemsControl.Resources>
+                    <Style TargetType="Button" BasedOn="{StaticResource FancyButton}">
+                        <Setter Property="BorderBrush" Value="Transparent" />
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="FontSize" Value="18" />
+                    </Style>
+                </ItemsControl.Resources>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Rows="1" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button CommandParameter="{Binding Meta}"
+                                Command="{Binding ElementName=TopButtonBar,Path=DataContext.SortByCommand}"
+                                BorderBrush="{Binding ActionButtonType, Converter={StaticResource ButtonTypeToColorConverter}}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Icon}" FontFamily="{StaticResource IconFont}"
+                                           VerticalAlignment="Center" Margin="5,0" />
+                                <TextBlock Text="{Binding Text}" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </Grid>
         <!-- Drivers -->
         <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
@@ -107,5 +98,27 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
+        <!-- bottom command bar -->
+        <Grid Grid.Row="3">
+            <ItemsControl ItemsSource="{Binding BotButtons}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Rows="1" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Command="{Binding ButtonCommand}" Style="{StaticResource FancyButton}"
+                                BorderBrush="{Binding ActionButtonType, Converter={StaticResource ButtonTypeToColorConverter}}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Icon}" FontFamily="{StaticResource IconFont}"
+                                           VerticalAlignment="Center" Margin="5,0" />
+                                <TextBlock Text="{Binding Text}" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
     </Grid>
 </UserControl>

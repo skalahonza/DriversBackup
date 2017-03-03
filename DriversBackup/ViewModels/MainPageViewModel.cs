@@ -36,7 +36,9 @@ namespace DriversBackup.ViewModels
             var controller = new DriverBackup();
             Drivers =
                 new ObservableCollection<DriverInformation>(controller.ListDrivers(AppSettings.ShowMicrosoftDrivers));
-            // Init Driver box VM
+            //Init Driver box VM
+            //Init top Buttons
+            //Init bot buttons
             DriversBox = new DriversBoxViewModel(Drivers);
         }
 
@@ -124,7 +126,7 @@ namespace DriversBackup.ViewModels
         public int DriversForBackpCount => Drivers.Count(x => x.IsSelected);
 
         private void OpenOutputFolder(string path)
-        {            
+        {
             //Handle: Folder might have been compressed to zip - check and handle
             if (Directory.Exists(path))
                 Process.Start(path);
@@ -136,7 +138,8 @@ namespace DriversBackup.ViewModels
                     new MessageDialogViewModel(
                         new ObservableCollection<ActionButton>()
                         {
-                            new ActionButton(StringResources.OK, () => MessageDialog = null, ActionButton.ButtonType.Accept)
+                            new ActionButton(StringResources.OK, () => MessageDialog = null,
+                                ActionButton.ButtonType.Accept)
                         },
                         StringResources.FolderCannotBeOpened, StringResources.FolderCannotBeOpenedLong);
             }
@@ -148,7 +151,8 @@ namespace DriversBackup.ViewModels
                     new MessageDialogViewModel(
                         new ObservableCollection<ActionButton>()
                         {
-                            new ActionButton(StringResources.OK, () => MessageDialog = null, ActionButton.ButtonType.Accept)
+                            new ActionButton(StringResources.OK, () => MessageDialog = null,
+                                ActionButton.ButtonType.Accept)
                         },
                         StringResources.FolderCannotBeOpened, StringResources.FolderNotFound);
             }
@@ -158,10 +162,21 @@ namespace DriversBackup.ViewModels
         {
             //TODO Initialize System.IO Compress stream or use NuGet instead
         }
-
-        #region Commands
-
-        public RelayCommand SaveSelectedDrivers => new RelayCommand(async () =>
+        /// <summary>
+        /// Select all button handler
+        /// </summary>
+        private void SelectAll()
+        {
+            //if all are selected, de-select them
+            //if not select them all
+            bool select = Drivers.Count != Drivers.Count(x => x.IsSelected);
+            foreach (var driver in Drivers)
+                driver.IsSelected = select;
+        }
+        /// <summary>
+        /// Save selected button handler
+        /// </summary>
+        private async void SaveSelectedDrivers()
         {
             //Update Drivers for backup count property
             OnPropertyChanged(nameof(DriversForBackpCount));
@@ -173,10 +188,7 @@ namespace DriversBackup.ViewModels
                     new MessageDialogViewModel(new ObservableCollection<ActionButton>(new List<ActionButton>()
                     {
                         new ActionButton(StringResources.OK,
-                            () =>
-                            {
-                                MessageDialog = null;
-                            }, ActionButton.ButtonType.Deafult)
+                            () => { MessageDialog = null; }, ActionButton.ButtonType.Deafult)
                     }), StringResources.NothingToSave, StringResources.NoDriversSelected);
                 return;
             }
@@ -203,7 +215,6 @@ namespace DriversBackup.ViewModels
                     //Zip folder if user wants it automatically
                     if (AppSettings.ZipRootFolder)
                     {
-
                     }
 
                     //Alert user when the job is done
@@ -211,7 +222,8 @@ namespace DriversBackup.ViewModels
                         new MessageDialogViewModel(
                             new ObservableCollection<ActionButton>(new List<ActionButton>
                             {
-                                new ActionButton(StringResources.OK, () => MessageDialog = null, ActionButton.ButtonType.Accept),
+                                new ActionButton(StringResources.OK, () => MessageDialog = null,
+                                    ActionButton.ButtonType.Accept),
                                 new ActionButton(StringResources.OpenFolder, () => OpenOutputFolder(path),
                                     ActionButton.ButtonType.Deafult),
                             }),
@@ -235,7 +247,8 @@ namespace DriversBackup.ViewModels
                         new MessageDialogViewModel(
                             new ObservableCollection<ActionButton>(new List<ActionButton>
                             {
-                                new ActionButton(StringResources.OK, () => MessageDialog = null, ActionButton.ButtonType.Accept)
+                                new ActionButton(StringResources.OK, () => MessageDialog = null,
+                                    ActionButton.ButtonType.Accept)
                             }),
                             StringResources.Error, e.Message);
                 }
@@ -244,21 +257,13 @@ namespace DriversBackup.ViewModels
                     ShowInProgressDialog = false;
                 }
             });
-        });
+        }
 
-        public RelayCommand SelectAll => new RelayCommand(() =>
-        {
-            //if all are selected, de-select them
-            //if not select them all
-            bool select = Drivers.Count != Drivers.Count(x => x.IsSelected);
-            foreach (var driver in Drivers)
-                driver.IsSelected = select;
-        });
+        #region Commands
 
-        public RelayCommand GoToSettings => new RelayCommand(() =>
-        {
-            AppContext.MainFrame.Navigate(new SettingsPage());
-        });        
+        public RelayCommand GoToSettings
+            => new RelayCommand(() => { AppContext.MainFrame.Navigate(new SettingsPage()); });
+
         #endregion
     }
 }

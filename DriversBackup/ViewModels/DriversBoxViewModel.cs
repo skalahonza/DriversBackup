@@ -9,19 +9,41 @@ using WpfViewModelBase;
 
 namespace DriversBackup.ViewModels
 {
-    public class DriversBoxViewModel:ViewModelBase
+    public class DriversBoxViewModel : ViewModelBase
     {
         private string search = "";
         private SortBy previousSortType;
-        private readonly List<DriverInformation> allDrivers = new List<DriverInformation>();
+        private readonly List<DriverInformation> allDrivers;
         private ObservableCollection<DriverInformation> drivers = new ObservableCollection<DriverInformation>();
+        private ObservableCollection<string> topButtons;
+        private ObservableCollection<ActionButton> botButtons;
+        private string firstTopButtonText;
+        private string firstTopButtonIcon;
+        private string secondTopButtonText;
+        private string secondTopButtonIcon;
+        private string thirdTopButtonText;
+        private string thirdTopButtonIcon;
+        private ObservableCollection<ActionButton> topButtons1;
+
+        public DriversBoxViewModel()
+        {
+        }
 
         public DriversBoxViewModel(ObservableCollection<DriverInformation> drivers)
         {
             allDrivers = new List<DriverInformation>(drivers);
             Drivers = drivers;
         }
-        //Sort type for listview of drivers
+
+        public DriversBoxViewModel(ObservableCollection<DriverInformation> drivers,
+            ObservableCollection<ActionButton> topButtons, ObservableCollection<ActionButton> botButtons)
+            : this(drivers)
+        {
+            TopButtons = topButtons;
+            BotButtons = botButtons;
+        }
+
+        //Sort type for list-view of drivers
         enum SortBy
         {
             // ReSharper disable once UnusedMember.Local
@@ -52,7 +74,34 @@ namespace DriversBackup.ViewModels
                 drivers = value;
                 OnPropertyChanged();
             }
-        }        
+        }
+
+        /// <summary>
+        /// Buttons for the top command bar
+        /// </summary>
+        public ObservableCollection<ActionButton> TopButtons
+        {
+            get { return topButtons1; }
+            set
+            {
+                topButtons1 = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Buttons for the bottom command bar
+        /// </summary>
+        public ObservableCollection<ActionButton> BotButtons
+        {
+            get { return botButtons; }
+            set
+            {
+                botButtons = value;
+                OnPropertyChanged();
+            }
+        }
+
         #endregion
 
         #region Commands
@@ -122,6 +171,7 @@ namespace DriversBackup.ViewModels
         });
 
         public RelayCommand CancelSearch => new RelayCommand(() => { Search = ""; });
+
         #endregion
     }
 }

@@ -49,17 +49,19 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Button Command="{Binding SaveSelectedDrivers}" Style="{StaticResource FancyButton}" FontSize="15" BorderBrush="{StaticResource GreenAccent}">
-                <WrapPanel>
+            <Button Style="{StaticResource FancyButton}"
+                    BorderBrush="{StaticResource GreenAccent}">
+                <StackPanel Orientation="Horizontal">
                     <TextBlock Text="&#xE74E;" FontFamily="{StaticResource IconFont}" VerticalAlignment="Center"/>
                     <TextBlock Text="{x:Static p:Resources.Save}" VerticalAlignment="Center" Margin="5,0,0,0"/>
-                </WrapPanel>
+                </StackPanel>
             </Button>
-            <Button Grid.Column="1" Command="{Binding SelectAll}" Style="{StaticResource FancyButton}" FontSize="15" BorderBrush="{StaticResource BlueAccent}">
-                <WrapPanel>
+            <Button Grid.Column="1" Style="{StaticResource FancyButton}"
+                    BorderBrush="{StaticResource BlueAccent}">
+                <StackPanel Orientation="Horizontal">
                     <TextBlock Text="&#xE133;" FontFamily="{StaticResource IconFont}" VerticalAlignment="Center"/>
                     <TextBlock Text="{x:Static p:Resources.SelectAll}" VerticalAlignment="Center" Margin="5,0,0,0"/>
-                </WrapPanel>
+                </StackPanel>
             </Button>
         </Grid>
         <!-- In progress-->
