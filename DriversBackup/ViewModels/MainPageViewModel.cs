@@ -23,7 +23,6 @@ namespace DriversBackup.ViewModels
         private ObservableCollection<DriverInformation> drivers = new ObservableCollection<DriverInformation>();
         private string search = "";
         // ReSharper disable once MemberInitializerValueIgnored
-        private readonly List<DriverInformation> allDrivers = new List<DriverInformation>();
         private MessageDialogViewModel messageDialog;
         private bool showInProgressDialog;
         private int backingUpProgress;
@@ -36,7 +35,6 @@ namespace DriversBackup.ViewModels
             var controller = new DriverBackup();
             Drivers =
                 new ObservableCollection<DriverInformation>(controller.ListDrivers(AppSettings.ShowMicrosoftDrivers));
-            allDrivers = new List<DriverInformation>(Drivers);
         }
 
         public ObservableCollection<DriverInformation> Drivers

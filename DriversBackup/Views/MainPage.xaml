@@ -4,9 +4,9 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:viewModels="clr-namespace:DriversBackup.ViewModels"
-      xmlns:controls="clr-namespace:DriversBackup.Controls"
+      xmlns:controls="clr-namespace:DriversBackup.Views.Controls"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-      xmlns:controls1="clr-namespace:DriversBackup.Views.Controls"
+      xmlns:ct="clr-namespace:DriversBackup.Views.Controls"
       xmlns:p="clr-namespace:DriversBackup.Properties"
       mc:Ignorable="d" 
       d:DesignHeight="768" d:DesignWidth="1024"
@@ -43,7 +43,7 @@
                 </Button>
             </Grid>
         </Border>
-          <controls:DriversBox Grid.Row="1" DriversSource="{Binding Drivers}"/>
+          <controls:DriversBox Grid.Row="1" />
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
@@ -71,7 +71,7 @@
         </Grid>
         <!-- Message dialog -->
         <Grid Grid.Row="3" Visibility="{Binding ShowMessage, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
-            <controls1:MessageDialog VerticalAlignment="Center" HorizontalAlignment="Center" DataContext="{Binding MessageDialog}"/>
+            <controls:MessageDialog VerticalAlignment="Center" HorizontalAlignment="Center" DataContext="{Binding MessageDialog}"/>
         </Grid>
     </Grid>
 </Page>

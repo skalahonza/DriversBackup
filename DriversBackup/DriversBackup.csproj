@@ -81,7 +81,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Controls\DriversBox.xaml.cs">
+    <Compile Include="ViewModels\DriversBoxViewModel.cs" />
+    <Compile Include="Views\Controls\DriversBox.xaml.cs">
       <DependentUpon>DriversBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\PlaceholderTextBox.cs" />
@@ -112,7 +113,7 @@
     <Compile Include="Views\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
-    <Page Include="Controls\DriversBox.xaml">
+    <Page Include="Views\Controls\DriversBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
