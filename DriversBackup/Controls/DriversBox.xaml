@@ -9,9 +9,6 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" Background="White"
              d:DesignHeight="300" d:DesignWidth="550">
-    <UserControl.DataContext>
-        <vm:DriversBoxViewModel/>
-    </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />

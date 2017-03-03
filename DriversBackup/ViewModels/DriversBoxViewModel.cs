@@ -11,10 +11,10 @@ namespace DriversBackup.ViewModels
 {
     public class DriversBoxViewModel:ViewModelBase
     {
-        private ObservableCollection<DriverInformation> drivers = new ObservableCollection<DriverInformation>();
+        /*
         private string search = "";
         private SortBy previousSortType;
-        private readonly List<DriverInformation> allDrivers;
+        private readonly List<DriverInformation> allDrivers = new List<DriverInformation>();
 
         //Sort type for listview of drivers
         enum SortBy
@@ -25,28 +25,7 @@ namespace DriversBackup.ViewModels
             DriverId,
             Description,
             Backup
-        }
-
-        public DriversBoxViewModel(List<DriverInformation> drivers)
-        {
-            allDrivers = drivers;
-            Drivers = new ObservableCollection<DriverInformation>(drivers);
-        }
-
-        public DriversBoxViewModel()
-        {
-
-        }
-
-        public ObservableCollection<DriverInformation> Drivers
-        {
-            get { return drivers; }
-            set
-            {
-                drivers = value;
-                OnPropertyChanged();
-            }
-        }
+        }        
 
         public string Search
         {
@@ -132,5 +111,6 @@ namespace DriversBackup.ViewModels
         });
 
         #endregion
+        */
     }
 }
