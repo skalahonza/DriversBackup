@@ -39,7 +39,12 @@ namespace DriversBackup.ViewModels
             //Init Driver box VM
             //Init top Buttons
             //Init bot buttons
-            DriversBox = new DriversBoxViewModel(Drivers);
+            var bot = new ObservableCollection<ActionButton>()
+            {
+                new ActionButton(StringResources.Save, SaveSelectedDrivers, ActionButton.ButtonType.Deafult, "\xE74E"),
+                new ActionButton(StringResources.SelectAll, SelectAll, ActionButton.ButtonType.Deafult, "\xE133;"),
+            };
+            DriversBox = new DriversBoxViewModel(Drivers,null,bot);
         }
 
         public ObservableCollection<DriverInformation> Drivers
@@ -162,6 +167,7 @@ namespace DriversBackup.ViewModels
         {
             //TODO Initialize System.IO Compress stream or use NuGet instead
         }
+
         /// <summary>
         /// Select all button handler
         /// </summary>
@@ -173,6 +179,7 @@ namespace DriversBackup.ViewModels
             foreach (var driver in Drivers)
                 driver.IsSelected = select;
         }
+
         /// <summary>
         /// Save selected button handler
         /// </summary>
