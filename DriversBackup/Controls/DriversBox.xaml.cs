@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using DriversBackup.Models;
 using DriversBackup.MVVM;
@@ -18,17 +21,26 @@ namespace DriversBackup.Controls
         public DriversBox()
         {
             InitializeComponent();
+            DataContext = this;
         }
 
-        public static readonly DependencyProperty TestDp = DependencyProperty.Register(nameof(Test), typeof(string),
-            typeof(DriversBox));
-
-        public static readonly DependencyProperty DriversDp = DependencyProperty.Register(nameof(Drivers),
-            typeof(ObservableCollection<DriverInformation>), typeof(DriversBox));
+        public static readonly DependencyProperty DriversSourceProperty =
+            DependencyProperty.Register(nameof(DriversSource),
+                typeof(IEnumerable),
+                typeof(DriversBox),
+                new PropertyMetadata(null));
 
         private string search = "";
         private SortBy previousSortType;
         private readonly List<DriverInformation> allDrivers = new List<DriverInformation>();
+        private ObservableCollection<DriverInformation> drivers;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         //Sort type for listview of drivers
         enum SortBy
@@ -41,6 +53,8 @@ namespace DriversBackup.Controls
             Backup
         }
 
+        #region Properties
+
         public string Search
         {
             get { return search; }
@@ -50,6 +64,28 @@ namespace DriversBackup.Controls
                 OnPropertyChanged();
             }
         }
+
+        public ObservableCollection<DriverInformation> Drivers
+        {
+            get { return drivers; }
+            set
+            {
+                drivers = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public IEnumerable DriversSource
+        {
+            get { return GetValue(DriversSourceProperty) as IEnumerable; }
+            set
+            {
+                Drivers = new ObservableCollection<DriverInformation>((IEnumerable<DriverInformation>) value);
+                SetValue(DriversSourceProperty, value);
+            }
+        }
+
+        #endregion
 
         #region Commands
 
@@ -62,10 +98,8 @@ namespace DriversBackup.Controls
                 driver.IsSelected = select;
         });
 
-        public RelayCommand GoToSettings => new RelayCommand(() =>
-        {
-            AppContext.MainFrame.Navigate(new SettingsPage());
-        });
+        public RelayCommand GoToSettings
+            => new RelayCommand(() => { AppContext.MainFrame.Navigate(new SettingsPage()); });
 
         public GenericRelayCommand<string> SortByCommand => new GenericRelayCommand<string>(s =>
         {
@@ -119,24 +153,9 @@ namespace DriversBackup.Controls
             previousSortType = sortType;
         });
 
-        public RelayCommand CancelSearch => new RelayCommand(() =>
-        {
-            Search = "";
-        });
+        public RelayCommand CancelSearch => new RelayCommand(() => { Search = ""; });
 
         #endregion
-
-        public string Test
-        {
-            get { return (string) GetValue(TestDp); }
-            set { SetValue(TestDp, value); }
-        }
-
-        public ObservableCollection<DriverInformation> Drivers
-        {
-            get { return (ObservableCollection<DriverInformation>) GetValue(DriversDp); }
-            set { SetValue(DriversDp, value); }
-        }
 
         private void PlaceholderTextBox_GotFocus(object sender, RoutedEventArgs e)
         {

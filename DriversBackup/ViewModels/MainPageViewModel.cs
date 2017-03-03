@@ -247,18 +247,7 @@ namespace DriversBackup.ViewModels
         public RelayCommand GoToSettings => new RelayCommand(() =>
         {
             AppContext.MainFrame.Navigate(new SettingsPage());
-        });
-
-        public GenericRelayCommand<string> SortByCommand => new GenericRelayCommand<string>(s =>
-        {
-           
-        });
-
-        public RelayCommand CancelSearch => new RelayCommand(() =>
-        {
-            Search = "";
-        });
-
+        });        
         #endregion
     }
 }

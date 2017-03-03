@@ -43,7 +43,7 @@
                 </Button>
             </Grid>
         </Border>
-          <controls:DriversBox Grid.Row="1" Drivers="{Binding Drivers}"/>
+          <controls:DriversBox Grid.Row="1" DriversSource="{Binding Drivers}"/>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
