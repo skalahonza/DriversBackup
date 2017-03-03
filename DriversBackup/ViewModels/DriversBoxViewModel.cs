@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DriversBackup.Models;
 using DriversBackup.MVVM;
 using DriversBackup.Views;
@@ -19,6 +16,11 @@ namespace DriversBackup.ViewModels
         private readonly List<DriverInformation> allDrivers = new List<DriverInformation>();
         private ObservableCollection<DriverInformation> drivers = new ObservableCollection<DriverInformation>();
 
+        public DriversBoxViewModel(ObservableCollection<DriverInformation> drivers)
+        {
+            allDrivers = new List<DriverInformation>(drivers);
+            Drivers = drivers;
+        }
         //Sort type for listview of drivers
         enum SortBy
         {

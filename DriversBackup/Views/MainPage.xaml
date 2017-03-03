@@ -43,7 +43,7 @@
                 </Button>
             </Grid>
         </Border>
-          <controls:DriversBox Grid.Row="1" />
+          <controls:DriversBox Grid.Row="1" DataContext="{Binding DriversBox}"/>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
@@ -70,7 +70,7 @@
             </StackPanel>
         </Grid>
         <!-- Message dialog -->
-        <Grid Grid.Row="3" Visibility="{Binding ShowMessage, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
+        <Grid Grid.Row="1" Visibility="{Binding ShowMessage, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
             <controls:MessageDialog VerticalAlignment="Center" HorizontalAlignment="Center" DataContext="{Binding MessageDialog}"/>
         </Grid>
     </Grid>

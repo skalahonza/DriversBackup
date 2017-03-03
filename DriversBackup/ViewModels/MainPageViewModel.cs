@@ -26,6 +26,7 @@ namespace DriversBackup.ViewModels
         private MessageDialogViewModel messageDialog;
         private bool showInProgressDialog;
         private int backingUpProgress;
+        private DriversBoxViewModel driversBox;
 
         //Sort type for listview of drivers
 
@@ -35,6 +36,8 @@ namespace DriversBackup.ViewModels
             var controller = new DriverBackup();
             Drivers =
                 new ObservableCollection<DriverInformation>(controller.ListDrivers(AppSettings.ShowMicrosoftDrivers));
+            // Init Driver box VM
+            DriversBox = new DriversBoxViewModel(Drivers);
         }
 
         public ObservableCollection<DriverInformation> Drivers
@@ -74,6 +77,16 @@ namespace DriversBackup.ViewModels
                 OnPropertyChanged();
                 // ReSharper disable once ExplicitCallerInfoArgument
                 OnPropertyChanged(nameof(ShowMessage));
+            }
+        }
+
+        public DriversBoxViewModel DriversBox
+        {
+            get { return driversBox; }
+            set
+            {
+                driversBox = value;
+                OnPropertyChanged();
             }
         }
 
