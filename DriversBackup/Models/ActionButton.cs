@@ -42,7 +42,8 @@ namespace DriversBackup.Models
         {
             Deafult,
             Accept,
-            Cancel
+            Cancel,
+            NoHighlight
         }
 
         /// <summary>

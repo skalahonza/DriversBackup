@@ -38,13 +38,21 @@ namespace DriversBackup.ViewModels
                 new ObservableCollection<DriverInformation>(controller.ListDrivers(AppSettings.ShowMicrosoftDrivers));
             //Init Driver box VM
             //Init top Buttons
+            var top = new ObservableCollection<ActionButton>()
+            {
+                new ActionButton(StringResources.DriverID, () => { }, ActionButton.ButtonType.NoHighlight, "\xEA37",
+                    "DriverId"),
+                new ActionButton(StringResources.Description, () => { }, ActionButton.ButtonType.NoHighlight, "\xE7C3",
+                    "Description"),
+                new ActionButton(StringResources.Backup, () => { }, ActionButton.ButtonType.NoHighlight, "\xE896", "Backup"),
+            };
             //Init bot buttons
             var bot = new ObservableCollection<ActionButton>()
             {
-                new ActionButton(StringResources.Save, SaveSelectedDrivers, ActionButton.ButtonType.Deafult, "\xE74E"),
-                new ActionButton(StringResources.SelectAll, SelectAll, ActionButton.ButtonType.Deafult, "\xE133;"),
+                new ActionButton(StringResources.Save, SaveSelectedDrivers, ActionButton.ButtonType.Accept, "\xE74E"),
+                new ActionButton(StringResources.SelectAll, SelectAll, ActionButton.ButtonType.Deafult, "\xE133"),
             };
-            DriversBox = new DriversBoxViewModel(Drivers,null,bot);
+            DriversBox = new DriversBoxViewModel(Drivers, top, bot);
         }
 
         public ObservableCollection<DriverInformation> Drivers

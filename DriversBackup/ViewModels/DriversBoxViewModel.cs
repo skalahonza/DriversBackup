@@ -15,15 +15,8 @@ namespace DriversBackup.ViewModels
         private SortBy previousSortType;
         private readonly List<DriverInformation> allDrivers;
         private ObservableCollection<DriverInformation> drivers = new ObservableCollection<DriverInformation>();
-        private ObservableCollection<string> topButtons;
+        private ObservableCollection<ActionButton> topButtons;
         private ObservableCollection<ActionButton> botButtons;
-        private string firstTopButtonText;
-        private string firstTopButtonIcon;
-        private string secondTopButtonText;
-        private string secondTopButtonIcon;
-        private string thirdTopButtonText;
-        private string thirdTopButtonIcon;
-        private ObservableCollection<ActionButton> topButtons1;
 
         public DriversBoxViewModel()
         {
@@ -81,10 +74,10 @@ namespace DriversBackup.ViewModels
         /// </summary>
         public ObservableCollection<ActionButton> TopButtons
         {
-            get { return topButtons1; }
+            get { return topButtons; }
             set
             {
-                topButtons1 = value;
+                topButtons = value;
                 OnPropertyChanged();
             }
         }

@@ -41,7 +41,7 @@
         </Grid>
         <!--Sorting buttons(top bar) -->
         <Grid Grid.Row="1" Margin="10,5">
-            <ItemsControl x:Name="TopButtonBar" ItemsSource="{Binding BotButtons}">
+            <ItemsControl x:Name="TopButtonBar" ItemsSource="{Binding TopButtons}">
                 <ItemsControl.Resources>
                     <Style TargetType="Button" BasedOn="{StaticResource FancyButton}">
                         <Setter Property="BorderBrush" Value="Transparent" />
@@ -56,7 +56,7 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Button CommandParameter="{Binding Meta}"
+                        <Button CommandParameter="{Binding Meta}" HorizontalAlignment="Center"
                                 Command="{Binding ElementName=TopButtonBar,Path=DataContext.SortByCommand}"
                                 BorderBrush="{Binding ActionButtonType, Converter={StaticResource ButtonTypeToColorConverter}}">
                             <StackPanel Orientation="Horizontal">
@@ -81,15 +81,15 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <CheckBox Style="{StaticResource LeftContentCheckBox}"
-                                      IsChecked="{Binding IsSelected, Mode=TwoWay}">
+                                      IsChecked="{Binding IsSelected, Mode=TwoWay}" HorizontalContentAlignment="Stretch">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="200" />
+                                        <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Text="{Binding DriverProvider}" Style="{StaticResource ListItemText}" />
-                                    <TextBlock Grid.Column="1" Text="{Binding DriverDescription}" Margin="5,0,0,0"
-                                               Style="{StaticResource ListItemText}" />
+                                    <TextBlock Grid.Column="1" Text="{Binding DriverDescription}"
+                                               Style="{StaticResource ListItemText}" Margin="-35,0,5,0"/>
                                 </Grid>
                             </CheckBox>
                             <Separator Grid.Row="1" Grid.ColumnSpan="3" />
