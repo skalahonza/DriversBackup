@@ -51,6 +51,9 @@ namespace DriversBackup.ViewModels
             {
                 new ActionButton(StringResources.Save, SaveSelectedDrivers, ActionButton.ButtonType.Accept, "\xE74E"),
                 new ActionButton(StringResources.SelectAll, SelectAll, ActionButton.ButtonType.Deafult, "\xE133"),
+                new ActionButton(StringResources.InstallDrivers,
+                    () => AppContext.MainFrame.Navigate(new InstallPage()), ActionButton.ButtonType.Deafult,
+                    "\xE133"),
             };
             DriversBox = new DriversBoxViewModel(Drivers, top, bot);
         }
@@ -274,50 +277,7 @@ namespace DriversBackup.ViewModels
                     ShowInProgressDialog = false;
                 }
             });
-        });
-
-        public RelayCommand SelectAll => new RelayCommand(() =>
-        {
-            //if all are selected, de-select them
-            //if not select them all
-            bool select = Drivers.Count != Drivers.Count(x => x.IsSelected);
-            foreach (var driver in Drivers)
-                driver.IsSelected = select;
-        });
-
-        public RelayCommand GoToSettings => new RelayCommand(() =>
-        {
-            AppContext.MainFrame.Navigate(new SettingsPage());
-        });
-
-        public GenericRelayCommand<string> SortByCommand => new GenericRelayCommand<string>(s =>
-        {
-            SortBy sortType;
-            if (Enum.TryParse(s, out sortType))
-            {
-                var driversList = new List<DriverInformation>(Drivers);
-                //if the same sort type is used, just reverse the list
-                if (sortType == previousSortType && sortType != SortBy.Search)
-                    driversList.Reverse();
-                else
-                    switch (sortType)
-                    {
-                        case SortBy.DriverId:
-                            driversList.Sort(
-                                (a, b) => string.Compare(a.DriverProvider, b.DriverProvider, StringComparison.Ordinal));
-                            break;
-                        case SortBy.Description:
-                            driversList.Sort(
-                                (a, b) =>
-                                    string.Compare(a.DriverDescription, b.DriverDescription, StringComparison.Ordinal));
-                            break;
-                        case SortBy.Backup:
-                            driversList.Sort((a, b) => a.IsSelected.CompareTo(b.IsSelected));
-                            break;
-                        case SortBy.Search:
-                            //empty drivers in GUI
-                            driversList = allDrivers;
-                            Drivers.Clear();
+        }
 
         #region Commands
 

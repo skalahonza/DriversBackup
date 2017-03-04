@@ -8,7 +8,7 @@
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:ct="clr-namespace:DriversBackup.Views.Controls"
       xmlns:p="clr-namespace:DriversBackup.Properties"
-      mc:Ignorable="d" 
+      mc:Ignorable="d"
       d:DesignHeight="768" d:DesignWidth="1024"
       Title="Drivers Backup">
     <Page.Resources>
@@ -42,104 +42,8 @@
                 </Button>
             </Grid>
         </Border>
-        <!--Search textbox -->
-        <Grid Grid.Row="1">
-            <controls:PlaceholderTextBox x:Name="SearchBox" Text="{Binding Search, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" PlaceholderText="{x:Static p:Resources.SearchDots}" 
-                                         Padding="5,0,0,0" FontSize="20" VerticalContentAlignment="Center" BorderThickness="0,0,0,1" GotFocus="PlaceholderTextBox_GotFocus" LostFocus="PlaceholderTextBox_LostFocus">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="TextChanged">
-                        <i:InvokeCommandAction Command="{Binding SortByCommand}" CommandParameter="Search"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </controls:PlaceholderTextBox>
-            <Button Content="&#xE711;" x:Name="DeleteButton" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right"  Style="{StaticResource FancyButton}" 
-            		BorderBrush="Transparent" FontSize="20" Background="Transparent"  Height="30" Margin="5" Command="{Binding CancelSearch}" 
-                    Visibility="Collapsed" Click="DeleteButton_OnClick"/>
-        </Grid>
-        <!--Sorting buttons -->
-        <Grid Grid.Row="2" Margin="10,5">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition MinWidth="100" Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <Grid.Resources>
-                <Style TargetType="Button" BasedOn="{StaticResource FancyButton}">
-                    <Setter Property="BorderBrush" Value="Transparent"/>
-                    <Setter Property="Background" Value="Transparent"/>
-                    <Setter Property="FontSize" Value="18"/>
-                </Style>
-            </Grid.Resources>
-            <Button ToolTip="{x:Static p:Resources.SortByDriverID}" Command="{Binding SortByCommand}" CommandParameter="DriverId" Margin="5,0,0,0"
-                    HorizontalContentAlignment="Left">
-                <Button.Content>
-                    <WrapPanel>
-                        <TextBlock Text="&#xEA37;" FontFamily="{StaticResource IconFont}" VerticalAlignment="Center"/>
-                        <TextBlock Text="{x:Static p:Resources.DriverID}" VerticalAlignment="Center" Margin="5,0,0,0"/>
-                    </WrapPanel>
-                </Button.Content>
-            </Button>
-            <Button Grid.Column="1" Margin="5,0,0,0" ToolTip="{x:Static p:Resources.SortByDescription}" Command="{Binding SortByCommand}" CommandParameter="Description">
-                <Button.Content>
-                    <WrapPanel>
-                        <TextBlock Text="&#xE7C3;" FontFamily="{StaticResource IconFont}" VerticalAlignment="Center"/>
-                        <TextBlock Text="{x:Static p:Resources.Description}" VerticalAlignment="Center" Margin="5,0,0,0"/>
-                    </WrapPanel>
-                </Button.Content>
-            </Button>
-            <Button Grid.Column="2" ToolTip="{x:Static p:Resources.SortByBackup}" Command="{Binding SortByCommand}" CommandParameter="Backup">
-                <Button.Content>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#xE896;" FontFamily="{StaticResource IconFont}" VerticalAlignment="Center"/>
-                        <TextBlock Text="{x:Static p:Resources.Backup}" VerticalAlignment="Center" Margin="5,0"/>
-                    </StackPanel>
-                </Button.Content>
-            </Button>
-        </Grid>
-        <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto">
-            <ItemsControl x:Name="ListView" ItemsSource="{Binding Drivers, Mode=TwoWay}" Padding="5" HorizontalContentAlignment="Stretch">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <CheckBox Style="{StaticResource LeftContentCheckBox}"
-                                      IsChecked="{Binding IsSelected, Mode=TwoWay}">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="200"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Text="{Binding DriverProvider}" Style="{StaticResource ListItemText}"/>
-                                    <TextBlock Grid.Column="1" Text="{Binding DriverDescription}" Margin="5,0,0,0" Style="{StaticResource ListItemText}"/>
-                                </Grid>
-                            </CheckBox>
-                            <Separator Grid.Row="1" Grid.ColumnSpan="3"/>
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
-        <Grid Grid.Row="4">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <Button Command="{Binding SaveSelectedDrivers}" Style="{StaticResource FancyButton}" FontSize="15" BorderBrush="{StaticResource GreenAccent}">
-                <WrapPanel>
-                    <TextBlock Text="&#xE74E;" FontFamily="{StaticResource IconFont}" VerticalAlignment="Center"/>
-                    <TextBlock Text="{x:Static p:Resources.Save}" VerticalAlignment="Center" Margin="5,0,0,0"/>
-                </WrapPanel>
-            </Button>
-            <Button Grid.Column="1" Command="{Binding SelectAll}" Style="{StaticResource FancyButton}" FontSize="15" BorderBrush="{StaticResource BlueAccent}">
-                <WrapPanel>
-                    <TextBlock Text="&#xE133;" FontFamily="{StaticResource IconFont}" VerticalAlignment="Center"/>
-                    <TextBlock Text="{x:Static p:Resources.SelectAll}" VerticalAlignment="Center" Margin="5,0,0,0"/>
-                </WrapPanel>
-            </Button>
-        </Grid>
+        <!-- Drivers -->
+        <controls:DriversBox Grid.Row="1" DataContext="{Binding DriversBox}" />
         <!-- In progress-->
         <Grid d:IsHidden="true" Grid.RowSpan="5" Background="Black" Opacity="0.6"
               Visibility="{Binding ShowInProgressDialog, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -151,8 +55,10 @@
             </StackPanel>
         </Grid>
         <!-- Message dialog -->
-        <Grid Grid.Row="3" Visibility="{Binding ShowMessage, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
-            <controls1:MessageDialog VerticalAlignment="Center" HorizontalAlignment="Center" DataContext="{Binding MessageDialog}"/>
+        <Grid Grid.Row="1"
+              Visibility="{Binding ShowMessage, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
+            <controls:MessageDialog VerticalAlignment="Center" HorizontalAlignment="Center"
+                                    DataContext="{Binding MessageDialog}" />
         </Grid>
     </Grid>
 </Page>

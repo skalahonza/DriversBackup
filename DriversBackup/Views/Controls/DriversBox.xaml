@@ -81,7 +81,8 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <CheckBox Style="{StaticResource LeftContentCheckBox}"
-                                      IsChecked="{Binding IsSelected, Mode=TwoWay}" HorizontalContentAlignment="Stretch">
+                                      IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                      HorizontalContentAlignment="Stretch">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
@@ -89,7 +90,7 @@
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Text="{Binding DriverProvider}" Style="{StaticResource ListItemText}" />
                                     <TextBlock Grid.Column="1" Text="{Binding DriverDescription}"
-                                               Style="{StaticResource ListItemText}" Margin="-35,0,5,0"/>
+                                               Style="{StaticResource ListItemText}" Margin="-35,0,5,0" />
                                 </Grid>
                             </CheckBox>
                             <Separator Grid.Row="1" Grid.ColumnSpan="3" />
