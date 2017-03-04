@@ -21,24 +21,14 @@ namespace DriversBackup.ViewModels
     public class MainPageViewModel : ViewModelBase
     {
         private ObservableCollection<DriverInformation> drivers = new ObservableCollection<DriverInformation>();
-        private SortBy previousSortType;
         private string search = "";
         // ReSharper disable once MemberInitializerValueIgnored
-        private readonly List<DriverInformation> allDrivers = new List<DriverInformation>();
         private MessageDialogViewModel messageDialog;
         private bool showInProgressDialog;
         private int backingUpProgress;
+        private DriversBoxViewModel driversBox;
 
         //Sort type for listview of drivers
-        enum SortBy
-        {
-            // ReSharper disable once UnusedMember.Local
-            Undefined,
-            Search,
-            DriverId,
-            Description,
-            Backup
-        }
 
         public MainPageViewModel()
         {
@@ -46,7 +36,23 @@ namespace DriversBackup.ViewModels
             var controller = new DriverBackup();
             Drivers =
                 new ObservableCollection<DriverInformation>(controller.ListDrivers(AppSettings.ShowMicrosoftDrivers));
-            allDrivers = new List<DriverInformation>(Drivers);
+            //Init Driver box VM
+            //Init top Buttons
+            var top = new ObservableCollection<ActionButton>()
+            {
+                new ActionButton(StringResources.DriverID, ActionButton.ButtonType.NoHighlight, "\xEA37",
+                    "DriverId"),
+                new ActionButton(StringResources.Description, ActionButton.ButtonType.NoHighlight, "\xE7C3",
+                    "Description"),
+                new ActionButton(StringResources.Backup, ActionButton.ButtonType.NoHighlight, "\xE896", "Backup"),
+            };
+            //Init bot buttons
+            var bot = new ObservableCollection<ActionButton>()
+            {
+                new ActionButton(StringResources.Save, SaveSelectedDrivers, ActionButton.ButtonType.Accept, "\xE74E"),
+                new ActionButton(StringResources.SelectAll, SelectAll, ActionButton.ButtonType.Deafult, "\xE133"),
+            };
+            DriversBox = new DriversBoxViewModel(Drivers, top, bot);
         }
 
         public ObservableCollection<DriverInformation> Drivers
@@ -90,6 +96,16 @@ namespace DriversBackup.ViewModels
             }
         }
 
+        public DriversBoxViewModel DriversBox
+        {
+            get { return driversBox; }
+            set
+            {
+                driversBox = value;
+                OnPropertyChanged();
+            }
+        }
+
         /// <summary>
         /// Determines the message dialog visibility
         /// </summary>
@@ -125,7 +141,7 @@ namespace DriversBackup.ViewModels
         public bool NoDriversFound => !Drivers.Any();
 
         private void OpenOutputFolder(string path)
-        {            
+        {
             //Handle: Folder might have been compressed to zip - check and handle
             if (Directory.Exists(path))
                 Process.Start(path);
@@ -137,7 +153,8 @@ namespace DriversBackup.ViewModels
                     new MessageDialogViewModel(
                         new ObservableCollection<ActionButton>()
                         {
-                            new ActionButton(StringResources.OK, () => MessageDialog = null, ActionButton.ButtonType.Accept)
+                            new ActionButton(StringResources.OK, () => MessageDialog = null,
+                                ActionButton.ButtonType.Accept)
                         },
                         StringResources.FolderCannotBeOpened, StringResources.FolderCannotBeOpenedLong);
             }
@@ -149,7 +166,8 @@ namespace DriversBackup.ViewModels
                     new MessageDialogViewModel(
                         new ObservableCollection<ActionButton>()
                         {
-                            new ActionButton(StringResources.OK, () => MessageDialog = null, ActionButton.ButtonType.Accept)
+                            new ActionButton(StringResources.OK, () => MessageDialog = null,
+                                ActionButton.ButtonType.Accept)
                         },
                         StringResources.FolderCannotBeOpened, StringResources.FolderNotFound);
             }
@@ -160,9 +178,22 @@ namespace DriversBackup.ViewModels
             //TODO Initialize System.IO Compress stream or use NuGet instead
         }
 
-        #region Commands
+        /// <summary>
+        /// Select all button handler
+        /// </summary>
+        private void SelectAll()
+        {
+            //if all are selected, de-select them
+            //if not select them all
+            bool select = Drivers.Count != Drivers.Count(x => x.IsSelected);
+            foreach (var driver in Drivers)
+                driver.IsSelected = select;
+        }
 
-        public RelayCommand SaveSelectedDrivers => new RelayCommand(async () =>
+        /// <summary>
+        /// Save selected button handler
+        /// </summary>
+        private async void SaveSelectedDrivers()
         {
             //Update Drivers for backup count property
             OnPropertyChanged(nameof(DriversForBackpCount));
@@ -174,10 +205,7 @@ namespace DriversBackup.ViewModels
                     new MessageDialogViewModel(new ObservableCollection<ActionButton>(new List<ActionButton>()
                     {
                         new ActionButton(StringResources.OK,
-                            () =>
-                            {
-                                MessageDialog = null;
-                            }, ActionButton.ButtonType.Deafult)
+                            () => { MessageDialog = null; }, ActionButton.ButtonType.Deafult)
                     }), StringResources.NothingToSave, StringResources.NoDriversSelected);
                 return;
             }
@@ -204,7 +232,6 @@ namespace DriversBackup.ViewModels
                     //Zip folder if user wants it automatically
                     if (AppSettings.ZipRootFolder)
                     {
-
                     }
 
                     //Alert user when the job is done
@@ -212,7 +239,8 @@ namespace DriversBackup.ViewModels
                         new MessageDialogViewModel(
                             new ObservableCollection<ActionButton>(new List<ActionButton>
                             {
-                                new ActionButton(StringResources.OK, () => MessageDialog = null, ActionButton.ButtonType.Accept),
+                                new ActionButton(StringResources.OK, () => MessageDialog = null,
+                                    ActionButton.ButtonType.Accept),
                                 new ActionButton(StringResources.OpenFolder, () => OpenOutputFolder(path),
                                     ActionButton.ButtonType.Deafult),
                             }),
@@ -236,7 +264,8 @@ namespace DriversBackup.ViewModels
                         new MessageDialogViewModel(
                             new ObservableCollection<ActionButton>(new List<ActionButton>
                             {
-                                new ActionButton(StringResources.OK, () => MessageDialog = null, ActionButton.ButtonType.Accept)
+                                new ActionButton(StringResources.OK, () => MessageDialog = null,
+                                    ActionButton.ButtonType.Accept)
                             }),
                             StringResources.Error, e.Message);
                 }
@@ -254,11 +283,6 @@ namespace DriversBackup.ViewModels
             bool select = Drivers.Count != Drivers.Count(x => x.IsSelected);
             foreach (var driver in Drivers)
                 driver.IsSelected = select;
-        });
-
-        public RelayCommand GoToDriverInstallation => new RelayCommand(() =>
-        {
-            AppContext.MainFrame.Navigate(new InstallPage());
         });
 
         public RelayCommand GoToSettings => new RelayCommand(() =>
@@ -295,35 +319,10 @@ namespace DriversBackup.ViewModels
                             driversList = allDrivers;
                             Drivers.Clear();
 
-                            //search in driver provider
-                            foreach (
-                                var driverInformation in
-                                    driversList.Where(x => x.DriverProvider.ToLower().Contains(Search.ToLower())))
-                                Drivers.Add(driverInformation);
-                            //search in driver description
-                            foreach (
-                                var driverInformation in
-                                    driversList.Where(x => x.DriverDescription.ToLower().Contains(Search.ToLower())))
-                                //preen redundant addition
-                                if (!Drivers.Contains(driverInformation))
-                                    Drivers.Add(driverInformation);
-                            return;
-                        case SortBy.Undefined:
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException();
-                    }
-                //Show newly sorted drivers on the UI
-                Drivers = new ObservableCollection<DriverInformation>(driversList);
-                //save sort type
-                previousSortType = sortType;
-            }
-        });
+        #region Commands
 
-        public RelayCommand CancelSearch => new RelayCommand(() =>
-        {
-            Search = "";
-        });
+        public RelayCommand GoToSettings
+            => new RelayCommand(() => { AppContext.MainFrame.Navigate(new SettingsPage()); });
 
         #endregion
     }

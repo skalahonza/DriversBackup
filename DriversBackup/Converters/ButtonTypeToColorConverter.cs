@@ -11,7 +11,6 @@ namespace DriversBackup.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-
             switch ((ActionButton.ButtonType) value)
             {
                 case ActionButton.ButtonType.Deafult:
@@ -20,6 +19,8 @@ namespace DriversBackup.Converters
                     return Application.Current.FindResource("GreenAccent") as Brush;
                 case ActionButton.ButtonType.Cancel:
                     return Application.Current.FindResource("OrangeAccent") as Brush;
+                case ActionButton.ButtonType.NoHighlight:
+                    return Brushes.Transparent;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(value), value, null);
             }
