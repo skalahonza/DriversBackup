@@ -19,7 +19,7 @@ namespace DriversBackup.ViewModels
         public InstallPageViewModel()
         {
             //top buttons
-            var top = new ObservableCollection<ActionButton>()
+            var top = new ObservableCollection<ActionButton>
             {
                 new ActionButton(Resources.DriverID, ActionButton.ButtonType.NoHighlight, "\xEA37",
                     "DriverId"),
@@ -28,7 +28,7 @@ namespace DriversBackup.ViewModels
                 new ActionButton(Resources.Install, ActionButton.ButtonType.NoHighlight, "\xE710", "Backup"),
             };
             //bot buttons
-            var bot = new ObservableCollection<ActionButton>()
+            var bot = new ObservableCollection<ActionButton>
             {
                 new ActionButton(Resources.SelectAll, SelectAll, ActionButton.ButtonType.Deafult, "\xE133"),
                 new ActionButton(Resources.InstallDrivers,

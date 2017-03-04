@@ -38,7 +38,7 @@ namespace DriversBackup.ViewModels
                 new ObservableCollection<DriverInformation>(controller.ListDrivers(AppSettings.ShowMicrosoftDrivers));
             //Init Driver box VM
             //Init top Buttons
-            var top = new ObservableCollection<ActionButton>()
+            var top = new ObservableCollection<ActionButton>
             {
                 new ActionButton(StringResources.DriverID, ActionButton.ButtonType.NoHighlight, "\xEA37",
                     "DriverId"),
@@ -47,7 +47,7 @@ namespace DriversBackup.ViewModels
                 new ActionButton(StringResources.Backup, ActionButton.ButtonType.NoHighlight, "\xE896", "Backup"),
             };
             //Init bot buttons
-            var bot = new ObservableCollection<ActionButton>()
+            var bot = new ObservableCollection<ActionButton>
             {
                 new ActionButton(StringResources.Save, SaveSelectedDrivers, ActionButton.ButtonType.Accept, "\xE74E"),
                 new ActionButton(StringResources.SelectAll, SelectAll, ActionButton.ButtonType.Deafult, "\xE133"),
@@ -154,7 +154,7 @@ namespace DriversBackup.ViewModels
             {
                 MessageDialog =
                     new MessageDialogViewModel(
-                        new ObservableCollection<ActionButton>()
+                        new ObservableCollection<ActionButton>
                         {
                             new ActionButton(StringResources.OK, () => MessageDialog = null,
                                 ActionButton.ButtonType.Accept)
@@ -167,7 +167,7 @@ namespace DriversBackup.ViewModels
             {
                 MessageDialog =
                     new MessageDialogViewModel(
-                        new ObservableCollection<ActionButton>()
+                        new ObservableCollection<ActionButton>
                         {
                             new ActionButton(StringResources.OK, () => MessageDialog = null,
                                 ActionButton.ButtonType.Accept)
@@ -205,7 +205,7 @@ namespace DriversBackup.ViewModels
             if (!Drivers.Any(x => x.IsSelected))
             {
                 MessageDialog =
-                    new MessageDialogViewModel(new ObservableCollection<ActionButton>(new List<ActionButton>()
+                    new MessageDialogViewModel(new ObservableCollection<ActionButton>(new List<ActionButton>
                     {
                         new ActionButton(StringResources.OK,
                             () => { MessageDialog = null; }, ActionButton.ButtonType.Deafult)
