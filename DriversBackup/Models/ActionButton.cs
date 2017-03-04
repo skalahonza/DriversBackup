@@ -22,17 +22,33 @@ namespace DriversBackup.Models
         }
 
         /// <summary>
-        /// Creates instance for action button
+        /// Creates instance of action button
         /// </summary>
         /// <param name="text">Text for the button label</param>
         /// <param name="action">Action that will invoke on click</param>
         /// <param name="actionButtonType">Button type - affects design</param>
         /// <param name="icon">Any valuable SEGOE MD2 icon character</param>
-        public ActionButton(string text, Action action, ButtonType actionButtonType, string icon, string meta="")
+        /// <param name="meta">For binding or other purposes</param>
+        public ActionButton(string text, Action action, ButtonType actionButtonType, string icon, string meta = "")
             : this(text, action, actionButtonType)
         {
             Icon = icon;
             Meta = meta;
+        }
+
+        /// <summary>
+        /// Creates instance of action button without command
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="icon"></param>
+        /// <param name="actionButtonType"></param>
+        /// <param name="meta"></param>
+        public ActionButton(string text, ButtonType actionButtonType, string icon, string meta = "")
+        {
+            Text = text;
+            Icon = icon;
+            Meta = meta;
+            ActionButtonType = actionButtonType;
         }
 
         /// <summary>
@@ -50,12 +66,15 @@ namespace DriversBackup.Models
         /// Will be displayed in content
         /// </summary>
         public string Text { get; set; }
+
         //Will be displayed in front of text
         public string Icon { get; set; }
+
         /// <summary>
         /// Can be used for command parameter or code behind stuff
         /// </summary>
         public string Meta { get; set; }
+
         public ButtonType ActionButtonType { get; set; }
         public RelayCommand ButtonCommand => new RelayCommand(action);
 

@@ -40,11 +40,11 @@ namespace DriversBackup.ViewModels
             //Init top Buttons
             var top = new ObservableCollection<ActionButton>()
             {
-                new ActionButton(StringResources.DriverID, () => { }, ActionButton.ButtonType.NoHighlight, "\xEA37",
+                new ActionButton(StringResources.DriverID, ActionButton.ButtonType.NoHighlight, "\xEA37",
                     "DriverId"),
-                new ActionButton(StringResources.Description, () => { }, ActionButton.ButtonType.NoHighlight, "\xE7C3",
+                new ActionButton(StringResources.Description, ActionButton.ButtonType.NoHighlight, "\xE7C3",
                     "Description"),
-                new ActionButton(StringResources.Backup, () => { }, ActionButton.ButtonType.NoHighlight, "\xE896", "Backup"),
+                new ActionButton(StringResources.Backup, ActionButton.ButtonType.NoHighlight, "\xE896", "Backup"),
             };
             //Init bot buttons
             var bot = new ObservableCollection<ActionButton>()
