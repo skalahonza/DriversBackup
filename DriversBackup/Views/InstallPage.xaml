@@ -44,7 +44,13 @@
             </StackPanel>
         </Grid>
         <controls1:DriversBox Grid.Row="1" DataContext="{Binding DriversBox}" />
-        <Button Grid.Row="2" Style="{StaticResource FancyButton}" Content="{x:Static p:Resources.SelectFolder}"
-                Command="{Binding SelectFolderCommand}" BorderBrush="{StaticResource BlueAccent}"/>
+        <Button Grid.Row="2" Command="{Binding SelectFolderCommand}" Style="{StaticResource FancyButton}"
+                BorderBrush="{StaticResource BlueAccent}">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="&#xE8B7;" FontFamily="{StaticResource IconFont}"
+                           VerticalAlignment="Center" Margin="5,0" />
+                <TextBlock Text="{x:Static p:Resources.SelectFolder}" VerticalAlignment="Center" />
+            </StackPanel>
+        </Button>
     </Grid>
 </Page>

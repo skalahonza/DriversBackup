@@ -25,7 +25,7 @@ namespace DriversBackup.ViewModels
                     "DriverId"),
                 new ActionButton(Resources.Description, ActionButton.ButtonType.NoHighlight, "\xE7C3",
                     "Description"),
-                new ActionButton(Resources.Backup, ActionButton.ButtonType.NoHighlight, "\xE896", "Backup"),
+                new ActionButton(Resources.Install, ActionButton.ButtonType.NoHighlight, "\xE710", "Backup"),
             };
             //bot buttons
             var bot = new ObservableCollection<ActionButton>()
@@ -34,7 +34,7 @@ namespace DriversBackup.ViewModels
                 new ActionButton(Resources.InstallDrivers,
                     InstallSelectedDrivers,
                     ActionButton.ButtonType.Accept,
-                    "\xE133"),
+                    "\xE710"),
             };
             //init drivers box
             DriversBox = new DriversBoxViewModel(Drivers, top, bot);

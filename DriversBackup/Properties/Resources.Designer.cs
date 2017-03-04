@@ -196,6 +196,15 @@ namespace DriversBackup.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Install.
+        /// </summary>
+        public static string Install {
+            get {
+                return ResourceManager.GetString("Install", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Install Driver.
         /// </summary>
         public static string InstallDriver {

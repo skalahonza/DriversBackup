@@ -53,7 +53,7 @@ namespace DriversBackup.ViewModels
                 new ActionButton(StringResources.SelectAll, SelectAll, ActionButton.ButtonType.Deafult, "\xE133"),
                 new ActionButton(StringResources.InstallDrivers,
                     () => AppContext.MainFrame.Navigate(new InstallPage()), ActionButton.ButtonType.Deafult,
-                    "\xE133"),
+                    "\xE710"),
             };
             DriversBox = new DriversBoxViewModel(Drivers, top, bot);
         }

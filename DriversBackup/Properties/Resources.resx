@@ -135,6 +135,9 @@
   <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>
+  <data name="Install" xml:space="preserve">
+    <value>Install</value>
+  </data>
   <data name="DriverID" xml:space="preserve">
     <value>Driver ID</value>
   </data>
