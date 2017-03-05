@@ -13,14 +13,11 @@
     <UserControl.DataContext>
         <viewModels:MessageDialogViewModel/>
     </UserControl.DataContext>
-    <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="/DriversBackup;component/Content/Images/ScratchedTexture.png"/>
-        </Grid.Background>
-        <StackPanel VerticalAlignment="Center">
-            <TextBlock Text="{Binding Caption}" Style="{StaticResource PageHeader}" TextAlignment="Center"/>
-            <Separator BorderBrush="White" Margin="5,0"/>
-            <TextBlock Text="{Binding Text}" Style="{StaticResource PageSubHeader}" FontSize="18" Foreground="White" TextAlignment="Center"/>
+    <Grid Background="WhiteSmoke">
+        <StackPanel VerticalAlignment="Center" Margin="10">
+            <TextBlock Text="{Binding Caption}" Style="{StaticResource PageHeader}" Foreground="{StaticResource GrayText}" TextAlignment="Center"/>
+            <Separator BorderBrush="{StaticResource GrayText}" Margin="5,0"/>
+            <TextBlock Text="{Binding Text}" Style="{StaticResource PageSubHeader}" FontSize="18" Foreground="{StaticResource GrayText}" TextAlignment="Center"/>
             <ItemsControl Height="35" ItemsSource="{Binding ActionButtons}" VerticalAlignment="Center" HorizontalAlignment="Center" BorderBrush="Transparent" Background="Transparent">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -29,9 +26,10 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Button Content="{Binding Text}" Command="{Binding ButtonCommand}" HorizontalAlignment="Center" Margin="10,0" Background="Transparent" FontSize="15"
-                                Style="{StaticResource FancyButton}" OverridesDefaultStyle="True" BorderBrush="{Binding ActionButtonType, Converter={StaticResource ButtonTypeToColorConverter}}"
-                                Foreground="{Binding ActionButtonType, Converter={StaticResource ButtonTypeToColorConverter}}"
+                        <Button Content="{Binding Text}" Command="{Binding ButtonCommand}" HorizontalAlignment="Center" Margin="10,0" Background="Transparent"
+                                Style="{StaticResource FancyButton}"
+                                BorderBrush="{Binding ActionButtonType, Converter={StaticResource ButtonTypeToColorConverter}}"
+                                Foreground="{StaticResource GrayText}"
                                 IsEnabled="{Binding IsEnabled}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
