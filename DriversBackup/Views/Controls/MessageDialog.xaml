@@ -13,8 +13,8 @@
     <UserControl.DataContext>
         <viewModels:MessageDialogViewModel/>
     </UserControl.DataContext>
-    <Grid Background="White">
-        <StackPanel VerticalAlignment="Center">
+    <Grid Background="WhiteSmoke">
+        <StackPanel VerticalAlignment="Center" Margin="10">
             <TextBlock Text="{Binding Caption}" Style="{StaticResource PageHeader}" Foreground="{StaticResource GrayText}" TextAlignment="Center"/>
             <Separator BorderBrush="{StaticResource GrayText}" Margin="5,0"/>
             <TextBlock Text="{Binding Text}" Style="{StaticResource PageSubHeader}" FontSize="18" Foreground="{StaticResource GrayText}" TextAlignment="Center"/>
