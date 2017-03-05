@@ -47,9 +47,6 @@
         <!-- In progress-->
         <Grid d:IsHidden="true" Grid.RowSpan="5" Background="White" Opacity="0.55"
               Visibility="{Binding ShowInProgressDialog, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <Grid.Effect>
-                <BlurEffect Radius="15" />
-            </Grid.Effect>
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock Text="{x:Static p:Resources.SavingDriversDots}" FontSize="50"
                            Style="{StaticResource PageHeader}" Margin="0" />
