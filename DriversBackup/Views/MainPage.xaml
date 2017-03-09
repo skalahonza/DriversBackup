@@ -53,7 +53,7 @@
                 </Grid.Effect>
             </Grid>
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Text="{x:Static p:Resources.SavingDriversDots}" FontSize="50"
+                <TextBlock Text="{Binding InProgressTest}" FontSize="50"
                            Foreground="{StaticResource GrayText}"
                            Style="{StaticResource PageHeader}" Margin="0" />
                 <ProgressBar Maximum="{Binding DriversForBackpCount}" Value="{Binding BackingUpProgress}"

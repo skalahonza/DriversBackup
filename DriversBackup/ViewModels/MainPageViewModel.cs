@@ -29,6 +29,7 @@ namespace DriversBackup.ViewModels
         private int backingUpProgress;
         private DriversBoxViewModel driversBox;
         private CancellationTokenSource cts;
+        private string inProgressTest = "";
 
         //Sort type for listview of drivers
 
@@ -56,6 +57,8 @@ namespace DriversBackup.ViewModels
             };
             DriversBox = new DriversBoxViewModel(Drivers, top, bot);
         }
+
+        #region Properties
 
         public ObservableCollection<DriverInformation> Drivers
         {
@@ -140,6 +143,18 @@ namespace DriversBackup.ViewModels
 
         public int DriversForBackpCount => Drivers.Count(x => x.IsSelected);
 
+        public string InProgressTest
+        {
+            get { return inProgressTest; }
+            set
+            {
+                inProgressTest = value;
+                OnPropertyChanged();
+            }
+        }
+
+        #endregion
+
         private void OpenOutputFolder(string path)
         {
             //Handle: Folder might have been compressed to zip - check and handle
@@ -173,20 +188,31 @@ namespace DriversBackup.ViewModels
             }
         }
 
-        private async void CompressFolderAsZip(string path)
+        private async Task CompressFolderAsZip(string path)
         {
-            //TODO Alert user about compression
+            //Alert user about compression
+            InProgressTest = StringResources.ZippingDots;
+            ShowInProgressDialog = true;
 
-            //Use DotNetZip
-            using (var zipper = new ZipFile())
+            await Task.Run(() =>
             {
-                zipper.AddDirectory(path);
-                zipper.Comment = $"Created on: {DateTime.Now} by Drivers Backup software.";
-                zipper.CompressionMethod = CompressionMethod.Deflate;
-                // ReSharper disable once AccessToDisposedClosure
-                //TODO Handle delay of and tmp file existence
-                await Task.Run(() => zipper.Save(path + ".zip"));
-            }
+                //Use DotNetZip
+                using (var zipper = new ZipFile())
+                {
+                    zipper.AddDirectory(path);
+                    zipper.Comment = $"Created on: {DateTime.Now} by Drivers Backup software.";
+                    zipper.CompressionMethod = CompressionMethod.Deflate;
+                    // ReSharper disable once AccessToDisposedClosure
+                    //TODO Handle delay of and tmp file existence
+                    zipper.AddProgress += (sender, args) =>
+                    {
+                        
+                    };
+                    zipper.Save(path + ".zip");
+                    
+                }
+            });
+            ShowInProgressDialog = false;
         }
 
         /// <summary>
@@ -227,6 +253,7 @@ namespace DriversBackup.ViewModels
 
             BackingUpProgress = 0;
             ShowInProgressDialog = true;
+            InProgressTest = StringResources.SavingDriversDots;
             cts = new CancellationTokenSource();
 
             await SaveDriversAsync(Drivers.Where(x => x.IsSelected), path, cts.Token);
@@ -253,7 +280,7 @@ namespace DriversBackup.ViewModels
                     //Zip folder if user wants it automatically
                     if (AppSettings.ZipRootFolder)
                     {
-                        CompressFolderAsZip(path);
+                        await CompressFolderAsZip(path);
                     }
 
                     //Alert user when the job is done
@@ -275,9 +302,9 @@ namespace DriversBackup.ViewModels
                     {
                         MessageDialog.ActionButtons.Add(
                             new ActionButton(StringResources.ZipFolder,
-                                () =>
+                                async () =>
                                 {
-                                    CompressFolderAsZip(path);
+                                    await CompressFolderAsZip(path);
                                     MessageDialog.ActionButtons.Last().IsEnabled = false;
                                 }, ActionButton.ButtonType.Deafult));
                     }

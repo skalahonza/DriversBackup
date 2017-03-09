@@ -356,5 +356,14 @@ namespace DriversBackup.Properties {
                 return ResourceManager.GetString("ZipFolderHint", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zipping saved drivers....
+        /// </summary>
+        public static string ZippingDots {
+            get {
+                return ResourceManager.GetString("ZippingDots", resourceCulture);
+            }
+        }
     }
 }

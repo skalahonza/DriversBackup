@@ -216,4 +216,7 @@
   <data name="ZipFolderHint" xml:space="preserve">
     <value>When the drivers are saved in a selected folder. The folder will be automatically compressed as a zip file.</value>
   </data>
+  <data name="ZippingDots" xml:space="preserve">
+    <value>Zipping saved drivers...</value>
+  </data>
 </root>
