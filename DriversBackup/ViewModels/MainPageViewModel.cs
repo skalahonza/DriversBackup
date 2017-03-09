@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
-using System.IO.Compression;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,6 +11,7 @@ using System.Windows.Threading;
 using DriversBackup.Models;
 using DriversBackup.MVVM;
 using DriversBackup.Views;
+using Ionic.Zip;
 using WpfViewModelBase;
 using AppContext = DriversBackup.MVVM.AppContext;
 using Application = System.Windows.Application;
@@ -173,9 +173,20 @@ namespace DriversBackup.ViewModels
             }
         }
 
-        private void CompressFolderAsZip(string path)
+        private async void CompressFolderAsZip(string path)
         {
-            //TODO Initialize System.IO Compress stream or use NuGet instead
+            //TODO Alert user about compression
+
+            //Use DotNetZip
+            using (var zipper = new ZipFile())
+            {
+                zipper.AddDirectory(path);
+                zipper.Comment = $"Created on: {DateTime.Now} by Drivers Backup software.";
+                zipper.CompressionMethod = CompressionMethod.Deflate;
+                // ReSharper disable once AccessToDisposedClosure
+                //TODO Handle delay of and tmp file existence
+                await Task.Run(() => zipper.Save(path + ".zip"));
+            }
         }
 
         /// <summary>
@@ -242,6 +253,7 @@ namespace DriversBackup.ViewModels
                     //Zip folder if user wants it automatically
                     if (AppSettings.ZipRootFolder)
                     {
+                        CompressFolderAsZip(path);
                     }
 
                     //Alert user when the job is done
