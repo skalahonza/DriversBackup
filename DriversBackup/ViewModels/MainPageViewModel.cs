@@ -26,10 +26,11 @@ namespace DriversBackup.ViewModels
         // ReSharper disable once MemberInitializerValueIgnored
         private MessageDialogViewModel messageDialog;
         private bool showInProgressDialog;
-        private int backingUpProgress;
+        private int progress;
         private DriversBoxViewModel driversBox;
         private CancellationTokenSource cts;
         private string inProgressTest = "";
+        private int maximumProgress;
 
         //Sort type for listview of drivers
 
@@ -131,12 +132,12 @@ namespace DriversBackup.ViewModels
         /// <summary>
         /// Represents the amount of completed operations - used for progress bar
         /// </summary>
-        public int BackingUpProgress
+        public int Progress
         {
-            get { return backingUpProgress; }
+            get { return progress; }
             set
             {
-                backingUpProgress = value;
+                progress = value;
                 OnPropertyChanged();
             }
         }
@@ -149,6 +150,16 @@ namespace DriversBackup.ViewModels
             set
             {
                 inProgressTest = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int MaximumProgress
+        {
+            get { return maximumProgress; }
+            set
+            {
+                maximumProgress = value;
                 OnPropertyChanged();
             }
         }
@@ -203,13 +214,17 @@ namespace DriversBackup.ViewModels
                     zipper.Comment = $"Created on: {DateTime.Now} by Drivers Backup software.";
                     zipper.CompressionMethod = CompressionMethod.Deflate;
                     // ReSharper disable once AccessToDisposedClosure
-                    //TODO Handle delay of and tmp file existence
-                    zipper.AddProgress += (sender, args) =>
+
+                    //Notify user about progress         
+                    MaximumProgress = zipper.Entries.Count;
+                    zipper.SaveProgress += (sender, args) =>
                     {
-                        
+                        //Entries saved returns -1 when it cannot detect correctly (it breaks progress bar)
+                        if (args.EntriesSaved > Progress)
+                            Progress = args.EntriesSaved;
                     };
+
                     zipper.Save(path + ".zip");
-                    
                 }
             });
             ShowInProgressDialog = false;
@@ -233,7 +248,7 @@ namespace DriversBackup.ViewModels
         private async void SaveSelectedDrivers()
         {
             //Update Drivers for backup count property
-            OnPropertyChanged(nameof(DriversForBackpCount));
+            MaximumProgress = DriversForBackpCount;
             MessageDialog = null;
             //check for empty selection
             if (!Drivers.Any(x => x.IsSelected))
@@ -251,7 +266,7 @@ namespace DriversBackup.ViewModels
             if (folder.ShowDialog() != DialogResult.OK) return;
             string path = folder.SelectedPath;
 
-            BackingUpProgress = 0;
+            Progress = 0;
             ShowInProgressDialog = true;
             InProgressTest = StringResources.SavingDriversDots;
             cts = new CancellationTokenSource();
@@ -273,7 +288,7 @@ namespace DriversBackup.ViewModels
                         await
                             Application.Current.Dispatcher.BeginInvoke(
                                 DispatcherPriority.Background,
-                                new Action(() => BackingUpProgress++));
+                                new Action(() => Progress++));
                         ct.ThrowIfCancellationRequested();
                     }
 
@@ -304,8 +319,8 @@ namespace DriversBackup.ViewModels
                             new ActionButton(StringResources.ZipFolder,
                                 async () =>
                                 {
+                                    MessageDialog = null;
                                     await CompressFolderAsZip(path);
-                                    MessageDialog.ActionButtons.Last().IsEnabled = false;
                                 }, ActionButton.ButtonType.Deafult));
                     }
                 }
