@@ -58,6 +58,7 @@
                            Style="{StaticResource PageHeader}" Margin="0" />
                 <ProgressBar Maximum="{Binding DriversForBackpCount}" Value="{Binding BackingUpProgress}"
                              IsEnabled="True" Margin="0,20,0,0" Style="{DynamicResource StylishPorgressBar}" />
+                <Button Content="{x:Static p:Resources.Cancel}" Command="{Binding CancelSaving}"/>
             </StackPanel>
         </Grid>
         <!-- Message dialog -->

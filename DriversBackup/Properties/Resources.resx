@@ -132,6 +132,9 @@
   <data name="Backup" xml:space="preserve">
     <value>Backup</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>

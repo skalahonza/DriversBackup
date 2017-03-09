@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Threading;
@@ -27,6 +28,7 @@ namespace DriversBackup.ViewModels
         private bool showInProgressDialog;
         private int backingUpProgress;
         private DriversBoxViewModel driversBox;
+        private CancellationTokenSource cts;
 
         //Sort type for listview of drivers
 
@@ -214,17 +216,25 @@ namespace DriversBackup.ViewModels
 
             BackingUpProgress = 0;
             ShowInProgressDialog = true;
-            await Task.Run(async () =>
-            {
+            cts = new CancellationTokenSource();
+            
+            await SaveDriversAsync(Drivers.Where(x => x.IsSelected), path, cts.Token);
+            
+        }
+
+        private async Task SaveDriversAsync(IEnumerable<DriverInformation> drivers, string path, CancellationToken ct)
+        {
+            await Task.Run(async () => {
                 try
                 {
                     var controller = new DriverBackup();
-                    foreach (var t in Drivers.Where(x => x.IsSelected))
+                    foreach (var t in drivers)
                     {
                         //Backup drivers one by one on background thread and show progress to the user
                         await controller.BackupDriverAsync(t, path);
                         await Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background,
                             new Action(() => BackingUpProgress++));
+                        ct.ThrowIfCancellationRequested();
                     }
 
                     //Zip folder if user wants it automatically
@@ -271,13 +281,19 @@ namespace DriversBackup.ViewModels
                 {
                     ShowInProgressDialog = false;
                 }
-            });
+            }, ct);            
         }
 
         #region Commands
 
         public RelayCommand GoToSettings
             => new RelayCommand(() => { AppContext.MainFrame.Navigate(new SettingsPage()); });
+
+        public RelayCommand CancelSaving => new RelayCommand(() =>
+        {
+            cts?.Cancel();
+            ShowInProgressDialog = false;
+        });
 
         #endregion
     }
