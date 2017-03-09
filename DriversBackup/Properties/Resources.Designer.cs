@@ -250,6 +250,15 @@ namespace DriversBackup.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Saving canceled.
+        /// </summary>
+        public static string SavingCanceled {
+            get {
+                return ResourceManager.GetString("SavingCanceled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Saving drivers....
         /// </summary>
         public static string SavingDriversDots {

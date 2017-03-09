@@ -180,6 +180,9 @@
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="SavingCanceled" xml:space="preserve">
+    <value>Saving canceled</value>
+  </data>
   <data name="SavingDriversDots" xml:space="preserve">
     <value>Saving drivers...</value>
   </data>
