@@ -132,6 +132,9 @@
   <data name="Backup" xml:space="preserve">
     <value>Backup</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>
@@ -176,6 +179,9 @@
   </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
+  </data>
+  <data name="SavingCanceled" xml:space="preserve">
+    <value>Saving canceled</value>
   </data>
   <data name="SavingDriversDots" xml:space="preserve">
     <value>Saving drivers...</value>

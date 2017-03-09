@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Threading;
@@ -27,6 +28,7 @@ namespace DriversBackup.ViewModels
         private bool showInProgressDialog;
         private int backingUpProgress;
         private DriversBoxViewModel driversBox;
+        private CancellationTokenSource cts;
 
         //Sort type for listview of drivers
 
@@ -214,17 +216,27 @@ namespace DriversBackup.ViewModels
 
             BackingUpProgress = 0;
             ShowInProgressDialog = true;
+            cts = new CancellationTokenSource();
+
+            await SaveDriversAsync(Drivers.Where(x => x.IsSelected), path, cts.Token);
+        }
+
+        private async Task SaveDriversAsync(IEnumerable<DriverInformation> drivers, string path, CancellationToken ct)
+        {
             await Task.Run(async () =>
             {
                 try
                 {
                     var controller = new DriverBackup();
-                    foreach (var t in Drivers.Where(x => x.IsSelected))
+                    foreach (var t in drivers)
                     {
                         //Backup drivers one by one on background thread and show progress to the user
                         await controller.BackupDriverAsync(t, path);
-                        await Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background,
-                            new Action(() => BackingUpProgress++));
+                        await
+                            Application.Current.Dispatcher.BeginInvoke(
+                                DispatcherPriority.Background,
+                                new Action(() => BackingUpProgress++));
+                        ct.ThrowIfCancellationRequested();
                     }
 
                     //Zip folder if user wants it automatically
@@ -237,9 +249,11 @@ namespace DriversBackup.ViewModels
                         new MessageDialogViewModel(
                             new ObservableCollection<ActionButton>(new List<ActionButton>
                             {
-                                new ActionButton(StringResources.OK, () => MessageDialog = null,
+                                new ActionButton(StringResources.OK,
+                                    () => MessageDialog = null,
                                     ActionButton.ButtonType.Accept),
-                                new ActionButton(StringResources.OpenFolder, () => OpenOutputFolder(path),
+                                new ActionButton(StringResources.OpenFolder,
+                                    () => OpenOutputFolder(path),
                                     ActionButton.ButtonType.Deafult),
                             }),
                             StringResources.DriversSaved, StringResources.DriversSavedLong);
@@ -247,14 +261,28 @@ namespace DriversBackup.ViewModels
                     //Add compress folder as zip button if it is not automatic
                     if (!AppSettings.ZipRootFolder)
                     {
-                        MessageDialog.ActionButtons.Add(new ActionButton(StringResources.ZipFolder,
-                            () =>
-                            {
-                                CompressFolderAsZip(path);
-                                MessageDialog.ActionButtons.Last().IsEnabled = false;
-                            }, ActionButton.ButtonType.Deafult));
+                        MessageDialog.ActionButtons.Add(
+                            new ActionButton(StringResources.ZipFolder,
+                                () =>
+                                {
+                                    CompressFolderAsZip(path);
+                                    MessageDialog.ActionButtons.Last().IsEnabled = false;
+                                }, ActionButton.ButtonType.Deafult));
                     }
                 }
+                catch (OperationCanceledException)
+                {
+                    //Canceled by user
+                    MessageDialog =
+                        new MessageDialogViewModel(
+                            new ObservableCollection<ActionButton>(new List<ActionButton>
+                            {
+                                new ActionButton(StringResources.OK, () => MessageDialog = null,
+                                    ActionButton.ButtonType.Accept)
+                            }),
+                            StringResources.SavingCanceled);
+                }
+
                 catch (Exception e)
                 {
                     //Let user know about the error
@@ -271,13 +299,19 @@ namespace DriversBackup.ViewModels
                 {
                     ShowInProgressDialog = false;
                 }
-            });
+            }, ct);
         }
 
         #region Commands
 
         public RelayCommand GoToSettings
             => new RelayCommand(() => { AppContext.MainFrame.Navigate(new SettingsPage()); });
+
+        public RelayCommand CancelSaving => new RelayCommand(() =>
+        {
+            cts?.Cancel();
+            ShowInProgressDialog = false;
+        });
 
         #endregion
     }

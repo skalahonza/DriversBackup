@@ -24,9 +24,9 @@ namespace DriversBackup.ViewModels
         /// Crates instance of a popup windows. It will be displayed in MessageDialogControl.
         /// </summary>
         /// <param name="actionButtons">Collection of ActionButtons, every button should have a caption, template {Default, Accept, Reject} and an action that is invoked when the button is pressed. Buttons will be displayed at the bottom, centered horizontally.</param>
-        /// <param name="caption">Caption of the popup. Should be a short header.</param>
+        /// <param name="caption">(optional) Caption of the popup. Should be a short header.</param>
         /// <param name="text">Text that will be displayed in a popup. Should be a detail information.</param>
-        public MessageDialogViewModel(ObservableCollection<ActionButton> actionButtons, string caption, string text)
+        public MessageDialogViewModel(ObservableCollection<ActionButton> actionButtons, string caption, string text = "")
         {
             ActionButtons = actionButtons;
             Caption = caption;
