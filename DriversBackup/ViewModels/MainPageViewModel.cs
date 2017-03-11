@@ -199,8 +199,9 @@ namespace DriversBackup.ViewModels
             }
         }
 
-        private async Task CompressFolderAsZip(string path)
+        private async Task CompressFolderAsZip(string path, CancellationToken ct)
         {
+            //TODO Add cancel token
             //Alert user about compression
             InProgressTest = StringResources.ZippingDots;
             ShowInProgressDialog = true;
@@ -222,11 +223,13 @@ namespace DriversBackup.ViewModels
                         //Entries saved returns -1 when it cannot detect correctly (it breaks progress bar)
                         if (args.EntriesSaved > Progress)
                             Progress = args.EntriesSaved;
+                        ct.ThrowIfCancellationRequested();
                     };
 
                     zipper.Save(path + ".zip");
                 }
-            });
+            }, ct);
+
             ShowInProgressDialog = false;
         }
 
@@ -292,10 +295,19 @@ namespace DriversBackup.ViewModels
                         ct.ThrowIfCancellationRequested();
                     }
 
+                    //Cancellation token for zipping
+                    cts = new CancellationTokenSource();
+
                     //Zip folder if user wants it automatically
                     if (AppSettings.ZipRootFolder)
                     {
-                        await CompressFolderAsZip(path);
+                        try
+                        {
+                            await CompressFolderAsZip(path, cts.Token);
+                        }
+                        catch (OperationCanceledException)
+                        {
+                        }
                     }
 
                     //Alert user when the job is done
@@ -320,7 +332,13 @@ namespace DriversBackup.ViewModels
                                 async () =>
                                 {
                                     MessageDialog = null;
-                                    await CompressFolderAsZip(path);
+                                    try
+                                    {
+                                        await CompressFolderAsZip(path, cts.Token);
+                                    }
+                                    catch (OperationCanceledException)
+                                    {
+                                    }
                                 }, ActionButton.ButtonType.Deafult));
                     }
                 }
