@@ -154,7 +154,7 @@
   <ItemGroup>
     <Compile Include="Models\DriverBackup.cs" />
     <Compile Include="Models\DriverInformation.cs" />
-    <Compile Include="Models\General.INIFiles.cs" />
+    <Compile Include="Models\INIFiles.cs" />
     <Compile Include="MVVM\AppSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
