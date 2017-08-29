@@ -118,9 +118,10 @@ namespace DriversBackup.Models
         {
             var result = new List<DriverInformation>();
             var files = new DirectoryInfo(path).GetFiles("*.inf", SearchOption.AllDirectories);
+            var factory = new DriverInformations();
             foreach (var file in files)
             {
-                result.Add(new DriverInformation(file.FullName));
+                result.Add(factory.FromInfFile(file.FullName));
             }
             return result;
         }

@@ -19,16 +19,6 @@ namespace DriversBackup.Models
             DriverId = driverId;
         }
 
-        public DriverInformation(string infPath)
-        {
-            InfPath = infPath;
-            DriverProvider = "empty driver provider";
-            DriverDescription = "empty driver description";
-            DriverDeviceGuid = "empty device guid";
-            DriverId = "empty driver id";
-            //TODO extract driver info from the inf file
-        }
-
         public string DriverProvider { get; }
         public string DriverDescription { get; }
         public string DriverDeviceGuid { get; }
