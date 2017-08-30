@@ -88,6 +88,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\DriverInformations.cs" />
+    <Compile Include="Models\DriverInstall.cs" />
     <Compile Include="ViewModels\DriversBoxViewModel.cs" />
     <Compile Include="Views\Controls\DriversBox.xaml.cs">
       <DependentUpon>DriversBox.xaml</DependentUpon>

@@ -1,24 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Win32;
-using System.Runtime.InteropServices;
-
 
 namespace DriversBackup.Models
 {
     public class DriverBackup
-    {
-        [DllImport("Setupapi.dll", EntryPoint = nameof(InstallHinfSection),
-            CallingConvention = CallingConvention.StdCall)]
-        private static extern void InstallHinfSection(
-            [In] IntPtr hwnd,
-            [In] IntPtr ModuleHandle,
-            [In, MarshalAs(UnmanagedType.LPWStr)] string CmdLineBuffer,
-            int nCmdShow);
-
+    {       
         public string WindowsRoot;
         public string SystemRoot;
 
@@ -112,17 +101,7 @@ namespace DriversBackup.Models
             regDeviceGuiDs.Close();
 
             return driverList;
-        }
-
-        public List<string> FindDriverFilesInFolder(string folder)
-        {
-            return new DirectoryInfo(folder).GetFiles("*.inf", SearchOption.AllDirectories).Select(x => x.FullName).ToList();
-        }
-
-        public void InstallDriver(DriverInformation driver)
-        {            
-            InstallHinfSection(IntPtr.Zero, IntPtr.Zero, driver.InfPath,0);
-        }
+        }     
 
         /// <summary>
         /// Saves drivers, works on background thread

@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Forms;
 using DriversBackup.Models;
 using WpfViewModelBase;
 using System.Threading.Tasks;
-using System.Windows.Threading;
 using DriversBackup.Properties;
-using DriversBackup.Views;
 using AppContext = DriversBackup.MVVM.AppContext;
 using Application = System.Windows.Application;
 
@@ -118,7 +114,7 @@ namespace DriversBackup.ViewModels
 
         private void InstallSelectedDrivers()
         {
-            var controller = new DriverBackup();
+            var controller = new DriverInstall();
             var selectedDrivers = Drivers.Where(x => x.IsSelected);
             foreach (var driver in selectedDrivers)
             {
@@ -131,7 +127,7 @@ namespace DriversBackup.ViewModels
             var dialog = new FolderBrowserDialog();
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                var controller = new DriverBackup();
+                var controller = new DriverInstall();
                 Drivers.Clear();
                 ShowInProgressDialog = true;
 

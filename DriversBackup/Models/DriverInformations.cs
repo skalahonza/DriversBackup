@@ -1,6 +1,5 @@
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 using InfHelper;
 using InfHelper.Models;
 
@@ -18,9 +17,16 @@ namespace DriversBackup.Models
             var classGuidKey = version["ClassGuid"];
             var provider = GetPrimitiveValueForKey(data, providerKey);
             var classGuid = GetPrimitiveValueForKey(data, classGuidKey);
+
+            string description = "...";
+            var descritpionKey = data["Strings"].Keys.FirstOrDefault(x => x.Id.ToLower().Contains("desc"));
+            if (descritpionKey != null)
+            {
+                description = descritpionKey.KeyValues.First().Value;
+            }
             
             var result =
-                new DriverInformation(provider, "empty description", classGuid, "empty driver id")
+                new DriverInformation(provider, description, classGuid, "empty driver id")
                 {
                     InfPath = path
                 };
