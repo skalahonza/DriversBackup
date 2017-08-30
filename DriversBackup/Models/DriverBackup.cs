@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Win32;
 using System.Runtime.InteropServices;
@@ -113,24 +114,9 @@ namespace DriversBackup.Models
             return driverList;
         }
 
-
-        public List<DriverInformation> FindDriversInFolder(string path)
+        public List<string> FindDriverFilesInFolder(string folder)
         {
-            var result = new List<DriverInformation>();
-            var files = new DirectoryInfo(path).GetFiles("*.inf", SearchOption.AllDirectories);
-            var factory = new DriverInformations();
-            foreach (var file in files)
-            {
-                result.Add(factory.FromInfFile(file.FullName));
-            }
-            return result;
-        }
-
-        public async Task<List<DriverInformation>> FindDriversInFolderAsync(string path)
-        {
-            var result = new List<DriverInformation>();
-            await Task.Run(() => result = FindDriversInFolder(path));
-            return result;
+            return new DirectoryInfo(folder).GetFiles("*.inf", SearchOption.AllDirectories).Select(x => x.FullName).ToList();
         }
 
         public void InstallDriver(DriverInformation driver)

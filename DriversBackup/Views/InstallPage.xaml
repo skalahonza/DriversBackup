@@ -52,5 +52,16 @@
                 <TextBlock Text="{x:Static p:Resources.SelectFolder}" VerticalAlignment="Center" />
             </StackPanel>
         </Button>
+
+        <!-- In progress-->
+        <Grid Grid.Row="0" Grid.RowSpan="3" Background="Black" Opacity="0.6"
+              Visibility="{Binding ShowInProgressDialog, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Loading drivers..." FontSize="50"
+                           Style="{StaticResource PageHeader}" Margin="0" />
+                <ProgressBar Maximum="{Binding DriversToLoadCount}" Value="{Binding LoadingPorgress}"
+                             IsEnabled="True" Margin="0,20,0,0" Style="{DynamicResource StylishPorgressBar}" />
+            </StackPanel>
+        </Grid>
     </Grid>
 </Page>
