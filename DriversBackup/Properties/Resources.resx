@@ -132,6 +132,9 @@
   <data name="Backup" xml:space="preserve">
     <value>Backup</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>
@@ -186,6 +189,9 @@
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="SavingCanceled" xml:space="preserve">
+    <value>Saving canceled</value>
+  </data>
   <data name="SavingDriversDots" xml:space="preserve">
     <value>Saving drivers...</value>
   </data>
@@ -221,5 +227,8 @@
   </data>
   <data name="ZipFolderHint" xml:space="preserve">
     <value>When the drivers are saved in a selected folder. The folder will be automatically compressed as a zip file.</value>
+  </data>
+  <data name="ZippingDots" xml:space="preserve">
+    <value>Zipping saved drivers...</value>
   </data>
 </root>

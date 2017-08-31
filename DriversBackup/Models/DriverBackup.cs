@@ -24,7 +24,7 @@ namespace DriversBackup.Models
         /// <summary>
         /// Returns a list of drivers registered on a system.
         /// </summary>
-        /// <returns>ArrayList containing driver information</returns>
+        /// <returns>yList containing driver information</returns>
         public List<DriverInformation> ListDrivers(bool showMicrosoft = false)
         {
             var driverList = new List<DriverInformation>();
@@ -56,8 +56,7 @@ namespace DriversBackup.Models
 
                         try
                         {
-                            // Add information to our ArrayList.
-
+                            // Add information to result List.
                             tmpDesc = regDriver.GetValue("DriverDesc").ToString();
                             tmpProvider = regDriver.GetValue("ProviderName").ToString();
                         }
@@ -70,20 +69,19 @@ namespace DriversBackup.Models
 
                         if (tmpProvider.Length > 0 && tmpDesc.Length > 0)
                         {
+                            // add non microsoft driver
                             if (tmpProvider != "Microsoft")
                             {
                                 driverList.Add(
                                     new DriverInformation(tmpProvider, tmpDesc, deviceGuid, regDriverNumber)
                                     );
                             }
-                            else
+                            //if microsoft drivers ae required, add them too
+                            else if (showMicrosoft)
                             {
-                                if (showMicrosoft)
-                                {
-                                    driverList.Add(
-                                        new DriverInformation(tmpProvider, tmpDesc, deviceGuid, regDriverNumber)
-                                        );
-                                }
+                                driverList.Add(
+                                    new DriverInformation(tmpProvider, tmpDesc, deviceGuid, regDriverNumber)
+                                    );
                             }
 
                         }
@@ -98,8 +96,8 @@ namespace DriversBackup.Models
                 }
             }
 
+            // free resources
             regDeviceGuiDs.Close();
-
             return driverList;
         }     
 

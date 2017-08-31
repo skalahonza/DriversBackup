@@ -106,6 +106,15 @@ namespace DriversBackup.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Description.
         /// </summary>
         public static string Description {
@@ -268,6 +277,15 @@ namespace DriversBackup.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Saving canceled.
+        /// </summary>
+        public static string SavingCanceled {
+            get {
+                return ResourceManager.GetString("SavingCanceled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Saving drivers....
         /// </summary>
         public static string SavingDriversDots {
@@ -372,6 +390,15 @@ namespace DriversBackup.Properties {
         public static string ZipFolderHint {
             get {
                 return ResourceManager.GetString("ZipFolderHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zipping saved drivers....
+        /// </summary>
+        public static string ZippingDots {
+            get {
+                return ResourceManager.GetString("ZippingDots", resourceCulture);
             }
         }
     }
