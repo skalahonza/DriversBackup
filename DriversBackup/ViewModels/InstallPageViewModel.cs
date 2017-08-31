@@ -129,6 +129,7 @@ namespace DriversBackup.ViewModels
             {
                 var controller = new DriverInstall();
                 Drivers.Clear();
+                DriversBox.AllDrivers.Clear();
                 ShowInProgressDialog = true;
 
                 await Task.Run(() =>
@@ -141,10 +142,11 @@ namespace DriversBackup.ViewModels
                     {
                         var driver = factory.FromInfFile(file);
                         Application.Current.Dispatcher.Invoke(() => Drivers.Add(driver));
+                        DriversBox.AllDrivers.Add(driver);
                         LoadingPorgress++;
                     }
                 });
-
+                
                 ShowInProgressDialog = false;
             }
         }

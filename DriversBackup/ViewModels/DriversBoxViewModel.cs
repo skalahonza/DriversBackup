@@ -14,7 +14,7 @@ namespace DriversBackup.ViewModels
     {
         private string search = "";
         private SortBy previousSortType;
-        private readonly List<DriverInformation> allDrivers;
+        public  List<DriverInformation> AllDrivers { get; set; }
         private ObservableCollection<DriverInformation> drivers = new ObservableCollection<DriverInformation>();
         private ObservableCollection<ActionButton> topButtons;
         private ObservableCollection<ActionButton> botButtons;
@@ -25,7 +25,7 @@ namespace DriversBackup.ViewModels
 
         public DriversBoxViewModel(ObservableCollection<DriverInformation> drivers)
         {
-            allDrivers = new List<DriverInformation>(drivers);
+            AllDrivers = new List<DriverInformation>(drivers);
             Drivers = drivers;
         }
 
@@ -137,7 +137,7 @@ namespace DriversBackup.ViewModels
                         break;
                     case SortBy.Search:
                         //empty drivers in GUI
-                        driversList = allDrivers;
+                        driversList = AllDrivers;
                         Drivers.Clear();
 
                         //search in driver provider
