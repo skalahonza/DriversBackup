@@ -25,11 +25,11 @@ namespace DriversBackup.Models
         {
         }
 
-        [InfKeyValue("Version", "Provider")]
+        [InfKeyValue("Version", "Provider",true)]
         public string DriverProvider { get; set; }
         public string DriverDescription { get; set; }
 
-        [InfKeyValue("Version", "ClassGuid")]
+        [InfKeyValue("Version", "ClassGuid",true)]
         public string DriverDeviceGuid { get; set; }
         public string DriverId { get; set; }
 
