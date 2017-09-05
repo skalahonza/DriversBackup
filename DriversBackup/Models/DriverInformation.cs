@@ -1,7 +1,9 @@
+using InfHelper.Models.Attributes;
 using WpfViewModelBase;
 
 namespace DriversBackup.Models
 {
+    /// <inheritdoc />
     /// <summary>
     /// Object setup for binding to our ArrayList.
     /// </summary>
@@ -19,10 +21,17 @@ namespace DriversBackup.Models
             DriverId = driverId;
         }
 
-        public string DriverProvider { get; }
-        public string DriverDescription { get; }
-        public string DriverDeviceGuid { get; }
-        public string DriverId { get; }
+        public DriverInformation()
+        {
+        }
+
+        [InfKeyValue("Version", "Provider")]
+        public string DriverProvider { get; set; }
+        public string DriverDescription { get; set; }
+
+        [InfKeyValue("Version", "ClassGuid")]
+        public string DriverDeviceGuid { get; set; }
+        public string DriverId { get; set; }
 
         public bool IsSelected
         {

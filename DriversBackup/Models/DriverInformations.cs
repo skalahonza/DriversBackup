@@ -10,13 +10,7 @@ namespace DriversBackup.Models
         public DriverInformation FromInfFile(string path)
         {
             var helper = new InfUtil();
-            var data = helper.ParseFile(path);
-            var version = data["Version"];
-            //extract driver info from the inf file
-            var providerKey = version["Provider"];
-            var classGuidKey = version["ClassGuid"];
-            var provider = GetPrimitiveValueForKey(data, providerKey);
-            var classGuid = GetPrimitiveValueForKey(data, classGuidKey);
+            var result = helper.SerializeFileInto<DriverInformation>(path, out InfData data);
 
             string description = "...";
             var descritpionKey = data["Strings"].Keys.FirstOrDefault(x => x.Id.ToLower().Contains("desc"));
@@ -25,11 +19,9 @@ namespace DriversBackup.Models
                 description = descritpionKey.KeyValues.First().Value;
             }
             
-            var result =
-                new DriverInformation(provider, description, classGuid, "empty driver id")
-                {
-                    InfPath = path
-                };
+            result.InfPath = path;
+            result.DriverDescription = description;
+            result.DriverId = "empty driver id";
             return result;
         }
 
