@@ -10,24 +10,26 @@ namespace DriversBackup.MVVM
             var appSetting = ConfigurationManager.AppSettings[settingKey];
             var typeConverter = TypeDescriptor.GetConverter(typeof(T));
 
-            return (T)(typeConverter.ConvertFromInvariantString(appSetting));
+            return (T)typeConverter.ConvertFromInvariantString(appSetting);
         }
         public static void Set(string settingKey, object value)
         {
-            Configuration oConfig = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            var oConfig = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             oConfig.AppSettings.Settings[settingKey].Value = value.ToString();
             oConfig.Save(ConfigurationSaveMode.Full);
             ConfigurationManager.RefreshSection("appSettings");
         }
         public static bool ShowMicrosoftDrivers
         {
-            get { return Get<bool>(nameof(ShowMicrosoftDrivers)); }
-            set { Set(nameof(ShowMicrosoftDrivers), value); }
+            get => Get<bool>(nameof(ShowMicrosoftDrivers));
+            set => Set(nameof(ShowMicrosoftDrivers), value);
         }
         public static bool ZipRootFolder
         {
-            get { return Get<bool>(nameof(ZipRootFolder)); }
-            set { Set(nameof(ZipRootFolder), value); }
+            get => Get<bool>(nameof(ZipRootFolder));
+            set => Set(nameof(ZipRootFolder), value);
         }
+
+        public static string JsonInfoName => Get<string>(nameof(JsonInfoName));
     }
 }

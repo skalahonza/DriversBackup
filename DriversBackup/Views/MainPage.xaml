@@ -57,7 +57,7 @@
                            Foreground="{StaticResource GrayText}"
                            Style="{StaticResource PageHeader}" Margin="0" />
                 <ProgressBar Maximum="{Binding MaximumProgress}" Value="{Binding Progress}"
-                             IsEnabled="True" Margin="0,20,0,0" Style="{DynamicResource StylishPorgressBar}" />
+                             IsEnabled="True" Margin="0,20,0,0" Style="{DynamicResource StylishProgressBar}" />
                 <Button Content="{x:Static p:Resources.Cancel}" Command="{Binding CancelSaving}" Style="{StaticResource FancyButton}" Margin="0,20,0,0"
                         BorderBrush="{StaticResource OrangeAccent}" Height="40"/>
             </StackPanel>

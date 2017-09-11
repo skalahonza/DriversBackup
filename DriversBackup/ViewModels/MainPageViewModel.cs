@@ -288,7 +288,9 @@ namespace DriversBackup.ViewModels
                 try
                 {
                     var controller = new DriverBackup();
-                    foreach (var t in drivers)
+                    var driversList = drivers as IList<DriverInformation> ?? drivers.ToList();
+
+                    foreach (var t in driversList)
                     {
                         //Backup drivers one by one on background thread and show progress to the user
                         await controller.BackupDriverAsync(t, path);
@@ -301,6 +303,12 @@ namespace DriversBackup.ViewModels
 
                     //Cancellation token for zipping
                     cts = new CancellationTokenSource();
+
+                    //save also the json with information
+                    if (driversList.Any())
+                    {
+                        controller.SaveDriversInfo(driversList, path);
+                    }
 
                     //Zip folder if user wants it automatically
                     if (AppSettings.ZipRootFolder)

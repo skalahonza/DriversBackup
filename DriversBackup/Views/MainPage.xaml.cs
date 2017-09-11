@@ -1,6 +1,4 @@
-﻿using System.Windows;
-
-namespace DriversBackup.Views
+﻿namespace DriversBackup.Views
 {
     /// <summary>
     /// Interaction logic for MainPage.xaml

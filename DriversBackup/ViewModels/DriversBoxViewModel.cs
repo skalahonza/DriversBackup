@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using DriversBackup.Models;
-using DriversBackup.MVVM;
 using DriversBackup.Views;
 using WpfViewModelBase;
 using AppContext = DriversBackup.MVVM.AppContext;

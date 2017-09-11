@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using DriversBackup.MVVM;
 using Microsoft.Win32;
+using Newtonsoft.Json;
 
 namespace DriversBackup.Models
 {
@@ -130,15 +132,15 @@ namespace DriversBackup.Models
                 {
                     Directory.CreateDirectory(backupLocation + driverType);
                 }
-                Directory.CreateDirectory(backupLocation + driverType + "\\" + driverDesc);
-
+                Directory.CreateDirectory(backupLocation + driverType + "\\" + driverDesc);                
 
 
                 // Copy over inf file.
 
                 try
                 {
-                    File.Copy(infFilePath, backupLocation + driverType + "\\" + driverDesc + "\\" + infFile);
+                    File.Copy(infFilePath, backupLocation + driverType + "\\" + driverDesc + "\\" + infFile,true);
+                    driver.InfPath = Path.Combine(driverType, driverDesc, infFile);
                 }
                 catch (IOException)
                 {
@@ -186,6 +188,12 @@ namespace DriversBackup.Models
                 regDriverType?.Close();
                 driverInfo?.Close();
             });
+        }
+
+        public void SaveDriversInfo(IEnumerable<DriverInformation> drivers, string folder)
+        {
+            string json = JsonConvert.SerializeObject(drivers);
+            File.WriteAllText(Path.Combine(folder, AppSettings.JsonInfoName), json);
         }
     }
 }

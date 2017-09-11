@@ -5,8 +5,6 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:viewModels="clr-namespace:DriversBackup.ViewModels"
       xmlns:p="clr-namespace:DriversBackup.Properties"
-      xmlns:controls="clr-namespace:DriversBackup.Controls"
-      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:controls1="clr-namespace:DriversBackup.Views.Controls"
       mc:Ignorable="d" Background="White"
       d:DesignHeight="300" d:DesignWidth="600"
@@ -59,8 +57,8 @@
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock Text="Loading drivers..." FontSize="50"
                            Style="{StaticResource PageHeader}" Margin="0" />
-                <ProgressBar Maximum="{Binding DriversToLoadCount}" Value="{Binding LoadingPorgress}"
-                             IsEnabled="True" Margin="0,20,0,0" Style="{DynamicResource StylishPorgressBar}" />
+                <ProgressBar IsIndeterminate="True" Margin="0,20,0,0" 
+                             Style="{DynamicResource StylishProgressBar}" />
             </StackPanel>
         </Grid>
     </Grid>

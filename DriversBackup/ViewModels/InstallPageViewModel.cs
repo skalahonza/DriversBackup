@@ -16,7 +16,7 @@ namespace DriversBackup.ViewModels
         private DriversBoxViewModel driversBox;
         private bool showInProgressDialog;
         private int driversToLoadCount;
-        private int loadingPorgress;
+        private int loadingProgress;
 
         public InstallPageViewModel()
         {
@@ -50,28 +50,7 @@ namespace DriversBackup.ViewModels
                 showInProgressDialog = value;
                 OnPropertyChanged();
             }
-        }
-
-        public int DriversToLoadCount
-        {
-            get { return driversToLoadCount; }
-            set
-            {
-                driversToLoadCount = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public int LoadingPorgress
-        {
-            get { return loadingPorgress; }
-            set
-            {
-                loadingPorgress = value;
-                OnPropertyChanged();
-            }
-        }
-
+        }    
 
         public ObservableCollection<DriverInformation> Drivers
         {
@@ -129,24 +108,13 @@ namespace DriversBackup.ViewModels
             {
                 var controller = new DriverInstall();
                 Drivers.Clear();
+                DriversBox.Drivers.Clear();
                 DriversBox.AllDrivers.Clear();
                 ShowInProgressDialog = true;
 
-                await Task.Run(() =>
-                {
-                    var driverFiles = controller.FindDriverFilesInFolder(dialog.SelectedPath);
-                    DriversToLoadCount = driverFiles.Count;
-                    LoadingPorgress = 0;
-                    var factory = new DriverInformations();
-                    foreach (var file in driverFiles)
-                    {
-                        var driver = factory.FromInfFile(file);
-                        Application.Current.Dispatcher.Invoke(() => Drivers.Add(driver));
-                        DriversBox.AllDrivers.Add(driver);
-                        LoadingPorgress++;
-                    }
-                });
-                
+                var drivers = await controller.GetDriversFromFolderAsync(dialog.SelectedPath);
+                DriversBox.AllDrivers = drivers;
+                DriversBox.AllDrivers.ForEach(Drivers.Add);
                 ShowInProgressDialog = false;
             }
         }

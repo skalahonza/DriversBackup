@@ -1,13 +1,14 @@
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using InfHelper;
 using InfHelper.Models;
 
 namespace DriversBackup.Models
 {
-    public class DriverInformations
+    public static class DriversInformation
     {
-        public DriverInformation FromInfFile(string path)
+        public static DriverInformation FromInfFile(string path)
         {
             var helper = new InfUtil();
             var result = helper.SerializeFileInto<DriverInformation>(path, out InfData data);
@@ -23,11 +24,6 @@ namespace DriversBackup.Models
             result.DriverDescription = description;
             result.DriverId = "empty driver id";
             return result;
-        }
-
-        public async Task<DriverInformation> FromInfFileAsync(string path)
-        {
-            return await Task.Run(() => FromInfFile(path));
-        }        
+        }      
     }
 }
