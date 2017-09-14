@@ -96,7 +96,7 @@
     </ApplicationDefinition>
     <Compile Include="Models\DriversInformation.cs" />
     <Compile Include="Models\DriverInstall.cs" />
-    <Compile Include="ViewModels\DriversBoxViewModel.cs" />
+    <Compile Include="ViewModels\Controls\DriversBoxViewModel.cs" />
     <Compile Include="Views\Controls\DriversBox.xaml.cs">
       <DependentUpon>DriversBox.xaml</DependentUpon>
     </Compile>

@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Windows.Threading;
 using DriversBackup.Models;
 using DriversBackup.MVVM;
+using DriversBackup.ViewModels.Controls;
 using DriversBackup.Views;
 using Ionic.Zip;
 using WpfViewModelBase;

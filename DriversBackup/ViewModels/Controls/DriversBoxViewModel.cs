@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Input;
 using DriversBackup.Models;
 using DriversBackup.Views;
 using WpfViewModelBase;
 using AppContext = DriversBackup.MVVM.AppContext;
 
-namespace DriversBackup.ViewModels
+namespace DriversBackup.ViewModels.Controls
 {
     public class DriversBoxViewModel : ViewModelBase
     {
         private string search = "";
         private SortBy previousSortType;
-        public  List<DriverInformation> AllDrivers { get; set; }
+        public List<DriverInformation> AllDrivers { get; set; }
         private ObservableCollection<DriverInformation> drivers = new ObservableCollection<DriverInformation>();
         private ObservableCollection<ActionButton> topButtons;
         private ObservableCollection<ActionButton> botButtons;
@@ -51,7 +52,7 @@ namespace DriversBackup.ViewModels
 
         public string Search
         {
-            get { return search; }
+            get => search;
             set
             {
                 search = value;
@@ -61,7 +62,7 @@ namespace DriversBackup.ViewModels
 
         public ObservableCollection<DriverInformation> Drivers
         {
-            get { return drivers; }
+            get => drivers;
             set
             {
                 drivers = value;
@@ -74,7 +75,7 @@ namespace DriversBackup.ViewModels
         /// </summary>
         public ObservableCollection<ActionButton> TopButtons
         {
-            get { return topButtons; }
+            get => topButtons;
             set
             {
                 topButtons = value;
@@ -87,7 +88,7 @@ namespace DriversBackup.ViewModels
         /// </summary>
         public ObservableCollection<ActionButton> BotButtons
         {
-            get { return botButtons; }
+            get => botButtons;
             set
             {
                 botButtons = value;

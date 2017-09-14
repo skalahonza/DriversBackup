@@ -7,10 +7,11 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:controls="clr-namespace:DriversBackup.Controls"
              xmlns:viewModels="clr-namespace:DriversBackup.ViewModels"
+             xmlns:controls1="clr-namespace:DriversBackup.ViewModels.Controls"
              mc:Ignorable="d" Background="White"
              d:DesignHeight="300" d:DesignWidth="550">
     <UserControl.DataContext>
-        <viewModels:DriversBoxViewModel x:Name="ViewModel" />
+        <controls1:DriversBoxViewModel x:Name="ViewModel" />
     </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>

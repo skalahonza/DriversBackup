@@ -44,24 +44,17 @@
         </Border>
         <!-- Drivers -->
         <controls:DriversBox Grid.Row="1" DataContext="{Binding DriversBox}" />
+        
         <!-- In progress-->
-        <Grid Grid.RowSpan="5"
-              Visibility="{Binding ShowInProgressDialog, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <Grid Background="White" Opacity="0.55">
-                <Grid.Effect>
-                    <BlurEffect Radius="15" />
-                </Grid.Effect>
-            </Grid>
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Text="{Binding InProgressTest}" FontSize="50"
-                           Foreground="{StaticResource GrayText}"
-                           Style="{StaticResource PageHeader}" Margin="0" />
-                <ProgressBar Maximum="{Binding MaximumProgress}" Value="{Binding Progress}"
-                             IsEnabled="True" Margin="0,20,0,0" Style="{DynamicResource StylishProgressBar}" />
-                <Button Content="{x:Static p:Resources.Cancel}" Command="{Binding CancelSaving}" Style="{StaticResource FancyButton}" Margin="0,20,0,0"
-                        BorderBrush="{StaticResource OrangeAccent}" Height="40"/>
-            </StackPanel>
-        </Grid>
+        <controls:ProgressDialog Grid.Row="0" Grid.RowSpan="2"
+                                 Visibility="{Binding ShowInProgressDialog, 
+                                    Converter={StaticResource BooleanToVisibilityConverter}}"
+                                 InProgressText="{Binding InProgressTest}" 
+                                 MaximumProgress="{Binding MaximumProgress}"
+                                 Progress="{Binding Progress}"
+                                 IsCancelButtonDisplayed="True"
+                                 OnCancel="{Binding CancelSaving}"/>
+        
         <!-- Message dialog -->
         <Grid Grid.RowSpan="2"
               Visibility="{Binding ShowMessage, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">

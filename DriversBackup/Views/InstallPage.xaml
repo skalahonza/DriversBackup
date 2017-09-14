@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:viewModels="clr-namespace:DriversBackup.ViewModels"
       xmlns:p="clr-namespace:DriversBackup.Properties"
-      xmlns:controls1="clr-namespace:DriversBackup.Views.Controls"
+      xmlns:controls="clr-namespace:DriversBackup.Views.Controls"
       mc:Ignorable="d" Background="White"
       d:DesignHeight="300" d:DesignWidth="600"
       Title="InstallPage">
@@ -41,7 +41,7 @@
                 </StackPanel>
             </StackPanel>
         </Grid>
-        <controls1:DriversBox Grid.Row="1" DataContext="{Binding DriversBox}" />
+        <controls:DriversBox Grid.Row="1" DataContext="{Binding DriversBox}" />
         <Button Grid.Row="2" Command="{Binding SelectFolderCommand}" Style="{StaticResource FancyButton}"
                 BorderBrush="{StaticResource BlueAccent}">
             <StackPanel Orientation="Horizontal">
@@ -52,14 +52,11 @@
         </Button>
 
         <!-- In progress-->
-        <Grid Grid.Row="0" Grid.RowSpan="3" Background="Black" Opacity="0.6"
-              Visibility="{Binding ShowInProgressDialog, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Text="Loading drivers..." FontSize="50"
-                           Style="{StaticResource PageHeader}" Margin="0" />
-                <ProgressBar IsIndeterminate="True" Margin="0,20,0,0" 
-                             Style="{DynamicResource StylishProgressBar}" />
-            </StackPanel>
-        </Grid>
+        <controls:ProgressDialog
+            Grid.Row="0"
+            Grid.RowSpan="3"
+            Visibility="{Binding ShowInProgressDialog, Converter={StaticResource BooleanToVisibilityConverter}}"
+            InProgressText="Loading drivers..." IsIndeterminate="True" IsCancelButtonDisplayed="False"
+            />
     </Grid>
 </Page>
