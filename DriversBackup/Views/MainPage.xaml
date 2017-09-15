@@ -46,7 +46,8 @@
         <controls:DriversBox Grid.Row="1" DataContext="{Binding DriversBox}" />
         
         <!-- In progress-->
-        <controls:ProgressDialog Grid.Row="0" Grid.RowSpan="2"
+        <controls:ProgressDialog d:IsHidden="True"
+                                 Grid.Row="0" Grid.RowSpan="2"
                                  Visibility="{Binding ShowInProgressDialog, 
                                     Converter={StaticResource BooleanToVisibilityConverter}}"
                                  InProgressText="{Binding InProgressTest}" 

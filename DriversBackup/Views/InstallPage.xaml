@@ -55,8 +55,9 @@
         <controls:ProgressDialog
             Grid.Row="0"
             Grid.RowSpan="3"
-            Visibility="{Binding ShowInProgressDialog, Converter={StaticResource BooleanToVisibilityConverter}}"
-            InProgressText="Loading drivers..." IsIndeterminate="True" IsCancelButtonDisplayed="False"
-            />
+            Visibility="{Binding ShowInProgressDialog, 
+            Converter={StaticResource BooleanToVisibilityConverter}}"
+            InProgressText="{x:Static p:Resources.controls_ProgressDialog_LoadingDriversDots}"
+            IsIndeterminate="True" IsCancelButtonDisplayed="False"/>
     </Grid>
 </Page>
