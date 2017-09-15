@@ -52,12 +52,12 @@
         </Button>
 
         <!-- In progress-->
-        <controls:ProgressDialog
+        <controls:ProgressDialog d:IsHidden="True"
             Grid.Row="0"
             Grid.RowSpan="3"
             Visibility="{Binding ShowInProgressDialog, 
             Converter={StaticResource BooleanToVisibilityConverter}}"
-            InProgressText="{x:Static p:Resources.controls_ProgressDialog_LoadingDriversDots}"
+            InProgressText="{x:Static p:Resources.LoadingDriversDots}"
             IsIndeterminate="True" IsCancelButtonDisplayed="False"/>
     </Grid>
 </Page>

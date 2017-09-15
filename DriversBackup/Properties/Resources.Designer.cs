@@ -115,15 +115,6 @@ namespace DriversBackup.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Loading drivers....
-        /// </summary>
-        public static string controls_ProgressDialog_LoadingDriversDots {
-            get {
-                return ResourceManager.GetString("controls:ProgressDialog.LoadingDriversDots", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Description.
         /// </summary>
         public static string Description {
@@ -237,6 +228,15 @@ namespace DriversBackup.Properties {
         public static string InstallDrivers {
             get {
                 return ResourceManager.GetString("InstallDrivers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading drivers....
+        /// </summary>
+        public static string LoadingDriversDots {
+            get {
+                return ResourceManager.GetString("LoadingDriversDots", resourceCulture);
             }
         }
         

@@ -231,7 +231,7 @@
   <data name="ZippingDots" xml:space="preserve">
     <value>Zipping saved drivers...</value>
   </data>
-  <data name="controls:ProgressDialog.LoadingDriversDots" xml:space="preserve">
+  <data name="LoadingDriversDots" xml:space="preserve">
     <value>Loading drivers...</value>
   </data>
 </root>
